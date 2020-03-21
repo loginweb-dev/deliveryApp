@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { Button, TouchableOpacity, Text, View, AsyncStorage } from 'react-native';
+import { TouchableOpacity, AsyncStorage, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -12,11 +12,16 @@ import { Config } from '../../../config/config.js';
 import SplashScreen from '../../SplashScreen/SplashScreen';
 import Login from '../../Auth/Login/Login';
 import Index from '../../Index/Index';
-import Details from '../../Details/Details';
+import CategoryDetails from '../../CategoryDetails/CategoryDetails';
+import ProductDetails from '../../ProductDetails/ProductDetails';
+import Cart from '../../Cart/Cart';
+import LocationsList from '../../LocationsList/LocationsList';
+
+// UI
+import CardHeader from "../../../ui/CardHeader";
 
 // Screens System config
 import Update from '../../System/Update/Update';
-import { concat } from 'react-native-reanimated';
 
 const Stack = createStackNavigator();
 
@@ -46,30 +51,75 @@ class Main extends Component {
             return(<SplashScreen />);
         }
         return (
-            <Stack.Navigator initialRouteName={ this.state.isLoggedIn ? 'Index' : 'Login' }>
+            <Stack.Navigator initialRouteName={ this.state.isLoggedIn ? Config.appName : 'Login' }>
                 <Stack.Screen
                     name="Login"
                     component={Login}
                     options={{
+                        title: '',
                         headerTransparent: true,
                     }}
                 />
                 <Stack.Screen
-                    name="Index" component={Index}
+                    name={Config.appName} component={Index}
                     options={{
+                        title: <Text style={{ fontSize:25, fontWeight: 'bold' }}>{Config.appName}</Text>,
                         headerLeft: () => (
                             <TouchableOpacity onPress={() => this.props.navigation.openDrawer()} style={{ marginLeft:10 }}>
-                                <Icon name="bars" size={35} />
+                                <Icon name="bars" size={30} />
                             </TouchableOpacity>
                         ),
                         headerRight: () => (
-                            <TouchableOpacity onPress={() => alert('Options')} style={{ marginRight:20 }}>
-                                <Icon name="ellipsis-v" size={35} />
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('Cart')}
+                            >
+                                <CardHeader />
                             </TouchableOpacity>
                         ),
                     }}
                 />
-                <Stack.Screen name="Details" component={Details} />
+                <Stack.Screen
+                    name="CategoryDetails"
+                    component={CategoryDetails}
+                    options={({ route }) => ({
+                        title: <Text style={{ fontSize:20, fontWeight: 'bold' }}>{route.params.category.title}</Text>,
+                        headerRight: () => (
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('Cart')}
+                            >
+                                <CardHeader />
+                            </TouchableOpacity>
+                        ),
+                    })}
+                />
+                <Stack.Screen
+                    name="ProductDetails"
+                    component={ProductDetails}
+                    options={({ route }) => ({
+                        title: <Text style={{ fontSize:20, fontWeight: 'bold' }}>{route.params.product.name}</Text>,
+                        headerRight: () => (
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('Cart')}
+                            >
+                                <CardHeader />
+                            </TouchableOpacity>
+                        ),
+                    })}
+                />
+                <Stack.Screen
+                    name="Cart"
+                    component={Cart}
+                    options={() => ({
+                        title: <Text style={{ fontSize:20, fontWeight: 'bold' }}>Carrito</Text>,
+                    })}
+                />
+                <Stack.Screen
+                    name="LocationsList"
+                    component={LocationsList}
+                    options={() => ({
+                        title: <Text style={{ fontSize:20, fontWeight: 'bold' }}>Mis ubicaciones</Text>,
+                    })}
+                />
 
                 {/* Screens System config */}
                 <Stack.Screen name="Update" component={Update} />

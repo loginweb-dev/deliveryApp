@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'loginWebApp' do
-  # Pods for loginWebApp
+target 'SkotBurgers' do
+  # Pods for SkotBurgers
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -36,7 +36,7 @@ target 'loginWebApp' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  target 'loginWebAppTests' do
+  target 'SkotBurgersTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -44,10 +44,10 @@ target 'loginWebApp' do
   use_native_modules!
 end
 
-target 'loginWebApp-tvOS' do
-  # Pods for loginWebApp-tvOS
+target 'SkotBurgers-tvOS' do
+  # Pods for SkotBurgers-tvOS
 
-  target 'loginWebApp-tvOSTests' do
+  target 'SkotBurgers-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

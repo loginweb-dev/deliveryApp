@@ -35,7 +35,7 @@ class Login extends Component{
         // this.props.navigation.navigate('Index');
         this.props.navigation.reset({
             index: 0,
-            routes: [{ name: 'Index' }],
+            routes: [{ name: Config.appName }],
         });
     }
     // ===================End Functions===================
@@ -44,7 +44,7 @@ class Login extends Component{
         return (
             <SafeAreaView>
                 <View>
-                    <ImageBackground source={ require('../../../assets/images/background.jpeg') } style={{width: '100%', height: 200}} />
+                    <ImageBackground source={ require('../../../assets/images/background.png') } style={{width: '100%', height: 200}} />
                     <ScrollView>
                         <View style={{ margin: 20 }}>
                             <Text style={{ fontSize:30, textAlign:'center' }}>Login</Text>

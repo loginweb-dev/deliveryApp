@@ -27,13 +27,14 @@ const style = StyleSheet.create({
     },
     logo: {
         flexDirection: 'column',
-        width: 80,
-        height:80,
+        width: 150,
+        height:150,
         marginBottom: 10
     },
     title: {
         textAlign: 'center',
         fontSize: 35,
+        fontWeight: 'bold',
         marginBottom:10
     },
     footer: {

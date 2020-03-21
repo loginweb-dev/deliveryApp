@@ -17,7 +17,7 @@ const DrawerNavigator = createDrawerNavigator();
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView >
-      <DrawerMenu />
+      <DrawerMenu {...props} />
     </DrawerContentScrollView>
   );
 }

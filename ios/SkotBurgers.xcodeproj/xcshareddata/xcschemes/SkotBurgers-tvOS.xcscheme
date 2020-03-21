@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "loginWebApp-tvOS.app"
-               BlueprintName = "loginWebApp-tvOS"
-               ReferencedContainer = "container:loginWebApp.xcodeproj">
+               BuildableName = "SkotBurgers-tvOS.app"
+               BlueprintName = "SkotBurgers-tvOS"
+               ReferencedContainer = "container:SkotBurgers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "loginWebApp-tvOSTests.xctest"
-               BlueprintName = "loginWebApp-tvOSTests"
-               ReferencedContainer = "container:loginWebApp.xcodeproj">
+               BuildableName = "SkotBurgers-tvOSTests.xctest"
+               BlueprintName = "SkotBurgers-tvOSTests"
+               ReferencedContainer = "container:SkotBurgers.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "loginWebApp-tvOSTests.xctest"
-               BlueprintName = "loginWebApp-tvOSTests"
-               ReferencedContainer = "container:loginWebApp.xcodeproj">
+               BuildableName = "SkotBurgers-tvOSTests.xctest"
+               BlueprintName = "SkotBurgers-tvOSTests"
+               ReferencedContainer = "container:SkotBurgers.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "loginWebApp-tvOS.app"
-            BlueprintName = "loginWebApp-tvOS"
-            ReferencedContainer = "container:loginWebApp.xcodeproj">
+            BuildableName = "SkotBurgers-tvOS.app"
+            BlueprintName = "SkotBurgers-tvOS"
+            ReferencedContainer = "container:SkotBurgers.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "loginWebApp-tvOS.app"
-            BlueprintName = "loginWebApp-tvOS"
-            ReferencedContainer = "container:loginWebApp.xcodeproj">
+            BuildableName = "SkotBurgers-tvOS.app"
+            BlueprintName = "SkotBurgers-tvOS"
+            ReferencedContainer = "container:SkotBurgers.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "loginWebApp-tvOS.app"
-            BlueprintName = "loginWebApp-tvOS"
-            ReferencedContainer = "container:loginWebApp.xcodeproj">
+            BuildableName = "SkotBurgers-tvOS.app"
+            BlueprintName = "SkotBurgers-tvOS"
+            ReferencedContainer = "container:SkotBurgers.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
