@@ -6,6 +6,11 @@ export  const Config = {
     color: {
         'primary': '#CD3211',
         'secondary': '#8C8C8C',
-        'text': '#FFFFFF'
+        'textPrimary': '#FFFFFF',
+        'textMuted': '#AFADAD'
+    },
+    location: {
+        latitude: -14.834821,
+        longitude: -64.904159,
     }
 }

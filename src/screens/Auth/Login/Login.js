@@ -1,79 +1,203 @@
-import  React, { Component } from 'react';
+import React, { Component } from 'react';
 import {
     View,
     Button,
-    ImageBackground,
     Text,
     TextInput,
+    Image,
+    AsyncStorage,
+    ImageBackground,
     SafeAreaView,
     ScrollView,
-    AsyncStorage
+    Dimensions,
+    TouchableOpacity,
+    StyleSheet
 } from 'react-native';
+import firebase from 'react-native-firebase';
+import CountryPicker from 'react-native-country-picker-modal';
+import { showMessage } from "react-native-flash-message";
 
+// Components
+import ButtonPrimary from "../../../ui/ButtonPrimary";
+
+// Configurations
 import { Config } from '../../../config/config';
 
+const screenWidth = Math.round(Dimensions.get('window').width);
 const URL_BASE = Config.API;
 
-class Login extends Component{
-    constructor() {
-        super();
+export default class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.unsubscribe = null;
         this.state = {
-            inputUser: null,
-            inputPassword: null
+            user: null,
+            message: '',
+            codeInput: '',
+            phoneCode: 'BO',
+            phoneNumberCode: '591',
+            inputName: '',
+            inputNit: '',
+            phoneNumber: '',
+            confirmResult: null,
         };
     }
 
-    // =====================Functions====================
-    handleChangeInput(name, value){
-        this.setState({
-            [name] : value
+    componentDidMount() {
+        this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            this.setState({ user: user.toJSON() });
+        } else {
+            // User has been signed out, reset the state
+            this.setState({
+                user: null,
+                message: '',
+                codeInput: '',
+                phoneCode: 'BO',
+                phoneNumberCode: '591',
+                phoneNumber: '',
+                confirmResult: null,
+            });
+        }
         });
     }
 
-    login(){
+    componentWillUnmount() {
+        if (this.unsubscribe) this.unsubscribe();
+    }
+
+    signIn = () => {
+        const phoneNumber = `+${this.state.phoneNumberCode}${this.state.phoneNumber}`;
+        this.renderMessage('Información', 'Enviando mensaje', 'info');
+
+        firebase.auth().signInWithPhoneNumber(phoneNumber)
+        .then(confirmResult => {
+            this.setState({ confirmResult })
+            this.renderMessage('Información', 'El mensaje ha sido enviado', 'info');
+        })
+        .catch(error => this.renderMessage('Ocurrió un error', error.message, 'danger'));
+    };
+
+    confirmCode = () => {
+        const { codeInput, confirmResult } = this.state;
+
+        if (confirmResult && codeInput.length) {
+        confirmResult.confirm(codeInput)
+            .then((user) => {
+                this.renderMessage('Bien hecho!', `La autenticación fue exitosa`, 'success')
+            })
+            .catch(error => this.renderMessage('Ocurrió un error', error.message, 'danger'));
+        }
+    };
+
+    renderPhoneNumberInput() {
+    const { phoneNumber } = this.state;
+
+        return (
+            <View>
+                <Text style={{ fontSize:22, textAlign:'center' }}>Regístrate con tu numero de celular</Text>
+                <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                    <View style={{ width: '10%', justifyContent: 'center' }}>
+                        <CountryPicker
+                            countryCode={this.state.phoneCode}
+                            onSelect={(country) => this.setState({phoneNumberCode: country.cca2,phoneCode: country.callingCode})}
+                        />
+                    </View>
+                    <View style={{ width: '90%', marginVertical: 10 }}>
+                        <TextInput
+                            style={{ height: 50, fontSize: 25, borderRadius: 5, borderColor: 'gray', borderWidth: 1, paddingHorizontal: 20 }}
+                            placeholder="Nº de Celular"
+                            onChangeText={value => this.setState({ phoneNumber: value })}
+                            value={phoneNumber}
+                            keyboardType='phone-pad'
+                        />
+                    </View>
+                </View>
+                <ButtonPrimary onPress={this.signIn}>
+                    Enviar
+                </ButtonPrimary>
+            </View>
+        );
+    }
+
+    renderMessage(message, description, type) {
+        showMessage({
+            message,
+            description,
+            type,
+            icon: type,
+        });
+    }
+
+    renderVerificationCodeInput() {
+        const { codeInput } = this.state;
+
+        return (
+        <View style={{ marginTop: 25, padding: 25 }}>
+            <Text>Ingrese el código de verificación:</Text>
+            <TextInput
+                autoFocus
+                style={{ height: 40, marginTop: 15, marginBottom: 15 }}
+                onChangeText={value => this.setState({ codeInput: value })}
+                placeholder={'Código... '}
+                value={codeInput}
+                keyboardType='phone-pad'
+            />
+            {/* <Button title="Confirm Code" color="#841584" onPress={this.confirmCode} /> */}
+            <ButtonPrimary onPress={this.confirmCode}>
+                Confirmar
+            </ButtonPrimary>
+        </View>
+        );
+    }
+
+    successLogin = () =>{
         AsyncStorage.setItem('isLoggedIn', '1');
-        // this.props.navigation.navigate('Index');
         this.props.navigation.reset({
             index: 0,
             routes: [{ name: Config.appName }],
         });
     }
-    // ===================End Functions===================
 
-    render(){
+    render() {
+        const { user, confirmResult } = this.state;
         return (
-            <SafeAreaView>
-                <View>
-                    <ImageBackground source={ require('../../../assets/images/background.png') } style={{width: '100%', height: 200}} />
-                    <ScrollView>
-                        <View style={{ margin: 20 }}>
-                            <Text style={{ fontSize:30, textAlign:'center' }}>Login</Text>
-                            <TextInput
-                                style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginTop: 20 }}
-                                placeholder="User"
-                                onChangeText={ (value) => this.handleChangeInput('inputUser', value) }
-                                value={ this.state.inputUser }
-                            />
-                            <TextInput
-                                style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginTop: 20 }}
-                                placeholder="Password"
-                                secureTextEntry={true}
-                                onChangeText={ (value) => this.handleChangeInput('inputPassword', value) }
-                                value={ this.state.inputPassword }
-                            />
-                            <View style={{ marginTop: 20 }}>
-                                <Button
-                                    title="Login"
-                                    onPress={() => this.login()}
+        <View style={{ flex: 1 }}>
+            <ScrollView>
+                <ImageBackground source={ require('../../../assets/images/background.png') } style={{width: '100%', height: 200}} />
+                <View style={{ width: screenWidth }}>
+                    <View style={{ margin: 20 }}>
+        
+                        {!user && !confirmResult && this.renderPhoneNumberInput()}
+
+                        {!user && confirmResult && this.renderVerificationCodeInput()}
+
+                        {user && (
+                            <View>
+                                <Text style={{ fontSize: 20, textAlign: 'center' }}>Completar la información</Text>
+                                <TextInput
+                                    style={{ height: 40, borderColor: Config.color.textMuted, borderWidth: 2, marginTop: 20, borderRadius: 5, paddingHorizontal: 10 }}
+                                    placeholder="Nombre completo"
+                                    onChangeText={ (value) => this.setState('inputName', value) }
+                                    value={ this.state.inputName }
                                 />
+                                <TextInput
+                                    style={{ height: 40, borderColor: Config.color.textMuted, borderWidth: 2, marginTop: 20, borderRadius: 5, paddingHorizontal: 10 }}
+                                    placeholder="NIT"
+                                    onChangeText={ (value) => this.setState('inputNit', value) }
+                                    value={ this.state.inputNit }
+                                    keyboardType='numeric'
+                                />
+                                <Text style={{ color: Config.color.textMuted, marginBottom: 10 }}>El NIT es opcional</Text>
+                                <ButtonPrimary onPress={this.successLogin}>
+                                    Guardar
+                                </ButtonPrimary>
                             </View>
-                            
-                        </View>
-                    </ScrollView>
+                        )}
+                    </View>
                 </View>
-            </SafeAreaView>
+            </ScrollView>
+        </View>
         );
     }
 }
-
-export default Login;

@@ -145,33 +145,33 @@ class ProductDetails extends Component {
                 showsVerticalScrollIndicator={false}
                 onScrollEndDrag={this.animation}
             >
-            <View style={style.section}>
-                <View style={style.header}>
-                    <Text style={style.headerItem}>{this.state.name}</Text>
-                    <Text style={[style.headerItem, { textAlign: 'right' }]}>{parseFloat(this.state.totalPrice).toFixed(2)} Bs.</Text>
+                <View style={style.section}>
+                    <View style={style.header}>
+                        <Text style={style.headerItem}>{this.state.name}</Text>
+                        <Text style={[style.headerItem, { textAlign: 'right' }]}>{parseFloat(this.state.totalPrice).toFixed(2)} Bs.</Text>
+                    </View>
+                    <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
                 </View>
-                <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
-            </View>
-            <Divider color='#AFADAD' size={1} width={screenWidth-20} />
-            <View style={style.section}>
-                <View style={style.header}>
-                    <Text style={style.headerItem}>Extras</Text>
+                <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
+                <View style={style.section}>
+                    <View style={style.header}>
+                        <Text style={style.headerItem}>Extras</Text>
+                    </View>
+                    <View style={{ margin: 10, width: screenWidth-20, }}>
+                        {
+                            this.state.extras.map(item => 
+                                <ItemExtra
+                                    ckecked={item.ckecked}
+                                    onChange={() => this.handleCheckbox(item.id)}
+                                    name={item.name}
+                                    price={item.price}
+                                />
+                            )
+                        }
+                    </View>
                 </View>
-                <View style={{ margin: 10, width: screenWidth-20, }}>
-                    {
-                        this.state.extras.map(item => 
-                            <ItemExtra
-                                ckecked={item.ckecked}
-                                onChange={() => this.handleCheckbox(item.id)}
-                                name={item.name}
-                                price={item.price}
-                            />
-                        )
-                    }
-                </View>
-            </View>
-            <Divider color='#AFADAD' size={1} width={screenWidth-20} />
-            <View style={{ height:50 }}></View>
+                <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
+                <View style={{ height:80 }}></View>
             </ScrollView>
             <View style={style.footer}>
                 <View style={{ width: '30%', alignItems: 'center', justifyContent: 'center' }}>
@@ -183,6 +183,7 @@ class ProductDetails extends Component {
                         leftButtonBackgroundColor={Config.color.primary}
                         minValue={1}
                         rounded={true}
+                        totalHeight={35}
                     />
                 </View>
                 <View style={{ width: '70%', alignItems: 'center', justifyContent: 'center' }}>
@@ -190,7 +191,7 @@ class ProductDetails extends Component {
                         style={{ backgroundColor: Config.color.secondary, padding: 10, paddingLeft: 40, paddingRight: 40 }}
                         onPress={()=>this.handleCart()}
                     >
-                        <Text style={{ color: 'white', fontSize:20 }}>Añadir al carro</Text>
+                        <Text style={{ color: 'white', fontSize: 16 }}>Añadir al carro</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -218,7 +219,7 @@ const style = StyleSheet.create({
     },
     headerItem: {
         width: '50%',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold'
     },
     detailsText: {
@@ -234,7 +235,9 @@ const style = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        margin: 10
+        // margin: 5,
+        padding: 10,
+        backgroundColor: 'white'
     },
 });
 

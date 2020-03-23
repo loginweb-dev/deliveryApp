@@ -96,7 +96,7 @@ class Main extends Component {
                     name="ProductDetails"
                     component={ProductDetails}
                     options={({ route }) => ({
-                        title: <Text style={{ fontSize:20, fontWeight: 'bold' }}>{route.params.product.name}</Text>,
+                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>{route.params.product.name}</Text>,
                         headerRight: () => (
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Cart')}
@@ -110,14 +110,14 @@ class Main extends Component {
                     name="Cart"
                     component={Cart}
                     options={() => ({
-                        title: <Text style={{ fontSize:20, fontWeight: 'bold' }}>Carrito</Text>,
+                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Carrito</Text>,
                     })}
                 />
                 <Stack.Screen
                     name="LocationsList"
                     component={LocationsList}
                     options={() => ({
-                        title: <Text style={{ fontSize:20, fontWeight: 'bold' }}>Mis ubicaciones</Text>,
+                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Mis ubicaciones</Text>,
                     })}
                 />
 

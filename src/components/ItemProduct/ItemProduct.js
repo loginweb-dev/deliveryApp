@@ -32,7 +32,7 @@ const ItemProduct = (props) => {
                                     style={style.btnAdd}
                                     onPress={props.onPressAdd}
                                 >
-                                    <Text style={style.btnAddText}>Añadir <Icon name="cart-plus" size={20} /></Text>
+                                    <Text style={style.btnAddText}>Añadir <Icon name="cart-plus" size={18} /></Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={style.ItemListActionsPrice}>
@@ -55,7 +55,7 @@ const style = StyleSheet.create({
         height: 80
     },
     ItemListImage: {
-        width: '25%',
+        width: '20%',
     },
     ItemListDetail: {
         flex: 1,
@@ -66,14 +66,14 @@ const style = StyleSheet.create({
     },
     ItemListDetailTitle: {
         height: '40%',
-        fontSize: 20,
-        color: '#6D6D6D',
+        fontSize: 16,
+        // color: Config.color.textMuted,
         fontWeight: 'bold'
     },
     ItemListDetailSubtitle: {
         height: '60%',
         fontSize: 14,
-        color: '#838383'
+        color: Config.color.textMuted,
     },
     ItemListActions: {
         width: '25%',
@@ -93,15 +93,15 @@ const style = StyleSheet.create({
         borderStyle: 'solid',
         borderWidth: 3,
         borderRadius: 5,
-        padding: 3
+        padding: 2
     },
     btnAddText: {
         color: Config.color.primary,
+        fontSize: 13
     },
     ItemListActionsPriceText: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#6D6D6D',
     }
 });
 

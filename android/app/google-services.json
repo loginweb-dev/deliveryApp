@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "416558003739",
+    "firebase_url": "https://skotburgers.firebaseio.com",
+    "project_id": "skotburgers",
+    "storage_bucket": "skotburgers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416558003739:android:f825a1844bf90b71042abe",
+        "android_client_info": {
+          "package_name": "com.loginweb.skotburgersapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416558003739-a26uoige9j52tj9ne3pomq0ubpol0bsl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqj0DhS_KYEOHR5d3PxaRm9JpzjDd07rc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416558003739-a26uoige9j52tj9ne3pomq0ubpol0bsl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

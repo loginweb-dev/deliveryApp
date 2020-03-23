@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableHighlight, Modal, TextInput } from 'react-native';
+import { SafeAreaView, Dimensions, View, StyleSheet, Text, Image, TextInput, Alert } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
@@ -7,7 +7,9 @@ import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 
 // UI
-import Divider from "../../ui/Divider";
+import PartialModal from "../../ui/PartialModal";
+import ButtonPrimary from "../../ui/ButtonPrimary";
+import ButtonSecondary from "../../ui/ButtonSecondary";
 
 // Configurations
 import { Config } from '../../config/config.js';
@@ -20,20 +22,31 @@ class LocationsList extends Component {
     constructor(props){
         super(props);
         this.state = {
+            inputDescription: '',
             selectedIndexTab: 0,
-            initialLat : -14.834821,
-            initialLon: -64.904159,
+            initialLat : Config.location.latitude,
+            initialLon: Config.location.longitude,
             region: {
-                latitude: -14.834821,
-                longitude: -64.904159,
+                latitude: Config.location.latitude,
+                longitude: Config.location.longitude,
                 latitudeDelta: 0.0422,
                 longitudeDelta: screenWidth / (screenHeight - 130) * 0.0422
             },
-            modalVisible: false
+            modalVisible: false,
+            buttonEditVisible: false,
+            messageErrorVisible: false,
+            markerOpacity: 0,
+            markerTitle: '',
+            markerDescription: '',
+            locationsName: [],
         }
     }
 
-    componentDidMount(){    
+    componentDidMount(){
+        this.loadLocations();
+    }
+
+    getCurrentLocation(){
         Geolocation.getCurrentPosition(position => {
             this.setState({
                 region: {
@@ -41,108 +54,215 @@ class LocationsList extends Component {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                 },
-                initialLat : position.coords.latitude,
-                initialLon: position.coords.longitude,
-            })
+                markerOpacity: 1,
+                buttonEditVisible: true,
+                markerTitle: 'Ubicación actual',
+                markerDescription: 'Ubicación obtenida según tu GPS.',
+            });
+
+            // Change map center
+            this.map.animateToRegion({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                latitudeDelta: this.state.region.latitudeDelta,
+                longitudeDelta: this.state.region.longitudeDelta
+            });
         });
-      }
+    }
+
+    // =====================Functions====================
+    loadLocations(){
+        let names = [];
+        this.props.locations.map(item => {
+            names.push(item.name);
+        });
+        this.setState({locationsName: names});
+
+        setTimeout(() => {
+            this.getLocationTab();
+        }, 0);
+    }
+
+    handleChangeInput(name, value){
+        this.setState({
+            [name] : value
+        });
+    }
+    // ===================End Functions===================
+
+    getLocationTab(){
+        let index = this.state.selectedIndexTab;
+        let location = this.props.locations[index];
+        
+        if(location.coor.lat && location.coor.lon){
+            this.setState({
+                region: {
+                    ...this.state.region,
+                    latitude: location.coor.lat,
+                    longitude: location.coor.lon,
+                },
+                markerOpacity: 1,
+                buttonEditVisible: false,
+                markerTitle: location.name,
+                markerDescription: location.description,
+            });
+
+            // Change map center
+            this.map.animateToRegion({
+                latitude: location.coor.lat,
+                longitude: location.coor.lon,
+                latitudeDelta: this.state.region.latitudeDelta,
+                longitudeDelta: this.state.region.longitudeDelta
+            });
+        }else{
+            Alert.alert(
+                'Advertencia',
+                `Aún no has definido la ubicación de: ${this.state.locationsName[index]}, Deseas definirla?`,
+                [
+                    {text: 'Cancelar', style: 'cancel'},
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            this.getCurrentLocation();
+                        }
+                    },
+                ],
+                { cancelable: false }
+            )
+        }
+    }
 
     handleSelectedIndexTab = (index) => {
         this.setState({
             selectedIndexTab: index,
+            markerOpacity: 0
         });
-      }
+        setTimeout(() => {
+            this.getLocationTab();
+        }, 0);
+    }
+
+    handleCurrentLocation(location){
+        this.setState({
+            region: {
+                ...this.state.region,
+                latitude: location.latitude,
+                longitude: location.longitude,
+            },
+            buttonEditVisible: true
+        })
+    }
+
+    handleUpdateLocation(){
+        let index = this.state.selectedIndexTab;
+        let currentLocation = this.state.region;
+        let locationState = this.props.locations;
+        let description = this.state.inputDescription;
+
+        if(description != ''){
+            locationState[index].coor.lat = currentLocation.latitude;
+            locationState[index].coor.lon = currentLocation.longitude;
+            locationState[index].description = description;
+            this.props.updateLocation(locationState);
+            this.setState({messageErrorVisible: false, modalVisible: false, buttonEditVisible: false});
+
+            // Actualizar los datos en la base de datos
+            // ******************************+
+            
+            showMessage({
+                message: 'Ubicación editada',
+                description: `Se actualizaron los datos de la ubicación: ${locationState[index].name}`,
+                type: 'info',
+                icon: 'info',
+            });
+        }else{
+            this.setState({messageErrorVisible: true});
+        }
+    }
+
+    
 
     render(){
         return (
             <View style={ style.container }>
-                    <View style={style.header}>
-                        <SegmentedControlTab
-                            values={['Casa', 'Trabajo', 'Otro']}
-                            selectedIndex={this.state.selectedIndexTab}
-                            onTabPress={this.handleSelectedIndexTab}
-                            tabStyle={{ borderColor: Config.color.primary }}
-                            tabTextStyle={{ color: Config.color.primary }}
-                            activeTabStyle={{ backgroundColor: Config.color.primary }}
-                        />
-                    </View>
-                    <MapView
-                        provider={PROVIDER_GOOGLE}
-                        style={style.map}
-                        initialRegion={this.state.region}
-                    >
-                        <Marker
-                            draggable
-                            onDragEnd={(e) => console.log(e.nativeEvent.coordinate)}
-                            coordinate={
-                                { 
-                                latitude: this.state.region.latitude,
-                                longitude: this.state.region.longitude
-                                }
+                <View style={style.header}>
+                    <SegmentedControlTab
+                        values={this.state.locationsName}
+                        selectedIndex={this.state.selectedIndexTab}
+                        onTabPress={this.handleSelectedIndexTab}
+                        tabStyle={{ borderColor: Config.color.primary }}
+                        tabTextStyle={{ color: Config.color.primary }}
+                        activeTabStyle={{ backgroundColor: Config.color.primary }}
+                    />
+                </View>
+                <MapView
+                    ref={map => {this.map = map}}
+                    provider={PROVIDER_GOOGLE}
+                    style={style.map}
+                    initialRegion={this.state.region}
+                >
+                    <Marker
+                        draggable
+                        onDragEnd={(e) => this.handleCurrentLocation(e.nativeEvent.coordinate)}
+                        coordinate={
+                            { 
+                            latitude: this.state.region.latitude,
+                            longitude: this.state.region.longitude
                             }
-                            title="Casa"
-                            description="Manten precionado para cambiar tu ubicación."
-                            image={require('../../assets/images/marker.png')}
-                        />
-                    </MapView>
-                    <View style={style.footer}>
-                        <TouchableOpacity
-                            onPress={()=>this.setState({modalVisible:!this.state.modalVisible})}
-                            style={{ backgroundColor: Config.color.primary, paddingHorizontal: 20, paddingVertical: 5, borderRadius: 5 }}
-                        >
-                            <Text style={{ color: 'white', fontSize: 20 }}>Actualizar</Text>
-                        </TouchableOpacity>
-                    </View>
-
-                    <Modal
-                        transparent={true}
-                        animationType="slide"
-                        visible={this.state.modalVisible}
-                        onRequestClose={() => {
-                            Alert.alert('Modal has been closed.');
-                        }}
+                        }
+                        title={this.state.markerTitle}
+                        description={this.state.markerDescription}
+                        opacity={this.state.markerOpacity}
                     >
-                    <View style={{
-                            flex: 1,
-                            flexDirection: 'column',
-                            justifyContent: 'flex-end',
-                            alignItems: 'center',}}>
-                        <View style={{ backgroundColor: 'white', width: screenWidth, height: 230, borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
-                            <View style={{ marginHorizontal: 20, marginTop: 10 }}>
-                                <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 10 }}>Describenos tu ubicación</Text>
-                                <TextInput
-                                    style={{ height: 100, borderColor: '#AFADAD', borderWidth: 1, borderRadius: 5 }}
-                                    maxLength={100}
-                                    // autoFocus={true}
-                                    placeholder="Casa nro 443 frente a la chancha..."
-                                    multiline={true}
-                                />
-                            </View>
-                            <View style={{ alignItems: 'center', flexDirection: 'row', width: screenWidth }}>
-                                <View style={{ width: '50%' }}> 
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                        this.setState({modalVisible: false});
-                                        }}
-                                        style={{ height: 40, backgroundColor: 'white', paddingHorizontal: 20, paddingVertical: 5, borderRadius: 5, borderWidth:1, borderColor: Config.color.primary, margin: 10 }}
-                                    >
-                                        <Text style={{ color: Config.color.primary, fontSize: 20, textAlign: 'center' }}>Descartar</Text>
-                                    </TouchableOpacity>
-                                </View>
-                                <View style={{ width: '50%' }}>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                        this.setState({modalVisible: false});
-                                        }}
-                                        style={{ height: 40, backgroundColor: Config.color.primary, paddingHorizontal: 20, paddingVertical: 5, borderRadius: 5, margin: 10 }}
-                                    >
-                                        <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>Guardar</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
+                        <Image
+                            source={require('../../assets/images/marker.png')}
+                            style={{ width: 55, height: 55 }}
+                        />
+                    </Marker>
+                </MapView>
+               {
+                   this.state.buttonEditVisible ?
+                   <View style={style.footer}>
+                        <ButtonPrimary onPress={() => this.setState({modalVisible:!this.state.modalVisible})}>
+                            Actualizar
+                        </ButtonPrimary>
+                    </View> :
+                    <View/> 
+               } 
+                <PartialModal
+                    animationType="slide"
+                    visible={this.state.modalVisible}
+                    height={230}
+                >
+                    <View style={{ marginHorizontal: 10, marginTop: 10 }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Describenos tu ubicación</Text>
+                        <TextInput
+                            style={{ height: 100, borderColor: '#AFADAD', borderWidth: 1, borderRadius: 5 }}
+                            maxLength={100}
+                            // autoFocus={true}
+                            placeholder="Casa nro 443 frente a la chancha..."
+                            multiline={true}
+                            onChangeText={ (value) => this.handleChangeInput('inputDescription', value) }
+                        />
+                        {
+                            this.state.messageErrorVisible ?
+                            <Text style={style.messageError}>Debe especificar una descripción de su ubicación.</Text> :
+                            <View/>
+                        }
+                    </View>
+                    <View style={{ alignItems: 'center', flexDirection: 'row', width: screenWidth }}>
+                        <View style={{ width: '50%' }}> 
+                            <ButtonSecondary onPress={() => this.setState({modalVisible: false, messageErrorVisible: false})}>
+                                Descartar
+                            </ButtonSecondary>
+                        </View>
+                        <View style={{ width: '50%' }}>
+                            <ButtonPrimary onPress={() => this.handleUpdateLocation()}>
+                                Guardar
+                            </ButtonPrimary>
                         </View>
                     </View>
-                </Modal>
+                </PartialModal>
             </View>
         );
     }
@@ -161,7 +281,7 @@ const style = StyleSheet.create({
     header: {
         width: screenWidth-20,
         position: 'absolute',
-        top: 10,
+        top: 0,
         left: 0,
         right: 0,
         margin: 10,
@@ -177,6 +297,11 @@ const style = StyleSheet.create({
         margin: 10,
         zIndex:1
     },
+    messageError: {
+        marginTop: 5,
+        color: 'red',
+        fontWeight: 'bold'
+    }
 });
 
 // export default ProductDetails;
@@ -189,13 +314,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        updateCart : (newCart) => dispatch({
-            type: 'RELOAD_CART',
-            payload: newCart
-        }),
-        removeItemToCart : (index) => dispatch({
-            type: 'REMOVE_FROM_CART',
-            payload: index
+        updateLocation : (locations) => dispatch({
+            type: 'UPDATE_LOCATION',
+            payload: locations
         }),
     }
 }

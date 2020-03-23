@@ -15,7 +15,7 @@ const reducerApp = (
                     coor: {lat: null, lon: null}
                 },
                 {
-                    name: 'Otro',
+                    name: 'Otra',
                     description: '',
                     coor: {lat: null, lon: null}
                 }
@@ -32,6 +32,9 @@ const reducerApp = (
         case 'REMOVE_FROM_CART':
             var cart = state.cart.filter(cartItem => cartItem.index !== action.payload);
             return {...state, cart: cart};
+        case 'UPDATE_LOCATION':
+            // var cart = state.cart.filter(cartItem => cartItem.index !== action.payload);
+            return {...state, locations: action.payload};
     }
     return state;
 }

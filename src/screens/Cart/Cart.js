@@ -53,7 +53,7 @@ class Cart extends Component {
                 <View style={{ margin: 10, }}>
                     {
                         this.state.cart.map(item => 
-                            <View style={{ flexDirection: 'row', width: screenWidth-10, height: 100, backgroundColor: 'white', marginBottom: 3}}>
+                            <View style={{ flexDirection: 'row', width: screenWidth-10, height: 90, backgroundColor: 'white', marginBottom: 3}}>
                                 <View style={{ width: '25%', alignItems: 'center', justifyContent: 'center' }}>
                                     <Image
                                         style={{ width: '100%', height: 80 }}
@@ -80,7 +80,7 @@ class Cart extends Component {
                                             leftButtonBackgroundColor={Config.color.primary}
                                             minValue={1}
                                             rounded={true}
-                                            totalHeight={35}
+                                            totalHeight={25}
                                         />
                                     </View>
                                 </View>
@@ -104,7 +104,6 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        // justifyContent: 'center'
     },
 });
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, TouchableOpacity, ImageBackground, Image } from 'react-native';
+import { View, TouchableOpacity, ImageBackground, Image, Alert, AsyncStorage } from 'react-native';
+import firebase from 'react-native-firebase';
 
 // UI
 import Badge from "../../../ui/Badge";
@@ -45,6 +46,32 @@ function DrawerMenu({navigation}) {
             </TouchableOpacity>
             <TouchableOpacity>
                 <MenuDrawerOption icon="info-circle" text="Ayuda" />
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=>{
+                    Alert.alert(
+                        'Cerrar sesión',
+                        `Deseas cerrar sesión en SkotBurgers?`,
+                        [
+                            {text: 'Cancelar', style: 'cancel'},
+                            {
+                                text: 'OK',
+                                onPress: () => {
+                                    AsyncStorage.setItem('isLoggedIn', '0');
+                                    firebase.auth().signOut();
+                                    navigation.closeDrawer();
+                                    navigation.reset({
+                                        index: 0,
+                                        routes: [{ name: 'Login' }],
+                                    });
+                                }
+                            },
+                        ],
+                        { cancelable: false }
+                    )
+                }}
+            >
+                <MenuDrawerOption icon="power-off" text="Salir" />
             </TouchableOpacity>
         </View>
     </View>
