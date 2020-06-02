@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Configurations
 import { Config } from '../config/config.js';
@@ -8,9 +9,9 @@ const ButtonPrimary = props => {
   return (
     <TouchableOpacity
         onPress={props.onPress}
-        style={style.button}
+        style={[style.button, {backgroundColor: props.color ? props.color : Config.color.primary}]}
     >
-        <Text style={style.buttonText}>{props.children}</Text>
+        <Text style={style.buttonText}>{props.children} {props.icon && <Icon name={props.icon} size={20} />} </Text>
     </TouchableOpacity>
   );
 }
@@ -18,7 +19,6 @@ const ButtonPrimary = props => {
 const style = StyleSheet.create({
     button: {
         height: 40,
-        backgroundColor: Config.color.primary,
         paddingHorizontal: 20,
         paddingVertical: 5,
         borderRadius: 5,

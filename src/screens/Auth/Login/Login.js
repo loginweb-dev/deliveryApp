@@ -14,11 +14,14 @@ import {
     StyleSheet
 } from 'react-native';
 import firebase from 'react-native-firebase';
+import { LoginManager, AccessToken } from "react-native-fbsdk";
 import CountryPicker from 'react-native-country-picker-modal';
 import { showMessage } from "react-native-flash-message";
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Components
 import ButtonPrimary from "../../../ui/ButtonPrimary";
+import Divider from "../../../ui/Divider";
 
 // Configurations
 import { Config } from '../../../config/config';
@@ -92,30 +95,39 @@ export default class Login extends Component {
 
     renderPhoneNumberInput() {
     const { phoneNumber } = this.state;
-
         return (
-            <View>
-                <Text style={{ fontSize:22, textAlign:'center' }}>Regístrate con tu numero de celular</Text>
-                <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                    <View style={{ width: '10%', justifyContent: 'center' }}>
-                        <CountryPicker
-                            countryCode={this.state.phoneCode}
-                            onSelect={(country) => this.setState({phoneNumberCode: country.cca2,phoneCode: country.callingCode})}
-                        />
+            <View style={{ alignItems: 'center' }}>
+                <View style={{ margin: 20 }}>
+                    <Text style={{ fontSize:22, textAlign:'center' }}>Regístrate con tu numero de celular</Text>
+                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                        <View style={{ width: '10%', justifyContent: 'center' }}>
+                            <CountryPicker
+                                countryCode={this.state.phoneCode}
+                                onSelect={(country) => this.setState({phoneNumberCode: country.cca2,phoneCode: country.callingCode})}
+                            />
+                        </View>
+                        <View style={{ width: '90%', marginVertical: 10 }}>
+                            <TextInput
+                                style={{ height: 50, fontSize: 25, borderRadius: 5, borderColor: 'gray', borderWidth: 1, paddingHorizontal: 20 }}
+                                placeholder="Nº de Celular"
+                                onChangeText={value => this.setState({ phoneNumber: value })}
+                                value={phoneNumber}
+                                keyboardType='phone-pad'
+                            />
+                        </View>
                     </View>
-                    <View style={{ width: '90%', marginVertical: 10 }}>
-                        <TextInput
-                            style={{ height: 50, fontSize: 25, borderRadius: 5, borderColor: 'gray', borderWidth: 1, paddingHorizontal: 20 }}
-                            placeholder="Nº de Celular"
-                            onChangeText={value => this.setState({ phoneNumber: value })}
-                            value={phoneNumber}
-                            keyboardType='phone-pad'
-                        />
-                    </View>
+                    <ButtonPrimary onPress={this.signIn}>
+                        Enviar
+                    </ButtonPrimary>
                 </View>
-                <ButtonPrimary onPress={this.signIn}>
-                    Enviar
-                </ButtonPrimary>
+                <Divider width={screenWidth-20} size={2} color={Config.color.textMuted} />
+                <View style={{ margin: 20 }}>
+                    <Icon.Button name="facebook" backgroundColor="#3b5998" onPress={this.login_facebook} >
+                        <Text style={{ fontFamily: 'Arial', fontSize: 18, color: 'white' }}>
+                            Login con Facebook
+                        </Text>
+                    </Icon.Button>
+                </View>
             </View>
         );
     }
@@ -136,7 +148,7 @@ export default class Login extends Component {
         <View style={{ marginTop: 25, padding: 25 }}>
             <Text>Ingrese el código de verificación:</Text>
             <TextInput
-                autoFocus
+                // autoFocus
                 style={{ height: 40, marginTop: 15, marginBottom: 15 }}
                 onChangeText={value => this.setState({ codeInput: value })}
                 placeholder={'Código... '}
@@ -151,12 +163,63 @@ export default class Login extends Component {
         );
     }
 
+    rendersetInformation() {
+        this.renderMessage('Bien hecho!', 'Se confirmó su numero exitosamente', 'success');
+        return(
+            <View>
+                <Text style={{ fontSize: 20, textAlign: 'center' }}>Completa tu información</Text>
+                <TextInput
+                    style={{ height: 40, borderColor: Config.color.textMuted, borderWidth: 2, marginTop: 20, borderRadius: 5, paddingHorizontal: 10 }}
+                    placeholder="Nombre completo"
+                    onChangeText={ (value) => this.setState({'inputName': value}) }
+                    value={ this.state.inputName }
+                />
+                <TextInput
+                    style={{ height: 40, borderColor: Config.color.textMuted, borderWidth: 2, marginTop: 20, borderRadius: 5, paddingHorizontal: 10 }}
+                    placeholder="NIT"
+                    onChangeText={ (value) => this.setState({'inputNit': value}) }
+                    value={ this.state.inputNit }
+                    keyboardType='numeric'
+                />
+                <Text style={{ color: Config.color.textMuted, marginBottom: 10 }}>El NIT es opcional</Text>
+                <ButtonPrimary onPress={this.successLogin}>
+                    Guardar información
+                </ButtonPrimary>
+            </View>
+        )
+    }
+
     successLogin = () =>{
         AsyncStorage.setItem('isLoggedIn', '1');
         this.props.navigation.reset({
             index: 0,
             routes: [{ name: Config.appName }],
         });
+    }
+
+    // Login Facebook
+    login_facebook = () => {
+        LoginManager.logInWithPermissions(["public_profile"]).then(
+            result => {
+                if (result.isCancelled) {console.log("Login cancelled");}
+                else {
+                    AccessToken.getCurrentAccessToken()
+                    .then((data) => {
+                        axios.get(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`)
+                        .then(function (response) {
+                            this.successLogin;
+                            console.log(response);
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                        .finally(function () {
+                        });
+                    })
+                }
+            },
+            function(error) {console.log("Login fail with error: " + error);}
+        );
     }
 
     render() {
@@ -166,35 +229,13 @@ export default class Login extends Component {
             <ScrollView>
                 <ImageBackground source={ require('../../../assets/images/background.png') } style={{width: '100%', height: 200}} />
                 <View style={{ width: screenWidth }}>
-                    <View style={{ margin: 20 }}>
         
-                        {!user && !confirmResult && this.renderPhoneNumberInput()}
+                    {!user && !confirmResult && this.renderPhoneNumberInput()}
+                    {/* {this.rendersetInformation()} */}
 
-                        {!user && confirmResult && this.renderVerificationCodeInput()}
+                    {!user && confirmResult && this.renderVerificationCodeInput()}
 
-                        {user && (
-                            <View>
-                                <Text style={{ fontSize: 20, textAlign: 'center' }}>Completar la información</Text>
-                                <TextInput
-                                    style={{ height: 40, borderColor: Config.color.textMuted, borderWidth: 2, marginTop: 20, borderRadius: 5, paddingHorizontal: 10 }}
-                                    placeholder="Nombre completo"
-                                    onChangeText={ (value) => this.setState('inputName', value) }
-                                    value={ this.state.inputName }
-                                />
-                                <TextInput
-                                    style={{ height: 40, borderColor: Config.color.textMuted, borderWidth: 2, marginTop: 20, borderRadius: 5, paddingHorizontal: 10 }}
-                                    placeholder="NIT"
-                                    onChangeText={ (value) => this.setState('inputNit', value) }
-                                    value={ this.state.inputNit }
-                                    keyboardType='numeric'
-                                />
-                                <Text style={{ color: Config.color.textMuted, marginBottom: 10 }}>El NIT es opcional</Text>
-                                <ButtonPrimary onPress={this.successLogin}>
-                                    Guardar
-                                </ButtonPrimary>
-                            </View>
-                        )}
-                    </View>
+                    {user && this.rendersetInformation()}
                 </View>
             </ScrollView>
         </View>
