@@ -39,6 +39,9 @@ class LocationsList extends Component {
             markerTitle: '',
             markerDescription: '',
             locationsName: [],
+            locationSelecte: false,
+            // Verificar si se recibe el parametro cartSuccess para activar las opciones de realizar pedido
+            cartSuccess: this.props.route.params ? this.props.route.params.cartSuccess : false
         }
     }
 
@@ -105,6 +108,7 @@ class LocationsList extends Component {
                 buttonEditVisible: false,
                 markerTitle: location.name,
                 markerDescription: location.description,
+                locationSelecte: true
             });
 
             // Change map center
@@ -115,6 +119,7 @@ class LocationsList extends Component {
                 longitudeDelta: this.state.region.longitudeDelta
             });
         }else{
+            this.setState({locationSelecte: false});
             Alert.alert(
                 'Advertencia',
                 `Aún no has definido la ubicación de: ${this.state.locationsName[index]}, Deseas definirla?`,
@@ -175,12 +180,28 @@ class LocationsList extends Component {
                 type: 'info',
                 icon: 'info',
             });
+            this.setState({locationSelecte: true});
         }else{
             this.setState({messageErrorVisible: true});
         }
     }
 
-    
+    AcceptDelivery(){
+        Alert.alert(
+            'Deseas realizar tu pedido?',
+            `Tu pedido se registrará y será enviado a la ubicación seleccionada`,
+            [
+                {text: 'Cancelar', style: 'cancel'},
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        this.props.navigation.navigate('DeliverySuccess');
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
+    }
 
     render(){
         return (
@@ -221,14 +242,22 @@ class LocationsList extends Component {
                     </Marker>
                 </MapView>
                {
-                   this.state.buttonEditVisible ?
+                   this.state.buttonEditVisible &&
                    <View style={style.footer}>
                         <ButtonPrimary onPress={() => this.setState({modalVisible:!this.state.modalVisible})}>
                             Actualizar
                         </ButtonPrimary>
-                    </View> :
-                    <View/> 
-               } 
+                    </View>
+               }
+               {/* Si no se está editando la ubicación y el pedido fué aceptado se muestra el boton de aceptar */}
+               {
+                   !this.state.buttonEditVisible && this.state.cartSuccess && this.state.locationSelecte &&
+                   <View style={style.footer}>
+                        <ButtonPrimary onPress={() => this.AcceptDelivery()}>
+                            Aceptar
+                        </ButtonPrimary>
+                    </View>
+               }
                 <PartialModal
                     animationType="slide"
                     visible={this.state.modalVisible}

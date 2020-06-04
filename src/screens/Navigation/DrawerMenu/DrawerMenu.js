@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, TouchableOpacity, ImageBackground, Image, Alert, AsyncStorage } from 'react-native';
 import firebase from 'react-native-firebase';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // UI
 import Badge from "../../../ui/Badge";
@@ -11,7 +12,12 @@ import { Config } from '../../../config/config';
 function DrawerMenu({navigation}) {
   return (
     <View>
-        <ImageBackground source={ require('../../../assets/images/background.png') } style={{width: '100%', height: 170}}>
+        <ImageBackground source={ require('../../../assets/images/background.png') } style={{width: '100%', height: 200}}>
+            <View  style={{ margin: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() => navigation.closeDrawer()}>
+                    <Icon name='arrow-left' color="#fff" size={25} />
+                </TouchableOpacity>
+            </View>
             <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
                 <Image
                     style={{
@@ -30,10 +36,12 @@ function DrawerMenu({navigation}) {
             </View>
         </ImageBackground>
         <View style={{ marginTop: 10 }}>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
                 <MenuDrawerOption icon="home" text="Inicio" />
-            </TouchableOpacity>
-            <TouchableOpacity>
+            </TouchableOpacity> */}
+            <TouchableOpacity
+                onPress={()=> navigation.navigate('OrderList')}
+            >
                 <MenuDrawerOption icon="list" text="Mis pedidos" />
             </TouchableOpacity>
             <TouchableOpacity

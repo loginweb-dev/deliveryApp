@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
 import {
-  AsyncStorage, View, Dimensions
+  View
 } from 'react-native';
+import { connect } from 'react-redux';
 import { createDrawerNavigator, DrawerContentScrollView, } from '@react-navigation/drawer';
 
 // Configurations
@@ -13,7 +14,6 @@ import StackNavigation from '../screens/Navigation/StackNavigation/StackNavigati
 import DrawerMenu from '../screens/Navigation/DrawerMenu/DrawerMenu';
 
 const DrawerNavigator = createDrawerNavigator();
-const screenWidth = Math.round(Dimensions.get('window').width);
 
 function CustomDrawerContent(props) {
   return (
@@ -28,20 +28,16 @@ class Main extends Component {
       super(props);
       this.state = {
         loading: true,
-        widthDreawer: 0
       }
       this.bootstrapAsync();
   }
 
   bootstrapAsync = async () => {
-    const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
     setTimeout(()=>{
         this.setState({
-            widthDreawer: isLoggedIn == '1' ? (screenWidth/10)*7 : 0,
             loading: false
         });
     }, 0);
-    console.log(this.state.widthDreawer)
 };
 
   // Render any loading content that you like here
@@ -54,14 +50,25 @@ class Main extends Component {
       <DrawerNavigator.Navigator
         drawerContent={props => CustomDrawerContent(props)}
         initialRouteName="Home"
-        drawerStyle={{
-          width: this.state.widthDreawer,
-        }}
       >
-        <DrawerNavigator.Screen name="Home" component={StackNavigation} />
+        <DrawerNavigator.Screen
+          name="Home"
+          component={StackNavigation}
+          //NOTA: Si el usuario está logueado se activa el DrawerMenu mediante gestos
+          // para evitar que el DrawerMenu se pueda visualizar en el screen Login
+
+          options={{ gestureEnabled: this.props.user.id ? true : false }}
+        />
       </DrawerNavigator.Navigator>
     );
   }
 }
 
-export default Main;
+// export default Main;
+const mapStateToProps = (state) => {
+  return {
+    user : state.user,
+  }
+}
+
+export default connect(mapStateToProps, null)(Main);

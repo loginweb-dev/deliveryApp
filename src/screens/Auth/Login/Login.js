@@ -128,6 +128,9 @@ export default class Login extends Component {
                         </Text>
                     </Icon.Button>
                 </View>
+                <View style={{ margin: 20 }}>
+                    <Button title='Login test' onPress={this.successLogin}></Button>
+                </View>
             </View>
         );
     }
@@ -231,7 +234,6 @@ export default class Login extends Component {
                 <View style={{ width: screenWidth }}>
         
                     {!user && !confirmResult && this.renderPhoneNumberInput()}
-                    {/* {this.rendersetInformation()} */}
 
                     {!user && confirmResult && this.renderVerificationCodeInput()}
 

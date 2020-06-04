@@ -16,6 +16,9 @@ import CategoryDetails from '../../CategoryDetails/CategoryDetails';
 import ProductDetails from '../../ProductDetails/ProductDetails';
 import Cart from '../../Cart/Cart';
 import LocationsList from '../../LocationsList/LocationsList';
+import DeliverySuccess from '../../DeliverySuccess/DeliverySuccess';
+import OrderList from '../../OrderList/OrderList';
+import OrderDetails from '../../OrderDetails/OrderDetails';
 
 // UI
 import CardHeader from "../../../ui/CardHeader";
@@ -118,6 +121,27 @@ class Main extends Component {
                     component={LocationsList}
                     options={() => ({
                         title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Mis ubicaciones</Text>,
+                    })}
+                />
+                <Stack.Screen
+                    name="DeliverySuccess"
+                    component={DeliverySuccess}
+                    options={() => ({
+                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Pedido realizado</Text>,
+                    })}
+                />
+                <Stack.Screen
+                    name="OrderList"
+                    component={OrderList}
+                    options={() => ({
+                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Pedidos</Text>,
+                    })}
+                />
+                <Stack.Screen
+                    name="OrderDetails"
+                    component={OrderDetails}
+                    options={() => ({
+                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Detalles de pedido</Text>,
                     })}
                 />
 

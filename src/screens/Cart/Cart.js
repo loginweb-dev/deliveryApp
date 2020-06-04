@@ -8,10 +8,10 @@ import { connect } from 'react-redux';
 
 // UI
 import Divider from "../../ui/Divider";
+import ButtonSecondary from "../../ui/ButtonSecondary";
 
 // Configurations
 import { Config } from '../../config/config.js';
-
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -19,7 +19,8 @@ class Cart extends Component {
     constructor(props){
         super(props);
         this.state = {
-            cart: this.props.cart
+            cart: this.props.cart,
+            amountCart : 0
         }
     }
 
@@ -47,10 +48,15 @@ class Cart extends Component {
         setTimeout(()=>this.setState({cart: this.props.cart}), 0);
     }
 
+    onPressAccept(){
+        this.props.navigation.navigate('LocationsList', { cartSuccess: true });
+    }
+
     render(){
         return (
             <View style={ style.container }>
-                <View style={{ margin: 10, }}>
+                <ScrollView style={{ marginTop: 10, marginBottom: 30}}>
+                    <View>
                     {
                         this.state.cart.map(item => 
                             <View style={{ flexDirection: 'row', width: screenWidth-10, height: 90, backgroundColor: 'white', marginBottom: 3}}>
@@ -94,6 +100,33 @@ class Cart extends Component {
                             </View>
                         )
                     }
+                    </View>
+                    {/* Si el carrito está vacío se muestra el logo de cart-empty */}
+                    { this.state.cart.length == 0 &&
+                        <View style={{ alignItems: 'center', marginTop: 100 }}>
+                            <Image
+                                style={{ width: 100, height: 100 }}
+                                source={ require('../../assets/images/cart-empty.png') }
+                            />
+                            <Text style={{ marginTop: 20, fontSize: 30, color: '#aeaeae' }}>Carrito vacío</Text>
+                        </View>
+                    }
+                </ScrollView>
+                <View style={style.footer}>
+                    <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 25 }}>Bs. { this.state.cart.reduce((amount, item)=> {
+                            return parseFloat(amount) + parseFloat(item.subtotal);
+                        }, 0).toFixed(2) }
+                        </Text>
+                    </View>
+                    <View style={{ width: '60%', alignItems: 'center', justifyContent: 'center' }}>
+                        <ButtonSecondary
+                            onPress={()=>this.onPressAccept()}
+                            disabled={this.state.cart.length == 0 ? true : false}
+                        >
+                            Realizar pedido
+                        </ButtonSecondary>
+                    </View>
                 </View>
             </View>
         );
@@ -104,6 +137,18 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+    },
+    footer: {
+        flex: 1,
+        flexDirection: 'row',
+        width: screenWidth,
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        // margin: 5,
+        padding: 10,
+        backgroundColor: 'white'
     },
 });
 

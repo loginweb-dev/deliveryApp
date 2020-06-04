@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import { showMessage } from "react-native-flash-message";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 
 // Components
@@ -10,6 +11,7 @@ import ItemExtra from "../../components/ItemExtra/ItemExtra";
 
 // UI
 import Divider from "../../ui/Divider";
+import ButtonSecondary from "../../ui/ButtonSecondary";
 
 // Configurations
 import { Config } from '../../config/config.js';
@@ -174,7 +176,7 @@ class ProductDetails extends Component {
                 <View style={{ height:80 }}></View>
             </ScrollView>
             <View style={style.footer}>
-                <View style={{ width: '30%', alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}>
                     <NumericInput
                         onChange={value => {this.setState({ counProduct: value });this.calculateTotal()}}
                         value={this.state.counProduct}
@@ -186,13 +188,10 @@ class ProductDetails extends Component {
                         totalHeight={35}
                     />
                 </View>
-                <View style={{ width: '70%', alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity
-                        style={{ backgroundColor: Config.color.secondary, padding: 10, paddingLeft: 40, paddingRight: 40 }}
-                        onPress={()=>this.handleCart()}
-                    >
-                        <Text style={{ color: 'white', fontSize: 16 }}>Añadir al carro</Text>
-                    </TouchableOpacity>
+                <View style={{ width: '60%', alignItems: 'center', justifyContent: 'center' }}>
+                    <ButtonSecondary onPress={()=>this.handleCart()}>
+                        Añadir al carro
+                    </ButtonSecondary>
                 </View>
             </View>
         </View>

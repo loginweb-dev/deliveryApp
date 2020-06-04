@@ -9,6 +9,7 @@ const ButtonSecondary = props => {
     <TouchableOpacity
         onPress={props.onPress}
         style={style.button}
+        disabled={props.disabled ? true : false}
     >
         <Text style={style.buttonText}>{props.children}</Text>
     </TouchableOpacity>
