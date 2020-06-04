@@ -1,6 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 
+// UI
+import Badge from "../../ui/Badge";
+
+// Configuration
+import { Config } from '../../config/config';
+
 const screenWidth = Math.round(Dimensions.get('window').width);
 
 const OrderItem = props => {
@@ -10,6 +16,9 @@ const OrderItem = props => {
                 <Text style={{ fontSize: 20 }}>COD: { props.cod }</Text>
                 <Text style={{ color: '#aeaeae' }}>{ props.details }</Text>
                 <Text style={{ color: '#000' }}>{ props.date }</Text>
+            </View>
+            <View style={style.colum_right}>
+                <Badge color={ Config.color.primary } >Entregado</Badge>
             </View>
         </View>
     );

@@ -129,7 +129,7 @@ export default class Login extends Component {
                     </Icon.Button>
                 </View>
                 <View style={{ margin: 20 }}>
-                    <Button title='Login test' onPress={this.successLogin}></Button>
+                    <Button title='Ingresar como invitado' onPress={this.successLogin}></Button>
                 </View>
             </View>
         );
@@ -158,7 +158,6 @@ export default class Login extends Component {
                 value={codeInput}
                 keyboardType='phone-pad'
             />
-            {/* <Button title="Confirm Code" color="#841584" onPress={this.confirmCode} /> */}
             <ButtonPrimary onPress={this.confirmCode}>
                 Confirmar
             </ButtonPrimary>
@@ -167,9 +166,9 @@ export default class Login extends Component {
     }
 
     rendersetInformation() {
-        this.renderMessage('Bien hecho!', 'Se confirmó su numero exitosamente', 'success');
+        // this.renderMessage('Bien hecho!', 'Se confirmó su numero exitosamente', 'success');
         return(
-            <View>
+            <View style={{ margin: 20 }}>
                 <Text style={{ fontSize: 20, textAlign: 'center' }}>Completa tu información</Text>
                 <TextInput
                     style={{ height: 40, borderColor: Config.color.textMuted, borderWidth: 2, marginTop: 20, borderRadius: 5, paddingHorizontal: 10 }}
@@ -197,6 +196,7 @@ export default class Login extends Component {
         this.props.navigation.reset({
             index: 0,
             routes: [{ name: Config.appName }],
+            key: null,
         });
     }
 
@@ -204,20 +204,19 @@ export default class Login extends Component {
     login_facebook = () => {
         LoginManager.logInWithPermissions(["public_profile"]).then(
             result => {
-                if (result.isCancelled) {console.log("Login cancelled");}
+                if (result.isCancelled) {this.renderMessage('Advertencia!', `La autenticación fué cancelada`, 'warning');}
                 else {
                     AccessToken.getCurrentAccessToken()
                     .then((data) => {
-                        axios.get(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`)
-                        .then(function (response) {
-                            this.successLogin;
-                            console.log(response);
+                        fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`)
+                        .then(response => response.json())
+                        .then(response => {
+                            this.successLogin();
+                            // console.log(response);
                         })
-                        .catch(function (error) {
+                        .catch(error => {
                             console.log(error);
                         })
-                        .finally(function () {
-                        });
                     })
                 }
             },

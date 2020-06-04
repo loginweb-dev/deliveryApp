@@ -14,7 +14,7 @@ class App extends Component {
       <Provider store={store}>
         <NavigationContainer>
           <Main />
-          <FlashMessage position="bottom" />
+          <FlashMessage position="bottom" duration={3000} />
         </NavigationContainer>
       </Provider>
     );

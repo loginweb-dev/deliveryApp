@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // UI
 import Badge from "../../../ui/Badge";
 import MenuDrawerOption from "../../../ui/MenuDrawerOption";
+import Avatar from "../../../ui/Avatar";
 
 import { Config } from '../../../config/config';
 
@@ -19,16 +20,10 @@ function DrawerMenu({navigation}) {
                 </TouchableOpacity>
             </View>
             <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
-                <Image
-                    style={{
-                        width: 80,
-                        height: 80,
-                        borderColor: 'white',
-                        borderStyle: 'solid',
-                        borderWidth: 3,
-                        borderRadius: 40,
-                    }}
-                    source={require('../../../assets/images/user.png')}
+                <Avatar
+                    width={80}
+                    borderColor='white'
+                    image={require('../../../assets/images/user.png')}
                 />
                 <View style={{ marginTop: 10 }}>
                     <Badge color={ Config.color.primary } size={20} >Jhon Doe</Badge>
@@ -49,11 +44,15 @@ function DrawerMenu({navigation}) {
             >
                 <MenuDrawerOption icon="map-pin" text="Ubicaciones" />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress={()=> navigation.navigate('Profile')}
+            >
                 <MenuDrawerOption icon="user" text="Perfil" />
             </TouchableOpacity>
-            <TouchableOpacity>
-                <MenuDrawerOption icon="info-circle" text="Ayuda" />
+            <TouchableOpacity
+                onPress={()=> navigation.navigate('Help')}
+            >
+                <MenuDrawerOption icon="info-circle" text="Acerca de" />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={()=>{

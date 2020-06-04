@@ -31,7 +31,9 @@ class OrderDetails extends Component {
                     circleColor={Config.color.primary}
                     lineColor={Config.color.primary}
                     data={details}
+                    options={{ style: style.timeline }}
                 />
+                {/* <View style={{ height: 50 }}></View> */}
             </View>
         );
     }
@@ -44,9 +46,14 @@ const style = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
-        paddingTop: 20,
-        paddingBottom: 40
+        paddingBottom: 20,
     },
+    timeline: {
+        paddingTop: 20,
+        paddingHorizontal: 20,
+        backgroundColor: 'white',
+        // paddingBottom: 50
+    }
 });
 
 export default OrderDetails;

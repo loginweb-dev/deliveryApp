@@ -46,8 +46,19 @@ class LocationsList extends Component {
     }
 
     componentDidMount(){
+        // Si el carrito está vacío limpiar historial de navegación
+        this.props.navigation.addListener('focus', () => {
+            if(this.state.cartSuccess && this.props.cart.length == 0){
+                this.props.navigation.reset({
+                    index: 0,
+                    routes: [{ name: Config.appName }],
+                    key: null,
+                });
+            }
+        });
+        
         this.loadLocations();
-    }
+    }[0]
 
     getCurrentLocation(){
         Geolocation.getCurrentPosition(position => {
@@ -254,7 +265,7 @@ class LocationsList extends Component {
                    !this.state.buttonEditVisible && this.state.cartSuccess && this.state.locationSelecte &&
                    <View style={style.footer}>
                         <ButtonPrimary onPress={() => this.AcceptDelivery()}>
-                            Aceptar
+                            Continuar
                         </ButtonPrimary>
                     </View>
                }
@@ -337,7 +348,8 @@ const style = StyleSheet.create({
 
 const mapStateToProps = (state) => {
     return {
-        locations  : state.locations,
+        locations: state.locations,
+        cart: state.cart
     }
 }
 

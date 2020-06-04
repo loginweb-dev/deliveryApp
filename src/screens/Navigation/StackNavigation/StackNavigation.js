@@ -19,6 +19,8 @@ import LocationsList from '../../LocationsList/LocationsList';
 import DeliverySuccess from '../../DeliverySuccess/DeliverySuccess';
 import OrderList from '../../OrderList/OrderList';
 import OrderDetails from '../../OrderDetails/OrderDetails';
+import Profile from '../../Profile/Profile';
+import Help from '../../Help/Help';
 
 // UI
 import CardHeader from "../../../ui/CardHeader";
@@ -142,6 +144,20 @@ class Main extends Component {
                     component={OrderDetails}
                     options={() => ({
                         title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Detalles de pedido</Text>,
+                    })}
+                />
+                <Stack.Screen
+                    name="Profile"
+                    component={Profile}
+                    options={() => ({
+                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Perfil</Text>,
+                    })}
+                />
+                <Stack.Screen
+                    name="Help"
+                    component={Help}
+                    options={() => ({
+                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Acerca de</Text>,
                     })}
                 />
 
