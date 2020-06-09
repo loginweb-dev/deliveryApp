@@ -22,11 +22,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // Components
 import ButtonPrimary from "../../../ui/ButtonPrimary";
 import Divider from "../../../ui/Divider";
+import Avatar from "../../../ui/Avatar";
 
 // Configurations
 import { Config } from '../../../config/config';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeihgt = Math.round(Dimensions.get('window').height);
+
 const URL_BASE = Config.API;
 
 export default class Login extends Component {
@@ -96,9 +99,9 @@ export default class Login extends Component {
     renderPhoneNumberInput() {
     const { phoneNumber } = this.state;
         return (
-            <View style={{ alignItems: 'center' }}>
-                <View style={{ margin: 20 }}>
-                    <Text style={{ fontSize:22, textAlign:'center' }}>Regístrate con tu numero de celular</Text>
+            <View style={{ flex: 1, alignItems: 'center', marginTop: 30 }}>
+                <View style={{ flex: 1, marginHorizontal: 20, marginTop: 10 }}>
+                    <Text style={{ fontSize:18, textAlign:'center', color: '#aaa' }}>Regístrate con tu número de celular</Text>
                     <View style={{ flexDirection: 'row', marginTop: 10 }}>
                         <View style={{ width: '10%', justifyContent: 'center' }}>
                             <CountryPicker
@@ -106,30 +109,38 @@ export default class Login extends Component {
                                 onSelect={(country) => this.setState({phoneNumberCode: country.cca2,phoneCode: country.callingCode})}
                             />
                         </View>
-                        <View style={{ width: '90%', marginVertical: 10 }}>
+                        <View style={{ width: '75%', marginVertical: 10 }}>
                             <TextInput
-                                style={{ height: 50, fontSize: 25, borderRadius: 5, borderColor: 'gray', borderWidth: 1, paddingHorizontal: 20 }}
+                                style={{ height: 50, fontSize: 25, borderColor: '#ccc', borderWidth: 1, paddingHorizontal: 20 }}
                                 placeholder="Nº de Celular"
                                 onChangeText={value => this.setState({ phoneNumber: value })}
                                 value={phoneNumber}
                                 keyboardType='phone-pad'
                             />
                         </View>
+                        <View style={{ width: '15%', marginVertical: 10 }}>
+                            <TouchableOpacity style={{ backgroundColor: Config.color.primary, padding:10 }} onPress={this.signIn}>
+                                <Icon name='send' color='#fff' size={29} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <ButtonPrimary onPress={this.signIn}>
-                        Enviar
-                    </ButtonPrimary>
+                    <View style={{ margin: 10, marginTop: 10 }}>
+                        <Text style={{ textAlign: 'center', color: '#aaa' }}>Te enviaremos un mensaje con tu código de verificación para registrate, luego te pediremos alginos datos para completar tu registro.</Text>
+                    </View>
                 </View>
-                <Divider width={screenWidth-20} size={2} color={Config.color.textMuted} />
-                <View style={{ margin: 20 }}>
+                {/* Invitado */}
+                <View style={{ margin: 10 }}>
+                    <TouchableOpacity onPress={this.successLogin}>
+                        <Text style={{ fontSize: 18, color: '#3b5998' }}>Invitado</Text>
+                    </TouchableOpacity>
+                </View>
+                {/* ======== */}
+                <View style={{ height: 80 }}>
                     <Icon.Button name="facebook" backgroundColor="#3b5998" onPress={this.login_facebook} >
                         <Text style={{ fontFamily: 'Arial', fontSize: 18, color: 'white' }}>
-                            Login con Facebook
+                            Inicia con Facebook
                         </Text>
                     </Icon.Button>
-                </View>
-                <View style={{ margin: 20 }}>
-                    <Button title='Ingresar como invitado' onPress={this.successLogin}></Button>
                 </View>
             </View>
         );
@@ -227,19 +238,29 @@ export default class Login extends Component {
     render() {
         const { user, confirmResult } = this.state;
         return (
-        <View style={{ flex: 1 }}>
-            <ScrollView>
-                <ImageBackground source={ require('../../../assets/images/background.png') } style={{width: '100%', height: 200}} />
-                <View style={{ width: screenWidth }}>
-        
-                    {!user && !confirmResult && this.renderPhoneNumberInput()}
-
-                    {!user && confirmResult && this.renderVerificationCodeInput()}
-
-                    {user && this.rendersetInformation()}
+            <View style={{ flex: 1, width: screenWidth, height: screenHeihgt }}>
+                {/* <ImageBackground source={ Config.images.background } style={{width: '100%', height: 250}} /> */}
+                <View style={ style.containerLogo }>
+                    <Avatar
+                        width={250}
+                        borderColor='#F2F2F2'
+                        image={ Config.images.iconAlt }
+                    />
                 </View>
-            </ScrollView>
-        </View>
+                {!user && !confirmResult && this.renderPhoneNumberInput()}
+                {!user && confirmResult && this.renderVerificationCodeInput()}
+                {user && this.rendersetInformation()}
+            </View>
         );
     }
 }
+
+const style = StyleSheet.create({
+    containerLogo: {
+        // height: 200,
+        // flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});

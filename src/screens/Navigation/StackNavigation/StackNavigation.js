@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Configurations
 import { Config } from '../../../config/config.js';
+import { MainStyle } from '../../../config/styles.js';
 
 // Views
 import SplashScreen from '../../SplashScreen/SplashScreen';
@@ -56,7 +57,15 @@ class Main extends Component {
             return(<SplashScreen />);
         }
         return (
-            <Stack.Navigator initialRouteName={ this.state.isLoggedIn ? Config.appName : 'Login' }>
+            <Stack.Navigator
+                initialRouteName={ this.state.isLoggedIn ? Config.appName : 'Login' }
+                screenOptions={{ 
+                    headerStyle: {
+                        backgroundColor: Config.color.menu
+                    },
+                    headerTintColor: Config.color.menuText,
+                }}
+            >
                 <Stack.Screen
                     name="Login"
                     component={Login}
@@ -68,10 +77,10 @@ class Main extends Component {
                 <Stack.Screen
                     name={Config.appName} component={Index}
                     options={{
-                        title: <Text style={{ fontSize:25, fontWeight: 'bold' }}>{Config.appName}</Text>,
+                        title: <Text style={ MainStyle.h3 }>{Config.appName}</Text>,
                         headerLeft: () => (
                             <TouchableOpacity onPress={() => this.props.navigation.openDrawer()} style={{ marginLeft:10 }}>
-                                <Icon name="bars" size={30} />
+                                <Icon name="bars" size={30} color={Config.color.menuText} />
                             </TouchableOpacity>
                         ),
                         headerRight: () => (
@@ -87,7 +96,7 @@ class Main extends Component {
                     name="CategoryDetails"
                     component={CategoryDetails}
                     options={({ route }) => ({
-                        title: <Text style={{ fontSize:20, fontWeight: 'bold' }}>{route.params.category.title}</Text>,
+                        title: <Text style={ MainStyle.h3 }>{route.params.category.title}</Text>,
                         headerRight: () => (
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Cart')}
@@ -101,7 +110,7 @@ class Main extends Component {
                     name="ProductDetails"
                     component={ProductDetails}
                     options={({ route }) => ({
-                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>{route.params.product.name}</Text>,
+                        title: <Text style={ MainStyle.h3 }>{route.params.product.name}</Text>,
                         headerRight: () => (
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Cart')}
@@ -115,49 +124,49 @@ class Main extends Component {
                     name="Cart"
                     component={Cart}
                     options={() => ({
-                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Carrito</Text>,
+                        title: <Text style={ MainStyle.h3 }>Carrito</Text>,
                     })}
                 />
                 <Stack.Screen
                     name="LocationsList"
                     component={LocationsList}
                     options={() => ({
-                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Mis ubicaciones</Text>,
+                        title: <Text style={ MainStyle.h3 }>Mis ubicaciones</Text>,
                     })}
                 />
                 <Stack.Screen
                     name="DeliverySuccess"
                     component={DeliverySuccess}
                     options={() => ({
-                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Pedido realizado</Text>,
+                        title: <Text style={ MainStyle.h3 }>Pedido realizado</Text>,
                     })}
                 />
                 <Stack.Screen
                     name="OrderList"
                     component={OrderList}
                     options={() => ({
-                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Pedidos</Text>,
+                        title: <Text style={ MainStyle.h3 }>Pedidos</Text>,
                     })}
                 />
                 <Stack.Screen
                     name="OrderDetails"
                     component={OrderDetails}
                     options={() => ({
-                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Detalles de pedido</Text>,
+                        title: <Text style={ MainStyle.h3 }>Detalles de pedido</Text>,
                     })}
                 />
                 <Stack.Screen
                     name="Profile"
                     component={Profile}
                     options={() => ({
-                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Perfil</Text>,
+                        title: <Text style={ MainStyle.h3 }>Perfil</Text>,
                     })}
                 />
                 <Stack.Screen
                     name="Help"
                     component={Help}
                     options={() => ({
-                        title: <Text style={{ fontSize:18, fontWeight: 'bold' }}>Acerca de</Text>,
+                        title: <Text style={ MainStyle.h3 }>Acerca de</Text>,
                     })}
                 />
 

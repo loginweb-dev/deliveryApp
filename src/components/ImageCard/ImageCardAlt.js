@@ -22,10 +22,9 @@ const ImageCard = (props) => {
 
 const style = StyleSheet.create({
     cardOption: {
-      margin: 10,
-      width: 300,
-      height: 150,
-      // marginBottom: 10
+      marginTop: 20,
+      width: screenWidth-20,
+      height: 200
     },
     cardImage: {
       width: '100%',
@@ -34,12 +33,12 @@ const style = StyleSheet.create({
       justifyContent: 'center'
     },
     cardTitle: {
-      fontSize: 25,
+      fontSize: 35,
       color: 'white',
       marginBottom: 10
     },
     cardSubtitle: {
-      fontSize: 11,
+      fontSize: 15,
       color: 'white'
     },
     maskDark: {

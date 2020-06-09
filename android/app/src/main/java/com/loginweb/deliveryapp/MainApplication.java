@@ -1,4 +1,4 @@
-package com.loginweb.skotburgersapp;
+package com.loginweb.deliveryapp;
 
 import android.app.Application;
 import android.content.Context;

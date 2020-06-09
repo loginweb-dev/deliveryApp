@@ -50,7 +50,6 @@ class ProductDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            heightBanner: 200,
             id: this.props.route.params.product.id,
             name: this.props.route.params.product.name,
             details: this.props.route.params.product.details,
@@ -60,19 +59,6 @@ class ProductDetails extends Component {
             totalPrice : this.props.route.params.product.price,
             extras: Extras,
             background : this.props.route.params.product.image,
-        }
-    }
-
-    animation = (event)=> {
-        let value = event.nativeEvent.contentOffset.y;
-        if(value>10){
-            this.setState({
-                heightBanner: 0
-            });
-        }else{
-            this.setState({
-                heightBanner: 200
-            });
         }
     }
 
@@ -141,11 +127,9 @@ class ProductDetails extends Component {
                 title=''
                 subtitle=''
                 image={this.state.background}
-                height={this.state.heightBanner}
             />
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                onScrollEndDrag={this.animation}
             >
                 <View style={style.section}>
                     <View style={style.header}>

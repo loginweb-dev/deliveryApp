@@ -50,6 +50,9 @@ class Main extends Component {
       <DrawerNavigator.Navigator
         drawerContent={props => CustomDrawerContent(props)}
         initialRouteName="Home"
+        drawerStyle={{
+          backgroundColor: Config.draweMenu.backgroundSecondary,
+        }}
       >
         <DrawerNavigator.Screen
           name="Home"

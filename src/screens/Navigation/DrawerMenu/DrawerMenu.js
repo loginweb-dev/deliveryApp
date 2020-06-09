@@ -7,19 +7,24 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Badge from "../../../ui/Badge";
 import MenuDrawerOption from "../../../ui/MenuDrawerOption";
 import Avatar from "../../../ui/Avatar";
+import BtnCircle from '../../../ui/BtnCircle';
 
 import { Config } from '../../../config/config';
 
 function DrawerMenu({navigation}) {
   return (
     <View>
-        <ImageBackground source={ require('../../../assets/images/background.png') } style={{width: '100%', height: 200}}>
+        <ImageBackground source={ Config.images.background } style={{width: '100%', height: 200}}>
             <View  style={{ margin: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() => navigation.closeDrawer()}>
-                    <Icon name='arrow-left' color="#fff" size={25} />
-                </TouchableOpacity>
+                <BtnCircle
+                    backgroundColor={ Config.draweMenu.backgroundSecondary }
+                    color={ Config.draweMenu.colorText }
+                    onPress={() => navigation.closeDrawer()}
+                    icon='arrow-left'
+                    size={1}
+                />
             </View>
-            <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Avatar
                     width={80}
                     borderColor='white'

@@ -15,6 +15,7 @@ import Avatar from "../../ui/Avatar";
 
 // Configurations
 import { Config } from '../../config/config.js';
+import { MainStyle } from '../../config/styles.js';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 // Options ImagePicker
@@ -103,7 +104,7 @@ class Profile extends Component {
                     </View>
                     <View style={ style.item }>
                         <TextInput
-                            style={style.input}
+                            style={MainStyle.input}
                             placeholder="Nombre completo"
                             onChangeText={ (value) => this.setState({'inputName': value}) }
                             value={ this.state.inputName }
@@ -111,7 +112,7 @@ class Profile extends Component {
                     </View>
                     <View style={ style.item }>
                         <TextInput
-                            style={style.input}
+                            style={MainStyle.input}
                             placeholder="NIT o CI"
                             onChangeText={ (value) => this.setState({'inputNit': value}) }
                             value={ this.state.inputNit }
@@ -119,14 +120,14 @@ class Profile extends Component {
                     </View>
                     <View style={ style.item }>
                         <TextInput
-                            style={style.input}
+                            style={MainStyle.input}
                             placeholder="Nº de celular"
                             onChangeText={ (value) => this.setState({'phoneNumber': value}) }
                             value={ this.state.phoneNumber }
                         />
                     </View>
                     <View style={{ alignItems: 'center' }}>
-                        <Text>No compartimos tu información con nadie</Text>
+                        <Text style={ [MainStyle.textMuted, MainStyle.p] }>No compartimos tu información personal con nadie.</Text>
                     </View>
                     <View style={ style.footer }>
                         <ButtonPrimary>
@@ -156,16 +157,6 @@ const style = StyleSheet.create({
         paddingVertical: 10,
         paddingHorizontal: 20,
         marginBottom: 3
-    },
-    input: {
-        height: 40,
-        borderColor: Config.color.textMuted,
-        borderWidth: 2,
-        marginVertical: 5,
-        borderRadius: 5,
-        paddingHorizontal: 10,
-        width: '100%',
-        fontSize: 15
     },
     footer: {
         padding: 20

@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* SkotBurgersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SkotBurgersTests.m */; };
+		00E356F31AD99517003FC87E /* DeliveryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DeliveryAppTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1819D0F88FC35839AC1948EB /* libPods-SkotBurgers.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B32494E24DB8479D2C8A4044 /* libPods-SkotBurgers.a */; };
+		1819D0F88FC35839AC1948EB /* libPods-DeliveryApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B32494E24DB8479D2C8A4044 /* libPods-DeliveryApp.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2DCD954D1E0B4F2C00145EB5 /* SkotBurgersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SkotBurgersTests.m */; };
-		9420D20352F14295B9235F19 /* libPods-SkotBurgers-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1B07AA9135234FD39DFCB8 /* libPods-SkotBurgers-tvOSTests.a */; };
-		BE3B2947CF00509B75C703C3 /* libPods-SkotBurgersTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C7DEC13B50DCC50D1943F6 /* libPods-SkotBurgersTests.a */; };
-		C122770553C0AE3E366DB652 /* libPods-SkotBurgers-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FE72E183FB98FA59D7FDFD /* libPods-SkotBurgers-tvOS.a */; };
+		2DCD954D1E0B4F2C00145EB5 /* DeliveryAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* DeliveryAppTests.m */; };
+		9420D20352F14295B9235F19 /* libPods-DeliveryApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1B07AA9135234FD39DFCB8 /* libPods-DeliveryApp-tvOSTests.a */; };
+		BE3B2947CF00509B75C703C3 /* libPods-DeliveryAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B4C7DEC13B50DCC50D1943F6 /* libPods-DeliveryAppTests.a */; };
+		C122770553C0AE3E366DB652 /* libPods-DeliveryApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21FE72E183FB98FA59D7FDFD /* libPods-DeliveryApp-tvOS.a */; };
 		DC2D902B1A9B4F90A5B15899 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E87E3CCE634C4A38BEFDD451 /* AntDesign.ttf */; };
 		94BE89019FC44E3A9781A1EE /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F002D2026434367B942C3B0 /* Entypo.ttf */; };
 		FC9FA5ABFD004A4CBFFD7EA7 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E971B63EDD3A42DC8B43BC65 /* EvilIcons.ttf */; };
@@ -36,6 +36,7 @@
 		A44E141486C243A0BBBF7B44 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A153D3FF1F4F4712BDC5B6C2 /* Octicons.ttf */; };
 		25275C6684A64657BAEF4BB2 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BDEF305757A547A0BFC3C0A2 /* SimpleLineIcons.ttf */; };
 		F5BD285E27ED43E9B8E84C05 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 65866ACF29A940709F18F95A /* Zocial.ttf */; };
+		A836F2F2D6D94D49882619E8 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05CEE7B719BF4F6193038355 /* Roboto-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,45 +45,45 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = SkotBurgers;
+			remoteInfo = DeliveryApp;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "SkotBurgers-tvOS";
+			remoteInfo = "DeliveryApp-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* SkotBurgersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SkotBurgersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* DeliveryAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeliveryAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* SkotBurgersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SkotBurgersTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* SkotBurgers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkotBurgers.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = SkotBurgers/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = SkotBurgers/AppDelegate.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* DeliveryAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeliveryAppTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* DeliveryApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeliveryApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = DeliveryApp/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = DeliveryApp/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = SkotBurgers/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = SkotBurgers/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = SkotBurgers/main.m; sourceTree = "<group>"; };
-		21FE72E183FB98FA59D7FDFD /* libPods-SkotBurgers-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SkotBurgers-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E47B1E0B4A5D006451C7 /* SkotBurgers-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SkotBurgers-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* SkotBurgers-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SkotBurgers-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D597FF103915F231AA781B4 /* Pods-SkotBurgers-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkotBurgers-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-SkotBurgers-tvOSTests/Pods-SkotBurgers-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4B8F2B640C33405E8F8749B3 /* Pods-SkotBurgersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkotBurgersTests.release.xcconfig"; path = "Target Support Files/Pods-SkotBurgersTests/Pods-SkotBurgersTests.release.xcconfig"; sourceTree = "<group>"; };
-		568F5CB16AA9FF7FADDF8E93 /* Pods-SkotBurgersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkotBurgersTests.debug.xcconfig"; path = "Target Support Files/Pods-SkotBurgersTests/Pods-SkotBurgersTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9F9632DC0A797116C282CD3B /* Pods-SkotBurgers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkotBurgers.release.xcconfig"; path = "Target Support Files/Pods-SkotBurgers/Pods-SkotBurgers.release.xcconfig"; sourceTree = "<group>"; };
-		ADBB0EA8604A9A70A3AC6A82 /* Pods-SkotBurgers-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkotBurgers-tvOS.release.xcconfig"; path = "Target Support Files/Pods-SkotBurgers-tvOS/Pods-SkotBurgers-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		B32494E24DB8479D2C8A4044 /* libPods-SkotBurgers.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SkotBurgers.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B4C7DEC13B50DCC50D1943F6 /* libPods-SkotBurgersTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SkotBurgersTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DDC2CD5FB287D3454C985F61 /* Pods-SkotBurgers-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkotBurgers-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-SkotBurgers-tvOS/Pods-SkotBurgers-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		EA040FD273F9F0D6FF885E12 /* Pods-SkotBurgers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkotBurgers.debug.xcconfig"; path = "Target Support Files/Pods-SkotBurgers/Pods-SkotBurgers.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = DeliveryApp/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = DeliveryApp/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = DeliveryApp/main.m; sourceTree = "<group>"; };
+		21FE72E183FB98FA59D7FDFD /* libPods-DeliveryApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeliveryApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E47B1E0B4A5D006451C7 /* DeliveryApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DeliveryApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* DeliveryApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "DeliveryApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D597FF103915F231AA781B4 /* Pods-DeliveryApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-DeliveryApp-tvOSTests/Pods-DeliveryApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4B8F2B640C33405E8F8749B3 /* Pods-DeliveryAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryAppTests.release.xcconfig"; path = "Target Support Files/Pods-DeliveryAppTests/Pods-DeliveryAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		568F5CB16AA9FF7FADDF8E93 /* Pods-DeliveryAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryAppTests.debug.xcconfig"; path = "Target Support Files/Pods-DeliveryAppTests/Pods-DeliveryAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9F9632DC0A797116C282CD3B /* Pods-DeliveryApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryApp.release.xcconfig"; path = "Target Support Files/Pods-DeliveryApp/Pods-DeliveryApp.release.xcconfig"; sourceTree = "<group>"; };
+		ADBB0EA8604A9A70A3AC6A82 /* Pods-DeliveryApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-DeliveryApp-tvOS/Pods-DeliveryApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		B32494E24DB8479D2C8A4044 /* libPods-DeliveryApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeliveryApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B4C7DEC13B50DCC50D1943F6 /* libPods-DeliveryAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeliveryAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DDC2CD5FB287D3454C985F61 /* Pods-DeliveryApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-DeliveryApp-tvOS/Pods-DeliveryApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		EA040FD273F9F0D6FF885E12 /* Pods-DeliveryApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryApp.debug.xcconfig"; path = "Target Support Files/Pods-DeliveryApp/Pods-DeliveryApp.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		FA1B07AA9135234FD39DFCB8 /* libPods-SkotBurgers-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SkotBurgers-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FD36E6FF950AC845BDB88536 /* Pods-SkotBurgers-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkotBurgers-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-SkotBurgers-tvOSTests/Pods-SkotBurgers-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		FA1B07AA9135234FD39DFCB8 /* libPods-DeliveryApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DeliveryApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD36E6FF950AC845BDB88536 /* Pods-DeliveryApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DeliveryApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-DeliveryApp-tvOSTests/Pods-DeliveryApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E87E3CCE634C4A38BEFDD451 /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		7F002D2026434367B942C3B0 /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		E971B63EDD3A42DC8B43BC65 /* EvilIcons.ttf */ = {isa = PBXFileReference; name = "EvilIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -99,6 +100,7 @@
 		A153D3FF1F4F4712BDC5B6C2 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		BDEF305757A547A0BFC3C0A2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		65866ACF29A940709F18F95A /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		05CEE7B719BF4F6193038355 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; name = "Roboto-Regular.ttf"; path = "../src/assets/fonts/Roboto-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE3B2947CF00509B75C703C3 /* libPods-SkotBurgersTests.a in Frameworks */,
+				BE3B2947CF00509B75C703C3 /* libPods-DeliveryAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1819D0F88FC35839AC1948EB /* libPods-SkotBurgers.a in Frameworks */,
+				1819D0F88FC35839AC1948EB /* libPods-DeliveryApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C122770553C0AE3E366DB652 /* libPods-SkotBurgers-tvOS.a in Frameworks */,
+				C122770553C0AE3E366DB652 /* libPods-DeliveryApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,20 +132,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9420D20352F14295B9235F19 /* libPods-SkotBurgers-tvOSTests.a in Frameworks */,
+				9420D20352F14295B9235F19 /* libPods-DeliveryApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* SkotBurgersTests */ = {
+		00E356EF1AD99517003FC87E /* DeliveryAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* SkotBurgersTests.m */,
+				00E356F21AD99517003FC87E /* DeliveryAppTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = SkotBurgersTests;
+			path = DeliveryAppTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -154,7 +156,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* SkotBurgers */ = {
+		13B07FAE1A68108700A75B9A /* DeliveryApp */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -165,20 +167,20 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = SkotBurgers;
+			name = DeliveryApp;
 			sourceTree = "<group>";
 		};
 		1B989E868C20C909EF02DCF6 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				EA040FD273F9F0D6FF885E12 /* Pods-SkotBurgers.debug.xcconfig */,
-				9F9632DC0A797116C282CD3B /* Pods-SkotBurgers.release.xcconfig */,
-				DDC2CD5FB287D3454C985F61 /* Pods-SkotBurgers-tvOS.debug.xcconfig */,
-				ADBB0EA8604A9A70A3AC6A82 /* Pods-SkotBurgers-tvOS.release.xcconfig */,
-				2D597FF103915F231AA781B4 /* Pods-SkotBurgers-tvOSTests.debug.xcconfig */,
-				FD36E6FF950AC845BDB88536 /* Pods-SkotBurgers-tvOSTests.release.xcconfig */,
-				568F5CB16AA9FF7FADDF8E93 /* Pods-SkotBurgersTests.debug.xcconfig */,
-				4B8F2B640C33405E8F8749B3 /* Pods-SkotBurgersTests.release.xcconfig */,
+				EA040FD273F9F0D6FF885E12 /* Pods-DeliveryApp.debug.xcconfig */,
+				9F9632DC0A797116C282CD3B /* Pods-DeliveryApp.release.xcconfig */,
+				DDC2CD5FB287D3454C985F61 /* Pods-DeliveryApp-tvOS.debug.xcconfig */,
+				ADBB0EA8604A9A70A3AC6A82 /* Pods-DeliveryApp-tvOS.release.xcconfig */,
+				2D597FF103915F231AA781B4 /* Pods-DeliveryApp-tvOSTests.debug.xcconfig */,
+				FD36E6FF950AC845BDB88536 /* Pods-DeliveryApp-tvOSTests.release.xcconfig */,
+				568F5CB16AA9FF7FADDF8E93 /* Pods-DeliveryAppTests.debug.xcconfig */,
+				4B8F2B640C33405E8F8749B3 /* Pods-DeliveryAppTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -189,10 +191,10 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				B32494E24DB8479D2C8A4044 /* libPods-SkotBurgers.a */,
-				21FE72E183FB98FA59D7FDFD /* libPods-SkotBurgers-tvOS.a */,
-				FA1B07AA9135234FD39DFCB8 /* libPods-SkotBurgers-tvOSTests.a */,
-				B4C7DEC13B50DCC50D1943F6 /* libPods-SkotBurgersTests.a */,
+				B32494E24DB8479D2C8A4044 /* libPods-DeliveryApp.a */,
+				21FE72E183FB98FA59D7FDFD /* libPods-DeliveryApp-tvOS.a */,
+				FA1B07AA9135234FD39DFCB8 /* libPods-DeliveryApp-tvOSTests.a */,
+				B4C7DEC13B50DCC50D1943F6 /* libPods-DeliveryAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -207,9 +209,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* SkotBurgers */,
+				13B07FAE1A68108700A75B9A /* DeliveryApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* SkotBurgersTests */,
+				00E356EF1AD99517003FC87E /* DeliveryAppTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				1B989E868C20C909EF02DCF6 /* Pods */,
@@ -223,10 +225,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* SkotBurgers.app */,
-				00E356EE1AD99517003FC87E /* SkotBurgersTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* SkotBurgers-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* SkotBurgers-tvOSTests.xctest */,
+				13B07F961A680F5B00A75B9A /* DeliveryApp.app */,
+				00E356EE1AD99517003FC87E /* DeliveryAppTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* DeliveryApp-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* DeliveryApp-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -250,6 +252,7 @@
 				A153D3FF1F4F4712BDC5B6C2 /* Octicons.ttf */,
 				BDEF305757A547A0BFC3C0A2 /* SimpleLineIcons.ttf */,
 				65866ACF29A940709F18F95A /* Zocial.ttf */,
+				05CEE7B719BF4F6193038355 /* Roboto-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -258,9 +261,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* SkotBurgersTests */ = {
+		00E356ED1AD99517003FC87E /* DeliveryAppTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SkotBurgersTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DeliveryAppTests" */;
 			buildPhases = (
 				BF9449C456537081A96B62D5 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -272,14 +275,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = SkotBurgersTests;
-			productName = SkotBurgersTests;
-			productReference = 00E356EE1AD99517003FC87E /* SkotBurgersTests.xctest */;
+			name = DeliveryAppTests;
+			productName = DeliveryAppTests;
+			productReference = 00E356EE1AD99517003FC87E /* DeliveryAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* SkotBurgers */ = {
+		13B07F861A680F5B00A75B9A /* DeliveryApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SkotBurgers" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DeliveryApp" */;
 			buildPhases = (
 				AD3773936A66B3E042B6A504 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -292,14 +295,14 @@
 			);
 			dependencies = (
 			);
-			name = SkotBurgers;
-			productName = SkotBurgers;
-			productReference = 13B07F961A680F5B00A75B9A /* SkotBurgers.app */;
+			name = DeliveryApp;
+			productName = DeliveryApp;
+			productReference = 13B07F961A680F5B00A75B9A /* DeliveryApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* SkotBurgers-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* DeliveryApp-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SkotBurgers-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DeliveryApp-tvOS" */;
 			buildPhases = (
 				FB9C1C2BA17153421FECE62F /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -312,14 +315,14 @@
 			);
 			dependencies = (
 			);
-			name = "SkotBurgers-tvOS";
-			productName = "SkotBurgers-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* SkotBurgers-tvOS.app */;
+			name = "DeliveryApp-tvOS";
+			productName = "DeliveryApp-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* DeliveryApp-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* SkotBurgers-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* DeliveryApp-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SkotBurgers-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DeliveryApp-tvOSTests" */;
 			buildPhases = (
 				5E9808B65C962FE4E82E4AEB /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -331,9 +334,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "SkotBurgers-tvOSTests";
-			productName = "SkotBurgers-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* SkotBurgers-tvOSTests.xctest */;
+			name = "DeliveryApp-tvOSTests";
+			productName = "DeliveryApp-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* DeliveryApp-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -360,7 +363,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "SkotBurgers" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DeliveryApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -373,10 +376,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* SkotBurgers */,
-				00E356ED1AD99517003FC87E /* SkotBurgersTests */,
-				2D02E47A1E0B4A5D006451C7 /* SkotBurgers-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* SkotBurgers-tvOSTests */,
+				13B07F861A680F5B00A75B9A /* DeliveryApp */,
+				00E356ED1AD99517003FC87E /* DeliveryAppTests */,
+				2D02E47A1E0B4A5D006451C7 /* DeliveryApp-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* DeliveryApp-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -411,6 +414,7 @@
 				A44E141486C243A0BBBF7B44 /* Octicons.ttf in Resources */,
 				25275C6684A64657BAEF4BB2 /* SimpleLineIcons.ttf in Resources */,
 				F5BD285E27ED43E9B8E84C05 /* Zocial.ttf in Resources */,
+				A836F2F2D6D94D49882619E8 /* Roboto-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,7 +479,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SkotBurgers-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DeliveryApp-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -497,7 +501,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SkotBurgers-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DeliveryApp-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -519,7 +523,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SkotBurgersTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DeliveryAppTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -541,7 +545,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SkotBurgers-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-DeliveryApp-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -593,7 +597,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* SkotBurgersTests.m in Sources */,
+				00E356F31AD99517003FC87E /* DeliveryAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,7 +623,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DCD954D1E0B4F2C00145EB5 /* SkotBurgersTests.m in Sources */,
+				2DCD954D1E0B4F2C00145EB5 /* DeliveryAppTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,12 +632,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* SkotBurgers */;
+			target = 13B07F861A680F5B00A75B9A /* DeliveryApp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* SkotBurgers-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* DeliveryApp-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -645,7 +649,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = SkotBurgers;
+			path = DeliveryApp;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -653,14 +657,14 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 568F5CB16AA9FF7FADDF8E93 /* Pods-SkotBurgersTests.debug.xcconfig */;
+			baseConfigurationReference = 568F5CB16AA9FF7FADDF8E93 /* Pods-DeliveryAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = SkotBurgersTests/Info.plist;
+				INFOPLIST_FILE = DeliveryAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -670,17 +674,17 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SkotBurgers.app/SkotBurgers";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeliveryApp.app/DeliveryApp";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B8F2B640C33405E8F8749B3 /* Pods-SkotBurgersTests.release.xcconfig */;
+			baseConfigurationReference = 4B8F2B640C33405E8F8749B3 /* Pods-DeliveryAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				INFOPLIST_FILE = SkotBurgersTests/Info.plist;
+				INFOPLIST_FILE = DeliveryAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -690,18 +694,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SkotBurgers.app/SkotBurgers";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeliveryApp.app/DeliveryApp";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA040FD273F9F0D6FF885E12 /* Pods-SkotBurgers.debug.xcconfig */;
+			baseConfigurationReference = EA040FD273F9F0D6FF885E12 /* Pods-DeliveryApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				INFOPLIST_FILE = SkotBurgers/Info.plist;
+				INFOPLIST_FILE = DeliveryApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -709,18 +713,18 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = SkotBurgers;
+				PRODUCT_NAME = DeliveryApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F9632DC0A797116C282CD3B /* Pods-SkotBurgers.release.xcconfig */;
+			baseConfigurationReference = 9F9632DC0A797116C282CD3B /* Pods-DeliveryApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
-				INFOPLIST_FILE = SkotBurgers/Info.plist;
+				INFOPLIST_FILE = DeliveryApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -728,14 +732,14 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = SkotBurgers;
+				PRODUCT_NAME = DeliveryApp;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DDC2CD5FB287D3454C985F61 /* Pods-SkotBurgers-tvOS.debug.xcconfig */;
+			baseConfigurationReference = DDC2CD5FB287D3454C985F61 /* Pods-DeliveryApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -746,14 +750,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "SkotBurgers-tvOS/Info.plist";
+				INFOPLIST_FILE = "DeliveryApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.SkotBurgers-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.DeliveryApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -763,7 +767,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADBB0EA8604A9A70A3AC6A82 /* Pods-SkotBurgers-tvOS.release.xcconfig */;
+			baseConfigurationReference = ADBB0EA8604A9A70A3AC6A82 /* Pods-DeliveryApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -774,14 +778,14 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "SkotBurgers-tvOS/Info.plist";
+				INFOPLIST_FILE = "DeliveryApp-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.SkotBurgers-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.DeliveryApp-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -791,7 +795,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D597FF103915F231AA781B4 /* Pods-SkotBurgers-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 2D597FF103915F231AA781B4 /* Pods-DeliveryApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -801,24 +805,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "SkotBurgers-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "DeliveryApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.SkotBurgers-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.DeliveryApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SkotBurgers-tvOS.app/SkotBurgers-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeliveryApp-tvOS.app/DeliveryApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD36E6FF950AC845BDB88536 /* Pods-SkotBurgers-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = FD36E6FF950AC845BDB88536 /* Pods-DeliveryApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -828,17 +832,17 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "SkotBurgers-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "DeliveryApp-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.SkotBurgers-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.DeliveryApp-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SkotBurgers-tvOS.app/SkotBurgers-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DeliveryApp-tvOS.app/DeliveryApp-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -945,7 +949,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "SkotBurgersTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "DeliveryAppTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -954,7 +958,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "SkotBurgers" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "DeliveryApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -963,7 +967,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SkotBurgers-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DeliveryApp-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -972,7 +976,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "SkotBurgers-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "DeliveryApp-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -981,7 +985,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "SkotBurgers" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "DeliveryApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

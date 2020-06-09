@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, View, ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView, View, ScrollView, StyleSheet, Dimensions, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { showMessage } from "react-native-flash-message";
 
@@ -7,6 +7,7 @@ import { showMessage } from "react-native-flash-message";
 import BackgroundTop from "../../components/BackgroundTop/BackgroundTop";
 import ItemProduct from "../../components/ItemProduct/ItemProduct";
 
+const screenWidth = Math.round(Dimensions.get('window').width);
 const products = [
     {
         'id': 1,
@@ -38,11 +39,17 @@ const products = [
     }
 ];
 
+const scrollX = new Animated.Value(0);
+// const diffClamp = Animated.diffClamp(scrollX, 0, 200);
+const traslateY = scrollX.interpolate({
+    inputRange: [0,250],
+    outputRange:[0, -250]
+});
+
 class CategoryDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            heightBanner: 200,
             background : this.props.route.params.category.image,
             title: this.props.route.params.category.title,
             subtitle: this.props.route.params.category.subtitle,
@@ -51,19 +58,6 @@ class CategoryDetails extends Component {
 
     onPressProduct(product){
         this.props.navigation.navigate('ProductDetails', {product});
-    }
-
-    animation = (event)=> {
-        let value = event.nativeEvent.contentOffset.y;
-        if(value>10){
-            this.setState({
-                heightBanner: 0
-            });
-        }else{
-            this.setState({
-                heightBanner: 200
-            });
-        }
     }
 
     addCart(item){
@@ -94,29 +88,40 @@ class CategoryDetails extends Component {
     render(){
         return (
         <View style={ style.container }>
-            <BackgroundTop
-                title={this.state.title}
-                subtitle={this.state.subtitle}
-                image={this.state.background}
-                height={this.state.heightBanner}
-            />
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                onScrollEndDrag={this.animation}
+                onScroll={(e)=>{
+                    scrollX.setValue(e.nativeEvent.contentOffset.y);
+                }}
             >
-            {
-                products.map(item=>
-                    <ItemProduct
-                        name={item.name}
-                        details={item.details}
-                        price={item.price}
-                        image={item.image}
-                        onPress={() => this.onPressProduct(item)}
-                        onPressAdd={() => this.addCart(item)}
+                <Animated.View
+                    style={{ 
+                        transform:[{
+                            translateY: traslateY
+                        }],
+                        elevation: 4,
+                        zIndex: 100
+                    }}
+                >
+                    <BackgroundTop
+                        title={this.state.title}
+                        subtitle={this.state.subtitle}
+                        image={this.state.background}
                     />
-                )
-            }
-            <View style={{ height:30 }}></View>
+                </Animated.View>
+                {
+                    products.map(item=>
+                        <ItemProduct
+                            name={item.name}
+                            details={item.details}
+                            price={item.price}
+                            image={item.image}
+                            onPress={() => this.onPressProduct(item)}
+                            onPressAdd={() => this.addCart(item)}
+                        />
+                    )
+                }
+                <View style={{ height:30 }}></View>
             </ScrollView>
         </View>
         );
@@ -124,9 +129,11 @@ class CategoryDetails extends Component {
 }
 
 const style = StyleSheet.create({
-    container: { flex: 1,
+    container: {
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: screenWidth,
     },
 });
 

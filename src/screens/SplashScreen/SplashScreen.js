@@ -23,19 +23,21 @@ const style = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: Config.color.backgroundSplash,
     },
     logo: {
         flexDirection: 'column',
-        width: 150,
-        height:150,
+        width: 300,
+        height:300,
         marginBottom: 10
     },
     title: {
         textAlign: 'center',
-        fontSize: 35,
+        fontSize: 30,
         fontWeight: 'bold',
-        marginBottom:10
+        marginBottom:10,
+        color: Config.color.backgroundSplashText
     },
     footer: {
         position: 'absolute',
@@ -45,7 +47,8 @@ const style = StyleSheet.create({
     },
     footerText: {
         textAlign: 'center',
-        fontSize: 15
+        fontSize: 15,
+        color: Config.color.backgroundSplashText
     },
     footerTextAutor: {
         fontWeight: 'bold'

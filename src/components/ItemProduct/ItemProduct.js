@@ -27,14 +27,16 @@ const ItemProduct = (props) => {
                             <Text style={style.ItemListDetailSubtitle} numberOfLines={2}>{props.details}</Text>
                         </View>
                         <View style={style.ItemListActions}>
-                            <View style={style.ItemListActionsPrice}>
-                                <TouchableOpacity
-                                    style={style.btnAdd}
-                                    onPress={props.onPressAdd}
-                                >
-                                    <Text style={style.btnAddText}>Añadir <Icon name="cart-plus" size={18} /></Text>
-                                </TouchableOpacity>
-                            </View>
+                            { props.onPressAdd &&
+                                <View style={style.ItemListActionsPrice}>
+                                    <TouchableOpacity
+                                        style={style.btnAdd}
+                                        onPress={props.onPressAdd}
+                                    >
+                                        <Text style={style.btnAddText}>Añadir <Icon name="cart-plus" size={18} /></Text>
+                                    </TouchableOpacity>
+                                </View>
+                            }
                             <View style={style.ItemListActionsPrice}>
                                 <Text style={style.ItemListActionsPriceText} numberOfLines={1}>{props.price} <Text style={{ fontSize:12 }}>Bs.</Text></Text>
                             </View>
@@ -50,7 +52,8 @@ const style = StyleSheet.create({
     ItemList: {
         flex: 1,
         backgroundColor: 'white',
-        width: screenWidth-10,
+        paddingHorizontal: 5,
+        width: screenWidth,
         marginTop: 5,
         height: 80
     },
