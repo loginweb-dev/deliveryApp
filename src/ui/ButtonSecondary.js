@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Configurations
 import { Config } from '../config/config.js';
@@ -11,7 +12,7 @@ const ButtonSecondary = props => {
         style={style.button}
         disabled={props.disabled ? true : false}
     >
-        <Text style={style.buttonText}>{props.children}</Text>
+        <Text style={style.buttonText}>{props.children} {props.icon && <Icon name={props.icon} size={20} />} </Text>
     </TouchableOpacity>
   );
 }

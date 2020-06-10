@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Text, FlatList, TouchableOpacity, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import SearchBar from 'react-native-dynamic-search-bar';
 

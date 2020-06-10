@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Text, Dimensions } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 
 // UI
@@ -27,7 +27,7 @@ class DeliverySuccess extends Component {
             <View style={ style.container }>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View style={ style.header }>
-                        <Icon name="check-circle" size={80} color={Config.color.primary} />
+                        <Icon name="ios-checkmark-circle-outline" size={100} color={Config.color.primary} />
                         <Text style={{ fontSize: 30 }}>Gracias!</Text>
                         <Text style={{ fontSize: 20 }}>Tu pedido ha sido recibido</Text>
                     </View>
@@ -56,10 +56,10 @@ class DeliverySuccess extends Component {
                         </View>
                     </View>
                     <View style={ style.footer }>
-                        <ButtonPrimary onPress={() => this.props.navigation.navigate('OrderDetails')}>
+                        <ButtonPrimary onPress={() => this.props.navigation.navigate('OrderDetails')} icon='md-list-box'>
                             Ver mi orden
                         </ButtonPrimary>
-                        <ButtonSecondary onPress={() => this.props.navigation.navigate(Config.appName)}>
+                        <ButtonSecondary onPress={() => this.props.navigation.navigate(Config.appName)} icon='md-home'>
                             Volver al inicio
                         </ButtonSecondary>
                     </View>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const BtnCircle = props => {
 
@@ -24,7 +24,7 @@ const BtnCircle = props => {
             style={ style.container }
             onPress={props.onPress}
         >
-            <Icon name={props.icon} color={props.color ? props.color : 'white'} size={20} />
+            <Icon name={props.icon} color={props.color ? props.color : 'white'} size={25} />
         </TouchableOpacity>
     );
 }

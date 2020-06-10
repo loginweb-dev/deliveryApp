@@ -2,10 +2,17 @@ import React, { Component } from 'react';
 import { SafeAreaView, View, ScrollView, StyleSheet, Dimensions, Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { showMessage } from "react-native-flash-message";
+import SearchBar from 'react-native-dynamic-search-bar';
 
 // Components
 import BackgroundTop from "../../components/BackgroundTop/BackgroundTop";
 import ItemProduct from "../../components/ItemProduct/ItemProduct";
+
+// UI
+import Separator from '../../ui/Separator';
+
+// Configurations
+import { Config } from '../../config/config';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const products = [
@@ -107,8 +114,22 @@ class CategoryDetails extends Component {
                         title={this.state.title}
                         subtitle={this.state.subtitle}
                         image={this.state.background}
+                        maskDark
                     />
                 </Animated.View>
+                <View style={{ marginBottom: 10 }}>
+                    <SearchBar
+                        placeholder="Ingresa tu busqueda"
+                        onChangeText={text => {
+                            console.log(text)
+                        }}
+                        onPressCancel={() => {
+                            console.log('clear')
+                        }}
+                        onPress={() => alert("onPress")}
+                        iconColor={Config.color.primary}
+                    />
+                </View>
                 {
                     products.map(item=>
                         <ItemProduct
@@ -121,7 +142,7 @@ class CategoryDetails extends Component {
                         />
                     )
                 }
-                <View style={{ height:30 }}></View>
+                <Separator height={30} />
             </ScrollView>
         </View>
         );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { showMessage } from "react-native-flash-message";
 import { connect } from 'react-redux';
 
@@ -94,7 +94,7 @@ class Cart extends Component {
                                     <TouchableOpacity
                                         onPress={() => this.deleteItem(item.index)}
                                     >
-                                        <Icon name="trash" size={30} color={Config.color.primary} />
+                                        <Icon name="md-trash" size={30} color={Config.color.primary} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -123,6 +123,7 @@ class Cart extends Component {
                         <ButtonSecondary
                             onPress={()=>this.onPressAccept()}
                             disabled={this.state.cart.length == 0 ? true : false}
+                            icon='ios-checkmark-circle-outline'
                         >
                             Realizar pedido
                         </ButtonSecondary>

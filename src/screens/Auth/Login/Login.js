@@ -17,7 +17,7 @@ import firebase from 'react-native-firebase';
 import { LoginManager, AccessToken } from "react-native-fbsdk";
 import CountryPicker from 'react-native-country-picker-modal';
 import { showMessage } from "react-native-flash-message";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Components
 import ButtonPrimary from "../../../ui/ButtonPrimary";
@@ -119,8 +119,8 @@ export default class Login extends Component {
                             />
                         </View>
                         <View style={{ width: '15%', marginVertical: 10 }}>
-                            <TouchableOpacity style={{ backgroundColor: Config.color.primary, padding:10 }} onPress={this.signIn}>
-                                <Icon name='send' color='#fff' size={29} />
+                            <TouchableOpacity style={{ backgroundColor: Config.color.primary, padding:10, paddingHorizontal: 15 }} onPress={this.signIn}>
+                                <Icon name='md-send' color='#fff' size={29} />
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -136,7 +136,7 @@ export default class Login extends Component {
                 </View>
                 {/* ======== */}
                 <View style={{ height: 80 }}>
-                    <Icon.Button name="facebook" backgroundColor="#3b5998" onPress={this.login_facebook} >
+                    <Icon.Button name="logo-facebook" backgroundColor="#3b5998" onPress={this.login_facebook} >
                         <Text style={{ fontFamily: 'Arial', fontSize: 18, color: 'white' }}>
                             Inicia con Facebook
                         </Text>

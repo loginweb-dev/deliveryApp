@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Text, Dimensions, TextInput } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 // Change Input Image
 import ImagePicker from 'react-native-image-picker';
@@ -130,7 +129,7 @@ class Profile extends Component {
                         <Text style={ [MainStyle.textMuted, MainStyle.p] }>No compartimos tu información personal con nadie.</Text>
                     </View>
                     <View style={ style.footer }>
-                        <ButtonPrimary>
+                        <ButtonPrimary icon='ios-checkmark-circle-outline'>
                             Actualizar información
                         </ButtonPrimary>
                     </View>

@@ -6,7 +6,7 @@ const screenWidth = Math.round(Dimensions.get('window').width);
 const BackgroundTop = (props) => {
     return(
         <ImageBackground source={{ uri: props.image }} style={style.cardImage}>
-            <View style={style.maskDark} />
+            {props.maskDark && <View style={style.maskDark} />}
             <Text style={ style.cardTitle } numberOfLines={1}>{props.title}</Text>
             <Text style={ style.cardSubtitle } numberOfLines={2}>{props.subtitle}</Text>
         </ImageBackground>

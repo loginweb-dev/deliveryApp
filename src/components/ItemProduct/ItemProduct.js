@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
 
 // Configurations
 import { Config } from '../../config/config.js';
@@ -33,7 +33,7 @@ const ItemProduct = (props) => {
                                         style={style.btnAdd}
                                         onPress={props.onPressAdd}
                                     >
-                                        <Text style={style.btnAddText}>Añadir <Icon name="cart-plus" size={18} /></Text>
+                                        <Text style={style.btnAddText}>Añadir <Icon name="shopping-cart" size={18} /></Text>
                                     </TouchableOpacity>
                                 </View>
                             }
@@ -94,13 +94,13 @@ const style = StyleSheet.create({
     btnAdd: {
         borderColor: Config.color.primary,
         borderStyle: 'solid',
-        borderWidth: 3,
+        borderWidth: 2,
         borderRadius: 5,
         padding: 2
     },
     btnAddText: {
         color: Config.color.primary,
-        fontSize: 13
+        // fontSize: 13
     },
     ItemListActionsPriceText: {
         fontSize: 18,

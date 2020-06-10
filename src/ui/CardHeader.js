@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
 
 // Configurations
@@ -9,7 +9,7 @@ import { Config } from '../config/config.js';
 const CardHeader = (props) => {
   return (
     <View style={{ flex: 1, flexDirection: 'row', marginTop:10, marginRight:10 }}>
-        <Icon name="shopping-cart" size={30} color={Config.color.menuText} />
+        <Icon name="shopping-cart" size={35} color={Config.color.menuText} />
         <Text style={style.badge}>
             { props.cartItems }
         </Text>

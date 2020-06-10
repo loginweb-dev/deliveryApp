@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, Share } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import { showMessage } from "react-native-flash-message";
+import RadioForm from 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 
 // Components
 import BackgroundTop from "../../components/BackgroundTop/BackgroundTop";
-import ItemExtra from "../../components/ItemExtra/ItemExtra";
 
 // UI
 import Divider from "../../ui/Divider";
@@ -16,33 +16,11 @@ import BtnCircle from '../../ui/BtnCircle';
 // Configurations
 import { Config } from '../../config/config.js';
 
-const Extras = [
-    {
-        'id': 1,
-        'name': 'Papas',
-        'price': '5.00',
-        'ckecked': false
-    },
-    {
-        'id': 2,
-        'name': 'Tocino',
-        'price': '5.00',
-        'ckecked': false
-    },
-    {
-        'id': 3,
-        'name': 'Salsa',
-        'price': '3.00',
-        'ckecked': false
-    },
-    {
-        'id': 4,
-        'name': 'Huevo',
-        'price': '2.00',
-        'ckecked': false
-    },
+var Sizes = [
+    { label: 'Pequeña', value: 0 },
+    { label: 'Mediana', value: 1 },
+    { label: 'Familiar', value: 2 }
 ];
-
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -54,39 +32,18 @@ class ProductDetails extends Component {
             name: this.props.route.params.product.name,
             details: this.props.route.params.product.details,
             price: this.props.route.params.product.price,
-            priceExtras: 0,
             counProduct: 1,
             totalPrice : this.props.route.params.product.price,
-            extras: Extras,
             background : this.props.route.params.product.image,
         }
-    }
-
-    handleCheckbox(id){
-        // Actualizar valor de chechbox
-        let extras = this.state.extras;
-        extras.forEach(function(part, index) {
-            if(this[index].id == id){
-                this[index].ckecked = !this[index].ckecked;
-            }
-        }, extras);
-        this.setState({ extras: extras });
-        this.calculateTotal();
     }
 
     calculateTotal(){
         // Obtener costo total de extras
         let price = this.state.price;
-        let extras = this.state.extras;
         let counProduct = this.state.counProduct;
-        var totalExtras = 0;
-        extras.map( item => {
-            if(item.ckecked){
-                totalExtras += parseFloat(item.price);
-            }
-        });
 
-        this.setState({totalPrice: (parseFloat(price)+parseFloat(totalExtras))*counProduct});
+        this.setState({totalPrice: parseFloat(price)*counProduct});
     }
 
     handleCart(){
@@ -139,6 +96,7 @@ class ProductDetails extends Component {
           alert(error.message);
         }
     };
+     
 
     render(){
         return (
@@ -170,25 +128,17 @@ class ProductDetails extends Component {
                     <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
                 </View>
                 <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
-                <View style={style.section}>
-                    <View style={style.header}>
-                        <Text style={style.headerItem}>Extras</Text>
-                    </View>
-                    <View style={{ margin: 10, width: screenWidth-20, }}>
-                        {
-                            this.state.extras.map(item => 
-                                <ItemExtra
-                                    ckecked={item.ckecked}
-                                    onChange={() => this.handleCheckbox(item.id)}
-                                    name={item.name}
-                                    price={item.price}
-                                />
-                            )
-                        }
-                    </View>
+                <View style={{ margin: 20, alignItems: 'center' }}>
+                    <RadioForm
+                        radio_props={Sizes}
+                        initial={0}
+                        onPress={ value => console.log(value) }
+                        formHorizontal={true}
+                        labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
+                        buttonColor={ Config.color.primary }
+                        selectedButtonColor={ Config.color.primary }
+                    />
                 </View>
-                <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
-                <View style={{ height:80 }}></View>
             </ScrollView>
             <View style={style.footer}>
                 <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}>
@@ -204,7 +154,7 @@ class ProductDetails extends Component {
                     />
                 </View>
                 <View style={{ width: '60%', alignItems: 'center', justifyContent: 'center' }}>
-                    <ButtonSecondary onPress={()=>this.handleCart()}>
+                    <ButtonSecondary onPress={()=>this.handleCart()} icon='ios-cart' >
                         Añadir al carro
                     </ButtonSecondary>
                 </View>
@@ -230,15 +180,17 @@ const style = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         width: screenWidth-20,
+        marginVertical: 10
     },
     headerItem: {
         width: '50%',
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold'
     },
     detailsText: {
         textAlign: 'justify',
-        margin: 10,
+        margin: 15,
+        fontSize: 15,
         color: '#8C8C8C'
     },
     footer: {

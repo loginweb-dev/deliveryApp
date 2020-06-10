@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { TouchableOpacity, AsyncStorage, Text, View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Configurations
 import { Config } from '../../../config/config.js';
@@ -14,7 +14,7 @@ import SplashScreen from '../../SplashScreen/SplashScreen';
 import Login from '../../Auth/Login/Login';
 import Index from '../../Index/Index';
 import CategoryDetails from '../../CategoryDetails/CategoryDetails';
-import ProductDetails from '../../ProductDetails/ProductDetails';
+import ProductDetails from '../../ProductDetails/ProductDetailsAlt';
 import Cart from '../../Cart/Cart';
 import LocationsList from '../../LocationsList/LocationsList';
 import DeliverySuccess from '../../DeliverySuccess/DeliverySuccess';
@@ -80,7 +80,7 @@ class Main extends Component {
                         title: <Text style={ MainStyle.h3 }>{Config.appName}</Text>,
                         headerLeft: () => (
                             <TouchableOpacity onPress={() => this.props.navigation.openDrawer()} style={{ marginLeft:10 }}>
-                                <Icon name="bars" size={30} color={Config.color.menuText} />
+                                <Icon name="ios-menu" size={40} color={Config.color.menuText} />
                             </TouchableOpacity>
                         ),
                         headerRight: () => (

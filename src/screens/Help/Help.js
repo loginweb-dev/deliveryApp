@@ -19,6 +19,7 @@ import { Config } from '../../config/config';
 
 // UI
 import Badge from "../../ui/Badge";
+import Separator from '../../ui/Separator';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -73,9 +74,9 @@ export default class Help extends Component {
                             <View style={{ alignItems: 'center', marginTop: 20 }}>
                                 <Text style={style.details}>Santísima Trinidad - Beni – Bolivia.</Text>
                             </View>
+                            <Separator height={30} />
                         </View>
                     </View>
-                    <View style={{ height: 50 }}></View>
                 </ScrollView>
             </View>
         );

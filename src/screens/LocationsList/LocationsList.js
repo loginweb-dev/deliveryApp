@@ -255,7 +255,7 @@ class LocationsList extends Component {
                {
                    this.state.buttonEditVisible &&
                    <View style={style.footer}>
-                        <ButtonPrimary onPress={() => this.setState({modalVisible:!this.state.modalVisible})}>
+                        <ButtonPrimary onPress={() => this.setState({modalVisible:!this.state.modalVisible})} icon='ios-pin'>
                             Actualizar
                         </ButtonPrimary>
                     </View>
@@ -264,7 +264,7 @@ class LocationsList extends Component {
                {
                    !this.state.buttonEditVisible && this.state.cartSuccess && this.state.locationSelecte &&
                    <View style={style.footer}>
-                        <ButtonPrimary onPress={() => this.AcceptDelivery()}>
+                        <ButtonPrimary onPress={() => this.AcceptDelivery()} icon='ios-checkmark-circle-outline' >
                             Continuar
                         </ButtonPrimary>
                     </View>
@@ -292,12 +292,12 @@ class LocationsList extends Component {
                     </View>
                     <View style={{ alignItems: 'center', flexDirection: 'row', width: screenWidth }}>
                         <View style={{ width: '50%' }}> 
-                            <ButtonSecondary onPress={() => this.setState({modalVisible: false, messageErrorVisible: false})}>
+                            <ButtonSecondary onPress={() => this.setState({modalVisible: false, messageErrorVisible: false})} icon='ios-close-circle-outline' >
                                 Descartar
                             </ButtonSecondary>
                         </View>
                         <View style={{ width: '50%' }}>
-                            <ButtonPrimary onPress={() => this.handleUpdateLocation()}>
+                            <ButtonPrimary onPress={() => this.handleUpdateLocation()} icon='ios-checkmark-circle-outline'>
                                 Guardar
                             </ButtonPrimary>
                         </View>

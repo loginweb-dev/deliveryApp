@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { View, TouchableOpacity, ImageBackground, Image, Alert, AsyncStorage } from 'react-native';
 import firebase from 'react-native-firebase';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 // UI
 import Badge from "../../../ui/Badge";
@@ -20,7 +19,7 @@ function DrawerMenu({navigation}) {
                     backgroundColor={ Config.draweMenu.backgroundSecondary }
                     color={ Config.draweMenu.colorText }
                     onPress={() => navigation.closeDrawer()}
-                    icon='arrow-left'
+                    icon='md-arrow-back'
                     size={1}
                 />
             </View>
@@ -42,22 +41,22 @@ function DrawerMenu({navigation}) {
             <TouchableOpacity
                 onPress={()=> navigation.navigate('OrderList')}
             >
-                <MenuDrawerOption icon="list" text="Mis pedidos" />
+                <MenuDrawerOption icon="ios-list" text="Mis pedidos" />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={()=> navigation.navigate('LocationsList')}
             >
-                <MenuDrawerOption icon="map-pin" text="Ubicaciones" />
+                <MenuDrawerOption icon="ios-pin" text="Ubicaciones" />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={()=> navigation.navigate('Profile')}
             >
-                <MenuDrawerOption icon="user" text="Perfil" />
+                <MenuDrawerOption icon="md-contact" text="Perfil" />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={()=> navigation.navigate('Help')}
             >
-                <MenuDrawerOption icon="info-circle" text="Acerca de" />
+                <MenuDrawerOption icon="ios-information-circle" text="Acerca de" />
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={()=>{
@@ -83,7 +82,7 @@ function DrawerMenu({navigation}) {
                     )
                 }}
             >
-                <MenuDrawerOption icon="power-off" text="Salir" />
+                <MenuDrawerOption icon="ios-power" text="Salir" />
             </TouchableOpacity>
         </View>
     </View>

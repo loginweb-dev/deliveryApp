@@ -4,6 +4,9 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 // Components
 import ImageCard from "../../components/ImageCard/ImageCardAlt";
 
+// UI
+import Separator from '../../ui/Separator';
+
 const categories = [
   {
     id: 1,
@@ -45,7 +48,7 @@ class Index extends Component {
               />
             )
           }
-          <View style={{ height:30 }}></View>
+          <Separator height={30} />
         </ScrollView>
       </View>
     );

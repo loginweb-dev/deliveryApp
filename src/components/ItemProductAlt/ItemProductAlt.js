@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, ImageBackground } from "react-native";
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Configurations
 import { Config } from '../../config/config.js';

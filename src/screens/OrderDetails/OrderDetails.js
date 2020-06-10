@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import Timeline from 'react-native-timeline-flatlist';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Components
 
@@ -23,7 +23,7 @@ class OrderDetails extends Component {
         return (
             <View style={style.container}>
                 <View style={ style.header }>
-                    <Icon name="dropbox" size={80} color={Config.color.primary} />
+                    <Icon name="md-list-box" size={80} color={Config.color.primary} />
                     <Text style={{ fontSize: 25 }}>COD: 00001</Text>
                     <Text>Product 1, Product 2, Product 3</Text>
                 </View>
