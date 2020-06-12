@@ -77,7 +77,7 @@ const style = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
-        padding: 50
+        padding: 30
     },
     item: {
         flex: 1,

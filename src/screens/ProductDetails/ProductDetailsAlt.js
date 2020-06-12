@@ -50,14 +50,6 @@ class ProductDetails extends Component {
         // Generar index aleatorio
         let index = this.state.id+'_'+Math.floor(Math.random() * 1001);
 
-        let extras = this.state.extras;
-        let extrasSelect = [];
-        extras.map( item => {
-            if(item.ckecked){
-                extrasSelect.push({id: item.id, name: item.name, price: item.price, count: 1, total: item.price,});
-            }
-        });
-
         this.props.addItemToCart({
             index,
             id: this.state.id,
@@ -66,7 +58,7 @@ class ProductDetails extends Component {
             image: this.state.background,
             count: this.state.counProduct,
             subtotal: this.state.totalPrice,
-            extras: extrasSelect
+            extras: []
         });
 
         showMessage({
@@ -155,7 +147,7 @@ class ProductDetails extends Component {
                 </View>
                 <View style={{ width: '60%', alignItems: 'center', justifyContent: 'center' }}>
                     <ButtonSecondary onPress={()=>this.handleCart()} icon='ios-cart' >
-                        Añadir al carro
+                        Añadir
                     </ButtonSecondary>
                 </View>
             </View>

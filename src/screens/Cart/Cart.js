@@ -113,13 +113,13 @@ class Cart extends Component {
                     }
                 </ScrollView>
                 <View style={style.footer}>
-                    <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 25 }}>Bs. { this.state.cart.reduce((amount, item)=> {
+                    <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 22 }}>Bs. { this.state.cart.reduce((amount, item)=> {
                             return parseFloat(amount) + parseFloat(item.subtotal);
                         }, 0).toFixed(2) }
                         </Text>
                     </View>
-                    <View style={{ width: '60%', alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ width: '65%', alignItems: 'center', justifyContent: 'center' }}>
                         <ButtonSecondary
                             onPress={()=>this.onPressAccept()}
                             disabled={this.state.cart.length == 0 ? true : false}
@@ -147,8 +147,6 @@ const style = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        // margin: 5,
-        padding: 10,
         backgroundColor: 'white'
     },
 });

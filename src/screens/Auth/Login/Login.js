@@ -119,8 +119,8 @@ export default class Login extends Component {
                             />
                         </View>
                         <View style={{ width: '15%', marginVertical: 10 }}>
-                            <TouchableOpacity style={{ backgroundColor: Config.color.primary, padding:10, paddingHorizontal: 15 }} onPress={this.signIn}>
-                                <Icon name='md-send' color='#fff' size={29} />
+                            <TouchableOpacity style={{ backgroundColor: Config.color.primary, padding: 12, paddingHorizontal: 15 }} onPress={this.signIn}>
+                                <Icon name='md-send' color='#fff' size={25} />
                             </TouchableOpacity>
                         </View>
                     </View>

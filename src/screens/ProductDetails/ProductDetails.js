@@ -205,7 +205,7 @@ class ProductDetails extends Component {
                 </View>
                 <View style={{ width: '60%', alignItems: 'center', justifyContent: 'center' }}>
                     <ButtonSecondary onPress={()=>this.handleCart()}>
-                        Añadir al carro
+                        Añadir
                     </ButtonSecondary>
                 </View>
             </View>
