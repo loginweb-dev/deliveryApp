@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
 import {
     View,
-    Button,
     Text,
     TextInput,
-    Image,
     AsyncStorage,
     ImageBackground,
     SafeAreaView,
-    ScrollView,
     Dimensions,
     TouchableOpacity,
     StyleSheet
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import { LoginManager, AccessToken } from "react-native-fbsdk";
+import { connect } from 'react-redux';
 import CountryPicker from 'react-native-country-picker-modal';
 import { showMessage } from "react-native-flash-message";
 import Icon from 'react-native-vector-icons/Ionicons';
 
 // Components
 import ButtonPrimary from "../../../ui/ButtonPrimary";
-import Divider from "../../../ui/Divider";
 import Avatar from "../../../ui/Avatar";
 
 // Configurations
@@ -32,12 +29,13 @@ const screenHeihgt = Math.round(Dimensions.get('window').height);
 
 const URL_BASE = Config.API;
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.unsubscribe = null;
         this.state = {
             user: null,
+            userInfo: null,
             message: '',
             codeInput: '',
             phoneCode: 'BO',
@@ -130,7 +128,7 @@ export default class Login extends Component {
                 </View>
                 {/* Invitado */}
                 <View style={{ margin: 10 }}>
-                    <TouchableOpacity onPress={this.successLogin}>
+                    <TouchableOpacity onPress={this.guestLogin}>
                         <Text style={{ fontSize: 18, color: '#3b5998' }}>Invitado</Text>
                     </TouchableOpacity>
                 </View>
@@ -169,7 +167,7 @@ export default class Login extends Component {
                 value={codeInput}
                 keyboardType='phone-pad'
             />
-            <ButtonPrimary onPress={this.confirmCode}>
+            <ButtonPrimary onPress={this.confirmCode} icon='ios-checkmark-circle-outline'>
                 Confirmar
             </ButtonPrimary>
         </View>
@@ -195,19 +193,38 @@ export default class Login extends Component {
                     keyboardType='numeric'
                 />
                 <Text style={{ color: Config.color.textMuted, marginBottom: 10 }}>El NIT es opcional</Text>
-                <ButtonPrimary onPress={this.successLogin}>
+                <ButtonPrimary onPress={this.successLogin} icon='ios-checkmark-circle-outline'>
                     Guardar información
                 </ButtonPrimary>
             </View>
         )
     }
 
+    guestLogin = () => {
+        let guetsUser = {
+            id: 1,
+            name: 'John Doe',
+            phone: '+59175199157',
+            avatar: '',
+            nit: '121212121212'
+        }
+        this.setInfoUser(guetsUser);
+    }
+
+    async setInfoUser(userInfo){
+        AsyncStorage.setItem('UserSession', JSON.stringify(userInfo), () => {
+            this.props.setUser(userInfo)
+            this.successLogin();
+        });
+    }
+
     successLogin = () =>{
-        AsyncStorage.setItem('isLoggedIn', '1');
-        this.props.navigation.reset({
-            index: 0,
-            routes: [{ name: Config.appName }],
-            key: null,
+        AsyncStorage.setItem('isLoggedIn', '1', () => {
+            this.props.navigation.reset({
+                index: 0,
+                routes: [{ name: Config.appName }],
+                key: null,
+            });
         });
     }
 
@@ -264,3 +281,21 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
 });
+
+// export default Main;
+const mapStateToProps = (state) => {
+    return {
+        user : state.user,
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setUser : (user) => dispatch({
+            type: 'SET_USER',
+            payload: user
+        }),
+    }
+}
+  
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

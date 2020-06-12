@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Text, FlatList, TouchableOpacity, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
 
 import SearchBar from 'react-native-dynamic-search-bar';
 
@@ -74,6 +75,7 @@ class Index extends Component {
     this.state = {
       searchVisible: false
     }
+    console.log(this.props.user)
   }
 
   onPressCategory(category){
@@ -161,4 +163,11 @@ const style = StyleSheet.create({
   },
 });
 
-export default Index;
+
+const mapStateToProps = (state) => {
+  return {
+    user : state.user,
+  }
+}
+
+export default connect(mapStateToProps, null)(Index);

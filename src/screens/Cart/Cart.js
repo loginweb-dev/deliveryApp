@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
+import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { showMessage } from "react-native-flash-message";
@@ -7,7 +7,6 @@ import { connect } from 'react-redux';
 
 
 // UI
-import Divider from "../../ui/Divider";
 import ButtonSecondary from "../../ui/ButtonSecondary";
 
 // Configurations
@@ -38,14 +37,26 @@ class Cart extends Component {
     }
 
     deleteItem(index){
-        this.props.removeItemToCart(index);
-        showMessage({
-            message: 'Producto eliminado',
-            description: 'Se eliminó el producto del carrito',
-            type: 'info',
-            icon: 'info',
-        });
-        setTimeout(()=>this.setState({cart: this.props.cart}), 0);
+        Alert.alert(
+            'Quitar producto?',
+            `Eliminar el producto de tu carrito de compra`,
+            [
+                {text: 'Cancelar', style: 'cancel'},
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        this.props.removeItemToCart(index);
+                        showMessage({
+                            message: 'Producto eliminado',
+                            description: 'Se eliminó el producto del carrito',
+                            type: 'info', icon: 'info',
+                        });
+                        setTimeout(()=>this.setState({cart: this.props.cart}), 0);
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
     }
 
     onPressAccept(){

@@ -38,6 +38,7 @@ class Main extends Component {
             loading: false
         });
     }, 0);
+    console.log(this.props.user)
 };
 
   // Render any loading content that you like here
