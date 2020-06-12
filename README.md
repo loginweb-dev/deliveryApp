@@ -16,7 +16,7 @@ Para publicar tu App en la Playstore debes seguir los siguientes pasos en la doc
 ```bash
 react-native-rename "New Name" -b com.company.newname
 ```
-Importante: Una vez cambiaste el nombre del paquete de la App debes registrar tu App en [Firebase](https://console.firebase.google.com/u/0/) para poder usar la autenticación mediante SMS, de lo contrario no funcionará debido a que el nuevo nombre del paquete de tu App no coincidirá con el nombre registrado en el archovo ./android/app/google-services.json (com.loginweb.deliveryapp), y eso te generará un error al volver a siscronizar tu app.
+Importante: Una vez cambiaste el nombre del paquete de la App debes registrar tu App en [Firebase](https://console.firebase.google.com/u/0/) para poder usar la autenticación mediante SMS, de lo contrario no funcionará debido a que el nuevo nombre del paquete de tu App no coincidirá con el nombre registrado en el archivo ./android/app/google-services.json (com.loginweb.deliveryapp), y eso te generará un error al volver a siscronizar tu app.
 En dicha documentación te muestran cómo vincular tu App a firebase y generar el nuevo archivo google-services.json con los nuevos datos de tu App que reemplazaras por el archivo que viene por defecto.
 
 <!-- ## Contributing
