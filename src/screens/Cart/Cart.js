@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import {
+    SafeAreaView,
+    Dimensions,
+    View,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    Image,
+    Alert,
+    AsyncStorage
+} from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { showMessage } from "react-native-flash-message";
@@ -33,7 +44,10 @@ class Cart extends Component {
             }
         }, cart);
         this.setState({cart});
-        this.props.updateCart(cart);
+        AsyncStorage.setItem('UserShoppingcart', JSON.stringify(cart), () => {
+            this.props.updateCart(cart);
+            console.log(cart)
+        });
     }
 
     deleteItem(index){
@@ -51,7 +65,12 @@ class Cart extends Component {
                             description: 'Se eliminó el producto del carrito',
                             type: 'info', icon: 'info',
                         });
-                        setTimeout(()=>this.setState({cart: this.props.cart}), 0);
+                        setTimeout(() => {
+                            this.setState({cart: this.props.cart});
+                            AsyncStorage.setItem('UserShoppingcart', JSON.stringify(this.props.cart), () => {
+                                this.props.updateCart(this.props.cart);
+                            });
+                        }, 0);
                     }
                 },
             ],
@@ -60,7 +79,25 @@ class Cart extends Component {
     }
 
     onPressAccept(){
-        this.props.navigation.navigate('LocationsList', { cartSuccess: true });
+        if(this.props.user.NumberPhone){
+            this.props.navigation.navigate('LocationsList', { cartSuccess: true });
+        }else{
+            Alert.alert(
+                'Completa tu información',
+                `Debes proporcionar un número de contacto para nuestro repartidor.`,
+                [
+                    {text: 'Cancelar', style: 'cancel'},
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            this.props.navigation.navigate('Profile', { kickUpdate: true });
+                        }
+                    },
+                ],
+                { cancelable: false }
+            )
+        }
+        
     }
 
     render(){
@@ -167,6 +204,7 @@ const style = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         cart: state.cart,
+        user: state.user,
     }
 }
 

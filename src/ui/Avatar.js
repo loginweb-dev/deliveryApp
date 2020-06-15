@@ -22,6 +22,7 @@ const Avatar = props => {
         style={{
             width: props.width,
             height: props.width,
+            borderRadius: props.width/2,
         }}
         source={props.image}
       />

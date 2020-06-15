@@ -6,6 +6,7 @@ Plantilla para delivery realizada en React Native.
 
 Para instalar la plantilla se deben ejecutar los siguientes comandos:
 ```bash
+npm i
 npx jetify
 react-native run-android
 or

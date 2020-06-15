@@ -8,7 +8,8 @@ import {
     SafeAreaView,
     Dimensions,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Keyboard
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import { LoginManager, AccessToken } from "react-native-fbsdk";
@@ -28,6 +29,7 @@ const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeihgt = Math.round(Dimensions.get('window').height);
 
 const URL_BASE = Config.API;
+const WIDTHAVATAR = 230;
 
 class Login extends Component {
     constructor(props) {
@@ -44,26 +46,31 @@ class Login extends Component {
             inputNit: '',
             phoneNumber: '',
             confirmResult: null,
+            widthAvatar: WIDTHAVATAR
         };
     }
 
     componentDidMount() {
         this.unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            this.setState({ user: user.toJSON() });
-        } else {
-            // User has been signed out, reset the state
-            this.setState({
-                user: null,
-                message: '',
-                codeInput: '',
-                phoneCode: 'BO',
-                phoneNumberCode: '591',
-                phoneNumber: '',
-                confirmResult: null,
-            });
-        }
+            if (user) {
+                this.setState({ user: user.toJSON() });
+            } else {
+                // User has been signed out, reset the state
+                this.setState({
+                    user: null,
+                    message: '',
+                    codeInput: '',
+                    phoneCode: 'BO',
+                    phoneNumberCode: '591',
+                    phoneNumber: '',
+                    confirmResult: null,
+                });
+            }
         });
+
+        // Detectar keyboard
+        Keyboard.addListener('keyboardDidShow', () => { this.setState({ widthAvatar: 120 }) });
+        Keyboard.addListener('keyboardDidHide', () => { this.setState({ widthAvatar: WIDTHAVATAR }) });
     }
 
     componentWillUnmount() {
@@ -204,7 +211,9 @@ class Login extends Component {
         let guetsUser = {
             id: 1,
             name: 'John Doe',
-            phone: '+59175199157',
+            email: '',
+            codePhone: '+591',
+            NumberPhone: '75199157',
             avatar: '',
             nit: '121212121212'
         }
@@ -237,9 +246,18 @@ class Login extends Component {
                     AccessToken.getCurrentAccessToken()
                     .then((data) => {
                         fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`)
-                        .then(response => response.json())
-                        .then(response => {
-                            this.successLogin();
+                        .then(res => res.json())
+                        .then(res => {
+                            let user = {
+                                id: 1,
+                                name: res.name,
+                                email: res.email ? res.email : null,
+                                codePhone: '',
+                                NumberPhone: '',
+                                avatar: `http://graph.facebook.com/${res.id}/picture?type=large`,
+                                nit: ''
+                            }
+                            this.setInfoUser(user);
                             // console.log(response);
                         })
                         .catch(error => {
@@ -259,7 +277,7 @@ class Login extends Component {
                 {/* <ImageBackground source={ Config.images.background } style={{width: '100%', height: 250}} /> */}
                 <View style={ style.containerLogo }>
                     <Avatar
-                        width={250}
+                        width={this.state.widthAvatar}
                         borderColor='#F2F2F2'
                         image={ Config.images.iconAlt }
                     />
@@ -276,6 +294,7 @@ const style = StyleSheet.create({
     containerLogo: {
         // height: 200,
         // flex: 1,
+        marginTop: 30,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',

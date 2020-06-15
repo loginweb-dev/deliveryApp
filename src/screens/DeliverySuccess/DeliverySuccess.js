@@ -19,7 +19,9 @@ class DeliverySuccess extends Component {
     }
 
     componentDidMount(){
-        this.props.updateCart([]);
+        setTimeout(() => {
+            this.props.updateCart([]);
+        }, 500);
     }
 
     render(){

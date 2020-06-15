@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, Share } from 'react-native';
+import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, Share, AsyncStorage } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import { showMessage } from "react-native-flash-message";
 import RadioForm from 'react-native-simple-radio-button';
@@ -60,6 +60,11 @@ class ProductDetails extends Component {
             subtotal: this.state.totalPrice,
             extras: []
         });
+
+        // Actualizar datos del carro de compra
+        setTimeout(() => {
+            AsyncStorage.setItem('UserShoppingcart', JSON.stringify(this.props.cart));
+        }, 0);
 
         showMessage({
             message: 'Producto agregado',

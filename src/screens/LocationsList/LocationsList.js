@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Dimensions, View, StyleSheet, Text, Image, TextInput, Alert } from 'react-native';
+import { SafeAreaView, Dimensions, View, StyleSheet, Text, Image, TextInput, Alert, AsyncStorage } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 import { connect } from 'react-redux';
 import SegmentedControlTab from 'react-native-segmented-control-tab';
@@ -180,18 +180,20 @@ class LocationsList extends Component {
             locationState[index].coor.lon = currentLocation.longitude;
             locationState[index].description = description;
             this.props.updateLocation(locationState);
-            this.setState({messageErrorVisible: false, modalVisible: false, buttonEditVisible: false});
+            AsyncStorage.setItem('UserLocations', JSON.stringify(locationState), () => {
+                this.setState({messageErrorVisible: false, modalVisible: false, buttonEditVisible: false});
 
-            // Actualizar los datos en la base de datos
-            // ******************************+
-            
-            showMessage({
-                message: 'Ubicación editada',
-                description: `Se actualizaron los datos de la ubicación: ${locationState[index].name}`,
-                type: 'info',
-                icon: 'info',
+                // Actualizar los datos en la base de datos
+                // ******************************+
+                
+                showMessage({
+                    message: 'Ubicación editada',
+                    description: `Se actualizaron los datos de la ubicación: ${locationState[index].name}`,
+                    type: 'info',
+                    icon: 'info',
+                });
+                this.setState({locationSelecte: true});
             });
-            this.setState({locationSelecte: true});
         }else{
             this.setState({messageErrorVisible: true});
         }

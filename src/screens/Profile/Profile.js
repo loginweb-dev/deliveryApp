@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Text, Dimensions, TextInput } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Dimensions, TextInput, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
+import { showMessage } from "react-native-flash-message";
 // Change Input Image
 import ImagePicker from 'react-native-image-picker';
 import RNFetchBlob from 'rn-fetch-blob'
@@ -35,15 +36,11 @@ class Profile extends Component {
     constructor(props){
         super(props);
         this.state = {
-            user: null,
-            message: '',
-            codeInput: '',
-            phoneCode: 'BO',
-            phoneNumberCode: '591',
-            inputName: 'John Doe',
-            inputNit: '123456',
-            phoneNumber: '85199197',
-            confirmResult: null,
+            inputName: this.props.user.name,
+            inputPhoneNumber: this.props.user.NumberPhone,
+            inputNit: this.props.user.nit,
+            // Parametro para redirección en caso de edición rápida
+            kickUpdate: this.props.route.params ? this.props.route.params.kickUpdate : false
         };
     }
 
@@ -89,6 +86,40 @@ class Profile extends Component {
           });
     }
 
+    handleSubmit = () => {
+        if(this.state.inputName && this.state.inputPhoneNumber){
+            let user = this.props.user;
+            let newUser = {
+                ...user,
+                name: this.state.inputName,
+                NumberPhone: this.state.inputPhoneNumber,
+                nit: this.state.inputNit
+            }
+            AsyncStorage.setItem('UserSession', JSON.stringify(newUser), () => {
+                this.props.updateUser(newUser);
+                showMessage({
+                    message: 'Datos actualizados',
+                    description: `Tu información de perfil fue actualizada`,
+                    type: 'info',
+                    icon: 'info',
+                });
+
+                if(this.state.kickUpdate){
+                    setTimeout(() => {
+                        this.props.navigation.goBack();
+                    }, 1500);
+                }
+            });
+        }else{
+            showMessage({
+                message: 'Advertencia',
+                description: `Debes ingresar al menos tu nombre y número de celular`,
+                type: 'warning',
+                icon: 'warning',
+            });
+        }
+    }
+
     render(){
         return (
             <View style={ style.container }>
@@ -97,7 +128,7 @@ class Profile extends Component {
                         <Avatar
                             width={120}
                             borderColor='white'
-                            image={require('../../assets/images/user.png')}
+                            image={this.props.user.avatar ? {uri: this.props.user.avatar} : require('../../assets/images/user.png')}
                             onPress={this.handleChangeAvatar}
                         />
                     </View>
@@ -112,24 +143,24 @@ class Profile extends Component {
                     <View style={ style.item }>
                         <TextInput
                             style={MainStyle.input}
-                            placeholder="NIT o CI"
-                            onChangeText={ (value) => this.setState({'inputNit': value}) }
-                            value={ this.state.inputNit }
+                            placeholder="Nº de celular"
+                            onChangeText={ (value) => this.setState({'inputPhoneNumber': value}) }
+                            value={ this.state.inputPhoneNumber }
                         />
                     </View>
                     <View style={ style.item }>
                         <TextInput
                             style={MainStyle.input}
-                            placeholder="Nº de celular"
-                            onChangeText={ (value) => this.setState({'phoneNumber': value}) }
-                            value={ this.state.phoneNumber }
+                            placeholder="NIT o CI"
+                            onChangeText={ (value) => this.setState({'inputNit': value}) }
+                            value={ this.state.inputNit }
                         />
                     </View>
                     <View style={{ alignItems: 'center' }}>
                         <Text style={ [MainStyle.textMuted, MainStyle.p] }>No compartimos tu información personal con nadie.</Text>
                     </View>
                     <View style={ style.footer }>
-                        <ButtonPrimary icon='ios-checkmark-circle-outline'>
+                        <ButtonPrimary onPress={ this.handleSubmit } icon='ios-checkmark-circle-outline'>
                             Actualizar información
                         </ButtonPrimary>
                     </View>

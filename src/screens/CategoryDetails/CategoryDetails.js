@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, View, ScrollView, StyleSheet, Dimensions, Animated } from 'react-native';
+import { SafeAreaView, View, ScrollView, StyleSheet, Dimensions, Animated, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { showMessage } from "react-native-flash-message";
 import SearchBar from 'react-native-dynamic-search-bar';
@@ -84,6 +84,11 @@ class CategoryDetails extends Component {
             extras
         });
 
+        // Actualizar datos del carro de compra
+        setTimeout(() => {
+            AsyncStorage.setItem('UserShoppingcart', JSON.stringify(this.props.cart));
+        }, 0);
+
         showMessage({
             message: 'Producto agregado',
             description: 'Se agregó el producto al carrito',
@@ -158,7 +163,12 @@ const style = StyleSheet.create({
     },
 });
 
-// export default CategoryDetails;
+const mapStateToProps = (state) => {
+    return {
+        cart  : state.cart,
+    }
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         addItemToCart : (item) => dispatch({
@@ -168,4 +178,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(CategoryDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryDetails);

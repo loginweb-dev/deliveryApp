@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Delivery App</string>
-    <string name="facebook_app_id">143684530355797</string>
+    <string name="facebook_app_id">254238056025338</string>
+    <string name="fb_login_protocol_scheme">fb254238056025338</string>
 </resources>

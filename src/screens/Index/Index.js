@@ -75,7 +75,7 @@ class Index extends Component {
     this.state = {
       searchVisible: false
     }
-    console.log(this.props.user)
+    // console.log(this.props.user, this.props.locations, this.props.cart)
   }
 
   onPressCategory(category){
@@ -167,6 +167,8 @@ const style = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     user : state.user,
+    locations : state.locations,
+    cart : state.cart,
   }
 }
 

@@ -1,7 +1,8 @@
 
 import React, { Component } from 'react';
 import {
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux';
 import { createDrawerNavigator, DrawerContentScrollView, } from '@react-navigation/drawer';
@@ -33,13 +34,30 @@ class Main extends Component {
   }
 
   bootstrapAsync = async () => {
+    // Obetenr información de sesión
+    let user = await AsyncStorage.getItem('UserSession');
+    if(user){
+      this.props.setUser(JSON.parse(user))
+    }
+    
+    // Obtener información de localización
+    let location = await AsyncStorage.getItem('UserLocations');
+    if(location){
+      this.props.setLocations(JSON.parse(location))
+    }
+
+    // Obtener información del carrito de compra
+    let cart = await AsyncStorage.getItem('UserShoppingcart');
+    if(cart){
+      this.props.updateCart(JSON.parse(cart))
+    }
+
     setTimeout(()=>{
         this.setState({
             loading: false
         });
     }, 0);
-    console.log(this.props.user)
-};
+  };
 
   // Render any loading content that you like here
   render() {
@@ -72,7 +90,25 @@ class Main extends Component {
 const mapStateToProps = (state) => {
   return {
     user : state.user,
+    cart : state.cart,
   }
 }
 
-export default connect(mapStateToProps, null)(Main);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUser : (user) => dispatch({
+        type: 'SET_USER',
+        payload: user
+    }),
+    setLocations : (locations) => dispatch({
+      type: 'SET_LOCATION',
+      payload: locations
+    }),
+    updateCart : (newCart) => dispatch({
+      type: 'RELOAD_CART',
+      payload: newCart
+    }),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

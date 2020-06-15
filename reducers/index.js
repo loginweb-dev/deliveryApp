@@ -25,6 +25,8 @@ const reducerApp = (
     switch (action.type) {
         case 'SET_USER':
             return {...state, user: action.payload};
+        case 'SET_LOCATION':
+            return {...state, locations: action.payload};
         case 'RELOAD_CART':
             return {...state, cart: action.payload};
         case 'ADD_TO_CART':
