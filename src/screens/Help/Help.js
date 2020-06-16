@@ -30,7 +30,7 @@ export default class Help extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={ style.container }>
                 <ScrollView>
                     <ImageBackground source={ Config.images.bannerAlt } style={{width: '100%', height: 300}} />
                     <View style={{ width: screenWidth }}>
@@ -86,8 +86,7 @@ export default class Help extends Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        backgroundColor: Config.color.background
     },
     header: {
         alignItems: 'center',

@@ -186,6 +186,7 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        backgroundColor: Config.color.background
     },
     footer: {
         flex: 1,

@@ -131,18 +131,6 @@ class CategoryDetails extends Component {
                         />
                     )
                 }
-                {
-                    products.map(item=>
-                        <ItemProduct
-                            name={item.name}
-                            details={item.details}
-                            price={item.price}
-                            image={item.image}
-                            onPress={() => this.onPressProduct(item)}
-                            onPressAdd={() => this.addCart(item)}
-                        />
-                    )
-                }
                 <Separator height={30} />
             </ScrollView>
         </View>
@@ -156,6 +144,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: screenWidth,
+        backgroundColor: Config.color.background
     },
 });
 

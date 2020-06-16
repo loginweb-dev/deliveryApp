@@ -7,6 +7,9 @@ import ImageCard from "../../components/ImageCard/ImageCardAlt";
 // UI
 import Separator from '../../ui/Separator';
 
+// Configurations
+import { Config } from '../../config/config';
+
 const categories = [
   {
     id: 1,
@@ -59,7 +62,8 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: Config.color.background
   },
 });
 

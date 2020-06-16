@@ -311,7 +311,7 @@ class Login extends Component {
     render() {
         const { user, confirmResult } = this.state;
         return (
-            <View style={{ flex: 1, width: screenWidth, height: screenHeihgt }}>
+            <View style={ style.container }>
                 {/* <ImageBackground source={ Config.images.banner } style={{width: '100%', height: 250}} /> */}
                 <View style={ style.containerLogo }>
                     <Avatar
@@ -337,6 +337,12 @@ class Login extends Component {
 }
 
 const style = StyleSheet.create({
+    container: {
+        flex: 1, 
+        width: screenWidth,
+        height: screenHeihgt,
+        backgroundColor: Config.color.background,
+    },
     containerLogo: {
         // height: 200,
         // flex: 1,

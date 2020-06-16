@@ -5,7 +5,8 @@ import {
     Text,
     SafeAreaView,
     Image,
-    Linking
+    Linking,
+    StyleSheet
 } from 'react-native';
 
 import { Config } from '../../../config/config';
@@ -14,7 +15,7 @@ function Update({ navigation }) {
   return (
     <SafeAreaView>
         <View>
-            <View style={{ margin: 30 }}>
+            <View style={ style.container }>
                 <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20, marginBottom: 30 }}>
                     <Image
                         style={{width: 80, height: 80, borderColor: 'white',
@@ -37,5 +38,14 @@ function Update({ navigation }) {
     </SafeAreaView>
   );
 }
+
+const style = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: Config.color.background
+    },
+});
 
 export default Update;

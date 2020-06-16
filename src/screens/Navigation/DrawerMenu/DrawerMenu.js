@@ -46,7 +46,7 @@ class DrawerMenu extends Component {
                         </View>
                     </View>
                 </ImageBackground>
-                <ImageBackground source={ Config.images.background } style={{width: '100%', height: screenHeihgt-230 }}>
+                <ImageBackground source={ Config.images.backgroundAlt } style={{width: '100%', height: screenHeihgt-230 }}>
                     <View style={{ flex: 1, marginTop: 10, position: 'absolute' }}>
                         <TouchableOpacity
                             onPress={()=> this.props.navigation.navigate('OrderList')}

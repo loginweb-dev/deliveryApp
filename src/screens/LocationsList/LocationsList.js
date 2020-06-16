@@ -314,6 +314,7 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        backgroundColor: Config.color.background
     },
     map: {
         height: 400,

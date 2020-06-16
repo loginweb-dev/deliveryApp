@@ -8,7 +8,6 @@ import RNFetchBlob from 'rn-fetch-blob'
 
 // UI
 import ButtonPrimary from "../../ui/ButtonPrimary";
-import ButtonSecondary from "../../ui/ButtonSecondary";
 
 // UI
 import Avatar from "../../ui/Avatar";
@@ -175,6 +174,7 @@ const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: Config.color.background
     },
     header: {
         alignItems: 'center',

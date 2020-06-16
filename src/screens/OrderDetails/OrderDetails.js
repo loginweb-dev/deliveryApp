@@ -42,7 +42,8 @@ class OrderDetails extends Component {
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: 20
+        marginTop: 20,
+        backgroundColor: Config.color.background
     },
     header: {
         alignItems: 'center',

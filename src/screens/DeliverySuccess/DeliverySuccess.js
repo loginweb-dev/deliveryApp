@@ -76,6 +76,7 @@ const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: Config.color.background
     },
     header: {
         alignItems: 'center',

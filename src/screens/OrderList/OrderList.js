@@ -4,6 +4,9 @@ import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 // Components
 import OrderItem from '../../components/OrderItem/OrderItem';
 
+// Configurations
+import { Config } from '../../config/config';
+
 const orders = [
     {
         id: 1,
@@ -58,6 +61,7 @@ const style = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: Config.color.background
     },
 });
 
