@@ -99,7 +99,7 @@ class Profile extends Component {
                 this.props.updateUser(newUser);
                 showMessage({
                     message: 'Datos actualizados',
-                    description: `Tu información de perfil fue actualizada`,
+                    description: `Tu información de perfil fue actualizada.`,
                     type: 'info',
                     icon: 'info',
                 });
@@ -113,7 +113,7 @@ class Profile extends Component {
         }else{
             showMessage({
                 message: 'Advertencia',
-                description: `Debes ingresar al menos tu nombre y número de celular`,
+                description: `Debes ingresar al menos tu nombre y número de celular.`,
                 type: 'warning',
                 icon: 'warning',
             });

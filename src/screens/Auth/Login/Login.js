@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import CountryPicker from 'react-native-country-picker-modal';
 import { showMessage } from "react-native-flash-message";
 import Icon from 'react-native-vector-icons/Ionicons';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 // Components
 import ButtonPrimary from "../../../ui/ButtonPrimary";
@@ -46,7 +47,14 @@ class Login extends Component {
             inputNit: '',
             phoneNumber: '',
             confirmResult: null,
-            widthAvatar: WIDTHAVATAR
+            widthAvatar: WIDTHAVATAR,
+            viewButtons: true,
+            awesomeAlert: {
+                show: false,
+                title: '',
+                message: '',
+                showProgress: false
+            }
         };
     }
 
@@ -69,8 +77,8 @@ class Login extends Component {
         });
 
         // Detectar keyboard
-        Keyboard.addListener('keyboardDidShow', () => { this.setState({ widthAvatar: 120 }) });
-        Keyboard.addListener('keyboardDidHide', () => { this.setState({ widthAvatar: WIDTHAVATAR }) });
+        Keyboard.addListener('keyboardDidShow', () => { this.setState({ widthAvatar: 120, viewButtons: false }) });
+        Keyboard.addListener('keyboardDidHide', () => { this.setState({ widthAvatar: WIDTHAVATAR, viewButtons: true }) });
     }
 
     componentWillUnmount() {
@@ -79,12 +87,12 @@ class Login extends Component {
 
     signIn = () => {
         const phoneNumber = `+${this.state.phoneNumberCode}${this.state.phoneNumber}`;
-        this.renderMessage('Información', 'Enviando mensaje', 'info');
+        this.renderMessage('Información', 'Enviando mensaje...', 'info');
 
         firebase.auth().signInWithPhoneNumber(phoneNumber)
         .then(confirmResult => {
             this.setState({ confirmResult })
-            this.renderMessage('Información', 'El mensaje ha sido enviado', 'info');
+            this.renderMessage('Información', 'El mensaje ha sido enviado.', 'info');
         })
         .catch(error => this.renderMessage('Ocurrió un error', error.message, 'danger'));
     };
@@ -95,7 +103,7 @@ class Login extends Component {
         if (confirmResult && codeInput.length) {
         confirmResult.confirm(codeInput)
             .then((user) => {
-                this.renderMessage('Bien hecho!', `La autenticación fue exitosa`, 'success')
+                this.renderMessage('Bien hecho!', `La autenticación fue exitosa.`, 'success')
             })
             .catch(error => this.renderMessage('Ocurrió un error', error.message, 'danger'));
         }
@@ -133,20 +141,24 @@ class Login extends Component {
                         <Text style={{ textAlign: 'center', color: '#aaa' }}>Te enviaremos un mensaje con tu código de verificación para registrate, luego te pediremos alginos datos para completar tu registro.</Text>
                     </View>
                 </View>
-                {/* Invitado */}
-                <View style={{ margin: 10 }}>
-                    <TouchableOpacity onPress={this.guestLogin}>
-                        <Text style={{ fontSize: 18, color: '#3b5998' }}>Invitado</Text>
-                    </TouchableOpacity>
-                </View>
-                {/* ======== */}
-                <View style={{ height: 80 }}>
-                    <Icon.Button name="logo-facebook" backgroundColor="#3b5998" onPress={this.login_facebook} >
-                        <Text style={{ fontFamily: 'Arial', fontSize: 18, color: 'white' }}>
-                            Inicia con Facebook
-                        </Text>
-                    </Icon.Button>
-                </View>
+                { this.state.viewButtons &&
+                    <View style={{ alignItems: 'center' }}>
+                        {/* Invitado */}
+                        <View style={{ margin: 10 }}>
+                            <TouchableOpacity onPress={this.guestLogin}>
+                                <Text style={{ fontSize: 18, color: '#3b5998' }}>Invitado</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {/* ======== */}
+                        <View style={{ height: 80 }}>
+                            <Icon.Button name="logo-facebook" backgroundColor="#3b5998" onPress={this.login_facebook} >
+                                <Text style={{ fontFamily: 'Arial', fontSize: 18, color: 'white' }}>
+                                    Inicia con Facebook
+                                </Text>
+                            </Icon.Button>
+                        </View>
+                    </View>
+                }
             </View>
         );
     }
@@ -200,7 +212,7 @@ class Login extends Component {
                     keyboardType='numeric'
                 />
                 <Text style={{ color: Config.color.textMuted, marginBottom: 10 }}>El NIT es opcional</Text>
-                <ButtonPrimary onPress={this.successLogin} icon='ios-checkmark-circle-outline'>
+                <ButtonPrimary onPress={this.phoneLogin} icon='ios-checkmark-circle-outline'>
                     Guardar información
                 </ButtonPrimary>
             </View>
@@ -220,6 +232,23 @@ class Login extends Component {
         this.setInfoUser(guetsUser);
     }
 
+    phoneLogin = () => {
+        if(this.state.inputName){
+            let phoneUser = {
+                id: 1,
+                name: this.state.inputName,
+                email: '',
+                codePhone: this.state.phoneNumberCode,
+                NumberPhone: this.state.phoneNumber,
+                avatar: '',
+                nit: this.state.inputNit
+            }
+            this.setInfoUser(phoneUser);
+        }else{
+            this.renderMessage('Advertencia!', `Debes ingresar al menos tu nombre.`, 'warning')
+        }
+    }
+
     async setInfoUser(userInfo){
         AsyncStorage.setItem('UserSession', JSON.stringify(userInfo), () => {
             this.props.setUser(userInfo)
@@ -237,14 +266,23 @@ class Login extends Component {
         });
     }
 
+    
+
     // Login Facebook
     login_facebook = () => {
         LoginManager.logInWithPermissions(["public_profile"]).then(
             result => {
-                if (result.isCancelled) {this.renderMessage('Advertencia!', `La autenticación fué cancelada`, 'warning');}
+                if (result.isCancelled) {this.renderMessage('Advertencia!', `La autenticación fué cancelada.`, 'warning');}
                 else {
                     AccessToken.getCurrentAccessToken()
                     .then((data) => {
+                        this.setState({
+                            awesomeAlert: {
+                                show: true, showProgress: true,
+                                title: 'Cargando...',
+                                message: 'Obteniendo información de Facebook',
+                            }
+                        });
                         fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken}`)
                         .then(res => res.json())
                         .then(res => {
@@ -285,6 +323,14 @@ class Login extends Component {
                 {!user && !confirmResult && this.renderPhoneNumberInput()}
                 {!user && confirmResult && this.renderVerificationCodeInput()}
                 {user && this.rendersetInformation()}
+
+                {/* Alert */}
+                <AwesomeAlert
+                    show={this.state.awesomeAlert.show}
+                    showProgress={this.state.awesomeAlert.showProgress}
+                    title={this.state.awesomeAlert.title}
+                    message={this.state.awesomeAlert.message}
+                />
             </View>
         );
     }

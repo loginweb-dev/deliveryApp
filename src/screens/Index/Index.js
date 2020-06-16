@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Text, FlatList, TouchableOpacity, Dimensions } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, FlatList, Dimensions, Animated } from 'react-native';
 import { connect } from 'react-redux';
 
 import SearchBar from 'react-native-dynamic-search-bar';
@@ -69,6 +69,12 @@ const products = [
   }
 ];
 
+const scrollY = new Animated.Value(0);
+const traslateY = scrollY.interpolate({
+    inputRange: [0,150],
+    outputRange:[0, -150]
+});
+
 class Index extends Component {
   constructor(props){
     super(props);
@@ -89,36 +95,48 @@ class Index extends Component {
   render(){
     return (
       <View style={ style.container }>
-        <Text style={ MainStyle.h3 }>Categorías</Text>
-        <View>
-          <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-            {
-              categories.map(item =>
-                <ImageCard
-                  title={item.title}
-                  subtitle={item.subtitle}
-                  image={item.image}
-                  onPress={() => this.onPressCategory(item)}
-                />
-              )
-            }
-          </ScrollView>
-          <View style={{ marginBottom: 20 }}>
-            <SearchBar
-              placeholder="Ingresa tu busqueda"
-              onChangeText={text => {
-                console.log(text)
-              }}
-              onPressCancel={() => {
-                console.log('clear')
-              }}
-              onPress={() => alert("onPress")}
-              iconColor={Config.color.primary}
-            />
-          </View>
-        </View>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={ MainStyle.h3 }>Populares</Text>
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          onScroll={(e)=>{
+            scrollY.setValue(e.nativeEvent.contentOffset.y);
+          }}
+        >
+          <Animated.View
+            style={{ 
+                transform:[{
+                  translateY: traslateY
+                }],
+                elevation: 4,
+                zIndex: 100
+            }}>
+            <View>
+              <Text style={ MainStyle.h4 }>Categorías</Text>
+              <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+                {
+                  categories.map(item =>
+                    <ImageCard
+                      title={item.title}
+                      subtitle={item.subtitle}
+                      image={item.image}
+                      onPress={() => this.onPressCategory(item)}
+                    />
+                  )
+                }
+              </ScrollView>
+              <SearchBar
+                placeholder="Ingresa tu busqueda"
+                onChangeText={text => {
+                  console.log(text)
+                }}
+                onPressCancel={() => {
+                  console.log('clear')
+                }}
+                onPress={() => alert("onPress")}
+                iconColor={Config.color.primary}
+              />
+            </View>
+          </Animated.View>
+          <Text style={ MainStyle.h4 }>Populares</Text>
           <FlatList
             data={products}
             renderItem={({item, index})=>
@@ -134,7 +152,7 @@ class Index extends Component {
             numColumns={2}
           />
           <Separator />
-          <Text style={ MainStyle.h3 }>Más vendidos</Text>
+          <Text style={ MainStyle.h4 }>Más vendidos</Text>
           <FlatList
             data={products}
             renderItem={({item, index})=>

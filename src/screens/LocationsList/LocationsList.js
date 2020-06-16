@@ -188,7 +188,7 @@ class LocationsList extends Component {
                 
                 showMessage({
                     message: 'Ubicación editada',
-                    description: `Se actualizaron los datos de la ubicación: ${locationState[index].name}`,
+                    description: `Se actualizaron los datos de la ubicación: ${locationState[index].name}.`,
                     type: 'info',
                     icon: 'info',
                 });

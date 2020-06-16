@@ -22,7 +22,7 @@ const ImageCard = (props) => {
 
 const style = StyleSheet.create({
     cardOption: {
-      margin: 10,
+      marginHorizontal: 10,
       width: 300,
       height: 150,
       // marginBottom: 10

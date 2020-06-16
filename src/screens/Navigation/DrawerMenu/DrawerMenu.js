@@ -74,6 +74,8 @@ class DrawerMenu extends Component {
                                     {
                                         text: 'OK',
                                         onPress: () => {
+                                            // Cerrar DrawerMenu
+                                            this.props.navigation.closeDrawer();
                                             // Vaciar AsyncStorage
                                             AsyncStorage.setItem('isLoggedIn', '0');
                                             AsyncStorage.setItem('UserSession', '{}');
@@ -82,8 +84,6 @@ class DrawerMenu extends Component {
                                             this.props.setUser({});
                                             this.props.updateCart([]);
                                             firebase.auth().signOut();
-                                            // Cerrar DrawerMenu
-                                            this.props.navigation.closeDrawer();
                                             // Reset navigation y redireccionar al login
                                             this.props.navigation.reset({
                                                 index: 0,

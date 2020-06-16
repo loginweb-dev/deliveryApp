@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { SafeAreaView, View, ScrollView, StyleSheet, Dimensions, Animated, AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import { showMessage } from "react-native-flash-message";
-import SearchBar from 'react-native-dynamic-search-bar';
 
 // Components
 import BackgroundTop from "../../components/BackgroundTop/BackgroundTop";
@@ -46,9 +45,8 @@ const products = [
     }
 ];
 
-const scrollX = new Animated.Value(0);
-// const diffClamp = Animated.diffClamp(scrollX, 0, 200);
-const traslateY = scrollX.interpolate({
+const scrollY = new Animated.Value(0);
+const traslateY = scrollY.interpolate({
     inputRange: [0,250],
     outputRange:[0, -250]
 });
@@ -91,7 +89,7 @@ class CategoryDetails extends Component {
 
         showMessage({
             message: 'Producto agregado',
-            description: 'Se agregó el producto al carrito',
+            description: 'Se agregó el producto al carrito.',
             type: 'success',
             icon: 'success',
         });
@@ -103,16 +101,14 @@ class CategoryDetails extends Component {
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 onScroll={(e)=>{
-                    scrollX.setValue(e.nativeEvent.contentOffset.y);
+                    scrollY.setValue(e.nativeEvent.contentOffset.y);
                 }}
             >
                 <Animated.View
                     style={{ 
                         transform:[{
                             translateY: traslateY
-                        }],
-                        elevation: 4,
-                        zIndex: 100
+                        }]
                     }}
                 >
                     <BackgroundTop
@@ -122,19 +118,19 @@ class CategoryDetails extends Component {
                         maskDark
                     />
                 </Animated.View>
-                <View style={{ marginBottom: 10 }}>
-                    <SearchBar
-                        placeholder="Ingresa tu busqueda"
-                        onChangeText={text => {
-                            console.log(text)
-                        }}
-                        onPressCancel={() => {
-                            console.log('clear')
-                        }}
-                        onPress={() => alert("onPress")}
-                        iconColor={Config.color.primary}
-                    />
-                </View>
+                <Separator height={5} />
+                {
+                    products.map(item=>
+                        <ItemProduct
+                            name={item.name}
+                            details={item.details}
+                            price={item.price}
+                            image={item.image}
+                            onPress={() => this.onPressProduct(item)}
+                            onPressAdd={() => this.addCart(item)}
+                        />
+                    )
+                }
                 {
                     products.map(item=>
                         <ItemProduct

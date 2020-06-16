@@ -68,7 +68,7 @@ class ProductDetails extends Component {
 
         showMessage({
             message: 'Producto agregado',
-            description: 'Se agregó el producto al carrito',
+            description: 'Se agregó el producto al carrito.',
             type: 'success',
             icon: 'success',
         });

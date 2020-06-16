@@ -62,7 +62,7 @@ class Cart extends Component {
                         this.props.removeItemToCart(index);
                         showMessage({
                             message: 'Producto eliminado',
-                            description: 'Se eliminó el producto del carrito',
+                            description: 'Se eliminó el producto del carrito.',
                             type: 'info', icon: 'info',
                         });
                         setTimeout(() => {
