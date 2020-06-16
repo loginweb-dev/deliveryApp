@@ -24,7 +24,7 @@ import Profile from '../../Profile/Profile';
 import Help from '../../Help/Help';
 
 // UI
-import CardHeader from "../../../ui/CardHeader";
+import CartHeader from "../../../ui/CartHeader";
 
 // Screens System config
 import Update from '../../System/Update/Update';
@@ -87,7 +87,7 @@ class Main extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Cart')}
                             >
-                                <CardHeader />
+                                <CartHeader />
                             </TouchableOpacity>
                         ),
                     }}
@@ -101,7 +101,7 @@ class Main extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Cart')}
                             >
-                                <CardHeader />
+                                <CartHeader />
                             </TouchableOpacity>
                         ),
                     })}
@@ -115,7 +115,7 @@ class Main extends Component {
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Cart')}
                             >
-                                <CardHeader />
+                                <CartHeader />
                             </TouchableOpacity>
                         ),
                     })}

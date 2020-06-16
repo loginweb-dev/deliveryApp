@@ -32,7 +32,7 @@ export default class Help extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <ScrollView>
-                    <ImageBackground source={ require('../../assets/images/background.png') } style={{width: '100%', height: 200}} />
+                    <ImageBackground source={ Config.images.bannerAlt } style={{width: '100%', height: 300}} />
                     <View style={{ width: screenWidth }}>
                         <View style={ style.item }>
                             <Text style={style.title}>Sobre nosotros</Text>

@@ -312,12 +312,12 @@ class Login extends Component {
         const { user, confirmResult } = this.state;
         return (
             <View style={{ flex: 1, width: screenWidth, height: screenHeihgt }}>
-                {/* <ImageBackground source={ Config.images.background } style={{width: '100%', height: 250}} /> */}
+                {/* <ImageBackground source={ Config.images.banner } style={{width: '100%', height: 250}} /> */}
                 <View style={ style.containerLogo }>
                     <Avatar
                         width={this.state.widthAvatar}
                         borderColor='#F2F2F2'
-                        image={ Config.images.iconAlt }
+                        image={ Config.images.icon }
                     />
                 </View>
                 {!user && !confirmResult && this.renderPhoneNumberInput()}

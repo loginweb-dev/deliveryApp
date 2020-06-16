@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 // Configurations
 import { Config } from '../config/config.js';
 
-const CardHeader = (props) => {
+const CartHeader = (props) => {
   return (
     <View style={{ flex: 1, flexDirection: 'row', marginTop:10, marginRight:10 }}>
         <Icon name="shopping-cart" size={35} color={Config.color.menuText} />
@@ -25,7 +25,7 @@ const style = StyleSheet.create({
         borderRadius: 5,
         paddingLeft: 5,
         paddingRight: 5,
-        backgroundColor: Config.color.primary,
+        backgroundColor: Config.color.menuBadge,
         color: 'white',
         marginTop: 20,
         marginBottom: 5,
@@ -33,11 +33,10 @@ const style = StyleSheet.create({
     }
 });
 
-// export default  CardHeader
 const mapStateToProps = (state) => {
     return {
         cartItems : state.cart.length
     }
 }
 
-export default connect(mapStateToProps)(CardHeader);
+export default connect(mapStateToProps)(CartHeader);
