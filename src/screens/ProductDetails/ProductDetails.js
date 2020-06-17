@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, Share, AsyncStorage } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import { showMessage } from "react-native-flash-message";
+import RadioForm from 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 
 // Components
@@ -54,12 +55,60 @@ class ProductDetails extends Component {
             name: this.props.route.params.product.name,
             details: this.props.route.params.product.details,
             price: this.props.route.params.product.price,
+            background : this.props.route.params.product.image,
+            typeId: this.props.route.params.product.typeId,
             priceExtras: 0,
             counProduct: 1,
             totalPrice : this.props.route.params.product.price,
             extras: Extras,
-            background : this.props.route.params.product.image,
+            // Productos similares
+            similarProducts: [],
+            similarProductsRadios: []
         }
+    }
+
+    componentDidMount(){
+        let products = [
+            {
+                'id': 1,
+                'name': 'Hamburguesa sencilla',
+                'details': 'Carne, ensalada, salsa y huevo.',
+                'price': '15.00',
+                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
+                'typeId': 1,
+                'typeName': 'Pequeña'
+            },
+            {
+                'id': 2,
+                'name': 'Hamburguesa sencilla',
+                'details': 'Carne, ensalada, salsa y huevo.',
+                'price': '17.00',
+                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
+                'typeId': 2,
+                'typeName': 'Mediana'
+            },
+            {
+                'id': 3,
+                'name': 'Hamburguesa sencilla',
+                'details': 'Carne, ensalada, salsa y huevo.',
+                'price': '20.00',
+                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
+                'typeId': 3,
+                'typeName': 'Familiar'
+            }
+        ];
+        // Generar radio buttons
+        let radioButtons = [];
+        products.map(item => {
+            radioButtons.push({
+                value: item.id, label: item.typeName
+            });
+        });
+
+        this.setState({
+            similarProducts: products,
+            similarProductsRadios: radioButtons
+        });
     }
 
     handleCheckbox(id){
@@ -145,6 +194,20 @@ class ProductDetails extends Component {
         }
     };
 
+    handleOnPressRadios = (id) => {
+        
+        let product = this.state.similarProducts.find(item => item.id == id);
+        console.log(product.price)
+        this.setState({
+            id: product.id,
+            name: product.name,
+            details: product.details,
+            price: product.price,
+            background: product.image,
+            totalPrice: (product.price * this.state.counProduct) + this.state.priceExtras
+        });
+    }
+
     render(){
         return (
         <View style={ style.container }>
@@ -173,6 +236,18 @@ class ProductDetails extends Component {
                         <Text style={[style.headerItem, { textAlign: 'right' }]}>{parseFloat(this.state.totalPrice).toFixed(2)} Bs.</Text>
                     </View>
                     <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
+                </View>
+                <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
+                <View style={{ margin: 20, alignItems: 'center' }}>
+                    <RadioForm
+                        radio_props={this.state.similarProductsRadios}
+                        initial={this.state.typeId}
+                        onPress={ this.handleOnPressRadios }
+                        formHorizontal={true}
+                        labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
+                        buttonColor={ Config.color.primary }
+                        selectedButtonColor={ Config.color.primary }
+                    />
                 </View>
                 <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
                 <View style={style.section}>

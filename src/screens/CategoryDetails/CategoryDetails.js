@@ -20,28 +20,32 @@ const products = [
         'name': 'Hamburguesa sencilla',
         'details': 'Carne, ensalada, salsa y huevo.',
         'price': '15.00',
-        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg'
+        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
+        'typeId': 1
     },
     {
         'id': 2,
         'name': 'Hamburguesa doble',
         'details': 'Doble carne, ensalada, salsa y huevo.',
         'price': '20.00',
-        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238459__340.jpg'
+        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238459__340.jpg',
+        'typeId': 1
     },
     {
         'id': 3,
         'name': 'Lomito',
         'details': 'Lomito de carne, ensalada, salsa y huevo.',
         'price': '18.00',
-        'image': 'https://cdn.pixabay.com/photo/2017/03/10/13/49/fast-food-2132863__340.jpg'
+        'image': 'https://cdn.pixabay.com/photo/2017/03/10/13/49/fast-food-2132863__340.jpg',
+        'typeId': 1
     },
     {
         'id': 4,
         'name': 'Hamburguesa Completa',
         'details': 'Carne, ensalada, salsa, tocino y huevo.',
         'price': '18.00',
-        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238457__340.jpg'
+        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238457__340.jpg',
+        'typeId': 1
     }
 ];
 
@@ -126,6 +130,7 @@ class CategoryDetails extends Component {
                             details={item.details}
                             price={item.price}
                             image={item.image}
+                            type={item.type}
                             onPress={() => this.onPressProduct(item)}
                             onPressAdd={() => this.addCart(item)}
                         />

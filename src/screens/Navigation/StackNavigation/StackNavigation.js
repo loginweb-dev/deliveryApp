@@ -14,7 +14,7 @@ import SplashScreen from '../../SplashScreen/SplashScreen';
 import Login from '../../Auth/Login/Login';
 import Index from '../../Index/Index';
 import CategoryDetails from '../../CategoryDetails/CategoryDetails';
-import ProductDetails from '../../ProductDetails/ProductDetailsAlt';
+import ProductDetails from '../../ProductDetails/ProductDetails';
 import Cart from '../../Cart/Cart';
 import LocationsList from '../../LocationsList/LocationsList';
 import DeliverySuccess from '../../DeliverySuccess/DeliverySuccess';

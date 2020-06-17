@@ -16,12 +16,6 @@ import BtnCircle from '../../ui/BtnCircle';
 // Configurations
 import { Config } from '../../config/config.js';
 
-var Sizes = [
-    { label: 'Pequeña', value: 0 },
-    { label: 'Mediana', value: 1 },
-    { label: 'Familiar', value: 2 }
-];
-
 const screenWidth = Math.round(Dimensions.get('window').width);
 
 class ProductDetails extends Component {
@@ -32,10 +26,58 @@ class ProductDetails extends Component {
             name: this.props.route.params.product.name,
             details: this.props.route.params.product.details,
             price: this.props.route.params.product.price,
+            background: this.props.route.params.product.image,
+            typeId: this.props.route.params.product.typeId,
             counProduct: 1,
-            totalPrice : this.props.route.params.product.price,
-            background : this.props.route.params.product.image,
+            totalPrice: this.props.route.params.product.price,
+            // Productos similares
+            similarProducts: [],
+            similarProductsRadios: []
         }
+    }
+
+    componentDidMount(){
+        let products = [
+            {
+                'id': 1,
+                'name': 'Hamburguesa sencilla',
+                'details': 'Carne, ensalada, salsa y huevo.',
+                'price': '15.00',
+                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
+                'typeId': 1,
+                'typeName': 'Pequeña'
+            },
+            {
+                'id': 2,
+                'name': 'Hamburguesa sencilla',
+                'details': 'Carne, ensalada, salsa y huevo.',
+                'price': '17.00',
+                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
+                'typeId': 2,
+                'typeName': 'Mediana'
+            },
+            {
+                'id': 3,
+                'name': 'Hamburguesa sencilla',
+                'details': 'Carne, ensalada, salsa y huevo.',
+                'price': '20.00',
+                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
+                'typeId': 3,
+                'typeName': 'Familiar'
+            }
+        ];
+        // Generar radio buttons
+        let radioButtons = [];
+        products.map(item => {
+            radioButtons.push({
+                value: item.id, label: item.typeName
+            });
+        });
+
+        this.setState({
+            similarProducts: products,
+            similarProductsRadios: radioButtons
+        });
     }
 
     calculateTotal(){
@@ -94,6 +136,19 @@ class ProductDetails extends Component {
         }
     };
      
+    handleOnPressRadios = (id) => {
+        
+        let product = this.state.similarProducts.find(item => item.id == id);
+        console.log(product.price)
+        this.setState({
+            id: product.id,
+            name: product.name,
+            details: product.details,
+            price: product.price,
+            background: product.image,
+            totalPrice: product.price * this.state.counProduct
+        });
+    }
 
     render(){
         return (
@@ -127,9 +182,9 @@ class ProductDetails extends Component {
                 <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
                 <View style={{ margin: 20, alignItems: 'center' }}>
                     <RadioForm
-                        radio_props={Sizes}
-                        initial={0}
-                        onPress={ value => console.log(value) }
+                        radio_props={this.state.similarProductsRadios}
+                        initial={this.state.typeId}
+                        onPress={ this.handleOnPressRadios }
                         formHorizontal={true}
                         labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
                         buttonColor={ Config.color.primary }
