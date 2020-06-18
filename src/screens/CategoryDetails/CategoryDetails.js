@@ -13,41 +13,10 @@ import Separator from '../../ui/Separator';
 // Configurations
 import { Config } from '../../config/config';
 
+// Registers
+import { Products } from '../../config/registers';
+
 const screenWidth = Math.round(Dimensions.get('window').width);
-const products = [
-    {
-        'id': 1,
-        'name': 'Hamburguesa sencilla',
-        'details': 'Carne, ensalada, salsa y huevo.',
-        'price': '15.00',
-        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-        'typeId': 1
-    },
-    {
-        'id': 2,
-        'name': 'Hamburguesa doble',
-        'details': 'Doble carne, ensalada, salsa y huevo.',
-        'price': '20.00',
-        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238459__340.jpg',
-        'typeId': 1
-    },
-    {
-        'id': 3,
-        'name': 'Lomito',
-        'details': 'Lomito de carne, ensalada, salsa y huevo.',
-        'price': '18.00',
-        'image': 'https://cdn.pixabay.com/photo/2017/03/10/13/49/fast-food-2132863__340.jpg',
-        'typeId': 1
-    },
-    {
-        'id': 4,
-        'name': 'Hamburguesa Completa',
-        'details': 'Carne, ensalada, salsa, tocino y huevo.',
-        'price': '18.00',
-        'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238457__340.jpg',
-        'typeId': 1
-    }
-];
 
 const scrollY = new Animated.Value(0);
 const traslateY = scrollY.interpolate({
@@ -59,6 +28,7 @@ class CategoryDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
+            productsList: Products,
             background : this.props.route.params.category.image,
             title: this.props.route.params.category.title,
             subtitle: this.props.route.params.category.subtitle,
@@ -124,7 +94,7 @@ class CategoryDetails extends Component {
                 </Animated.View>
                 <Separator height={5} />
                 {
-                    products.map(item=>
+                    this.state.productsList.map(item=>
                         <ItemProduct
                             name={item.name}
                             details={item.details}

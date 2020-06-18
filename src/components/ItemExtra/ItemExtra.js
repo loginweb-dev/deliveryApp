@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import CheckBox from '@react-native-community/checkbox';
+import { View, Text, CheckBox } from 'react-native';
 
 const ItemExtra = props => {
     return (

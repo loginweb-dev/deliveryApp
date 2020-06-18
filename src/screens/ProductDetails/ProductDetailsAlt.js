@@ -26,49 +26,20 @@ class ProductDetails extends Component {
             name: this.props.route.params.product.name,
             details: this.props.route.params.product.details,
             price: this.props.route.params.product.price,
-            background: this.props.route.params.product.image,
-            typeId: this.props.route.params.product.typeId,
+            image: this.props.route.params.product.image,
             counProduct: 1,
             totalPrice: this.props.route.params.product.price,
             // Productos similares
-            similarProducts: [],
-            similarProductsRadios: []
+            similarProducts: this.props.route.params.product.similar,
+            similarProductsRadios: [],
         }
     }
 
     componentDidMount(){
-        let products = [
-            {
-                'id': 1,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '15.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 1,
-                'typeName': 'Pequeña'
-            },
-            {
-                'id': 2,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '17.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 2,
-                'typeName': 'Mediana'
-            },
-            {
-                'id': 3,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '20.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 3,
-                'typeName': 'Familiar'
-            }
-        ];
+        let products = this.state.similarProducts;
         // Generar radio buttons
         let radioButtons = [];
-        products.map(item => {
+        products.map((item, index) => {
             radioButtons.push({
                 value: item.id, label: item.typeName
             });
@@ -76,7 +47,14 @@ class ProductDetails extends Component {
 
         this.setState({
             similarProducts: products,
-            similarProductsRadios: radioButtons
+            similarProductsRadios: radioButtons,
+            //////////////////
+            id: products[0].id,
+            name: products[0].name,
+            details: products[0].details,
+            price: products[0].price,
+            totalPrice: products[0].price,
+            image: products[0].image,
         });
     }
 
@@ -97,7 +75,7 @@ class ProductDetails extends Component {
             id: this.state.id,
             name: this.state.name, 
             price: this.state.price,
-            image: this.state.background,
+            image: this.state.image,
             count: this.state.counProduct,
             subtotal: this.state.totalPrice,
             extras: []
@@ -139,13 +117,12 @@ class ProductDetails extends Component {
     handleOnPressRadios = (id) => {
         
         let product = this.state.similarProducts.find(item => item.id == id);
-        console.log(product.price)
         this.setState({
             id: product.id,
             name: product.name,
             details: product.details,
             price: product.price,
-            background: product.image,
+            image: product.image,
             totalPrice: product.price * this.state.counProduct
         });
     }
@@ -156,7 +133,7 @@ class ProductDetails extends Component {
             <BackgroundTop
                 title=''
                 subtitle=''
-                image={this.state.background}
+                image={this.state.image}
             />
             {/* Share Button */}
             <View style={{ position: 'absolute', top: 200, right: 15 }}>
@@ -179,11 +156,11 @@ class ProductDetails extends Component {
                     </View>
                     <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
                 </View>
-                <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
+                <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
                 <View style={{ margin: 20, alignItems: 'center' }}>
                     <RadioForm
                         radio_props={this.state.similarProductsRadios}
-                        initial={this.state.typeId}
+                        initial={0}
                         onPress={ this.handleOnPressRadios }
                         formHorizontal={true}
                         labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
@@ -226,14 +203,12 @@ const style = StyleSheet.create({
     section: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 5,
-        width: screenWidth-20
+        marginVertical: 10
     },
     header: {
         flex: 1,
         flexDirection: 'row',
-        width: screenWidth-20,
-        marginVertical: 10
+        marginHorizontal: 10,
     },
     headerItem: {
         width: '50%',

@@ -10,28 +10,17 @@ import Separator from '../../ui/Separator';
 // Configurations
 import { Config } from '../../config/config';
 
-const categories = [
-  {
-    id: 1,
-    title: 'Hamburguesas',
-    subtitle: 'Las mejores hamburguesas caseras',
-    image: 'https://cdn.pixabay.com/photo/2015/04/20/13/25/burger-731298_960_720.jpg'
-  },
-  {
-    id: 2,
-    title: 'Gaseosas',
-    subtitle: 'Variedad de sabores',
-    image: 'https://cdn.pixabay.com/photo/2017/09/12/04/42/soft-drink-2741251_960_720.jpg'
-  },
-  {
-    id: 3,
-    title: 'Postres',
-    subtitle: 'La mejor variedad en postres',
-    image: 'https://cdn.pixabay.com/photo/2016/03/23/15/00/ice-cream-cone-1274894_960_720.jpg'
-  }
-];
+// Registers
+import { Categories } from '../../config/registers';
 
 class Index extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      categories: Categories,
+    }
+  }
+
 
   onPressCategory(category){
     this.props.navigation.navigate('CategoryDetails', {category});
@@ -42,7 +31,7 @@ class Index extends Component {
       <View style={ style.container }>
         <ScrollView showsVerticalScrollIndicator={false}>
           {
-            categories.map(item =>
+            this.state.categories.map(item =>
               <ImageCard
                 title={item.title}
                 subtitle={item.subtitle}

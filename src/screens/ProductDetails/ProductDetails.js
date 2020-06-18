@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, Share, AsyncStorage } from 'react-native';
+import { SafeAreaView, Dimensions, View, ScrollView, StyleSheet, Text, Share, AsyncStorage, CheckBox } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import { showMessage } from "react-native-flash-message";
 import RadioForm from 'react-native-simple-radio-button';
@@ -17,33 +17,8 @@ import BtnCircle from '../../ui/BtnCircle';
 // Configurations
 import { Config } from '../../config/config.js';
 
-const Extras = [
-    {
-        'id': 1,
-        'name': 'Papas',
-        'price': '5.00',
-        'ckecked': false
-    },
-    {
-        'id': 2,
-        'name': 'Tocino',
-        'price': '5.00',
-        'ckecked': false
-    },
-    {
-        'id': 3,
-        'name': 'Salsa',
-        'price': '3.00',
-        'ckecked': false
-    },
-    {
-        'id': 4,
-        'name': 'Huevo',
-        'price': '2.00',
-        'ckecked': false
-    },
-];
-
+// Registers
+import { Extras } from '../../config/registers';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -55,65 +30,49 @@ class ProductDetails extends Component {
             name: this.props.route.params.product.name,
             details: this.props.route.params.product.details,
             price: this.props.route.params.product.price,
-            background : this.props.route.params.product.image,
-            typeId: this.props.route.params.product.typeId,
+            image: this.props.route.params.product.image,
             priceExtras: 0,
             counProduct: 1,
             totalPrice : this.props.route.params.product.price,
-            extras: Extras,
+            extrasList: [],
             // Productos similares
-            similarProducts: [],
+            similarProducts: this.props.route.params.product.similar,
             similarProductsRadios: []
         }
     }
 
     componentDidMount(){
-        let products = [
-            {
-                'id': 1,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '15.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 1,
-                'typeName': 'Pequeña'
-            },
-            {
-                'id': 2,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '17.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 2,
-                'typeName': 'Mediana'
-            },
-            {
-                'id': 3,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '20.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 3,
-                'typeName': 'Familiar'
-            }
-        ];
+        let products = this.state.similarProducts;
         // Generar radio buttons
         let radioButtons = [];
-        products.map(item => {
+        let extras = [];
+        products.map((item, index) => {
             radioButtons.push({
                 value: item.id, label: item.typeName
             });
         });
 
+        // Reset CheckBoxs
+        Extras.map((item) => {
+            extras.push({...item, ckecked: false});
+        });
+
         this.setState({
-            similarProducts: products,
-            similarProductsRadios: radioButtons
+            similarProductsRadios: radioButtons,
+            //////////////////
+            id: products[0].id,
+            name: products[0].name,
+            details: products[0].details,
+            price: products[0].price,
+            totalPrice: products[0].price,
+            image: products[0].image,
+            extrasList: extras
         });
     }
 
     handleCheckbox(id){
         // Actualizar valor de chechbox
-        let extras = this.state.extras;
+        let extras = this.state.extrasList;
         extras.forEach(function(part, index) {
             if(this[index].id == id){
                 this[index].ckecked = !this[index].ckecked;
@@ -126,7 +85,7 @@ class ProductDetails extends Component {
     calculateTotal(){
         // Obtener costo total de extras
         let price = this.state.price;
-        let extras = this.state.extras;
+        let extras = this.state.extrasList;
         let counProduct = this.state.counProduct;
         var totalExtras = 0;
         extras.map( item => {
@@ -142,7 +101,7 @@ class ProductDetails extends Component {
         // Generar index aleatorio
         let index = this.state.id+'_'+Math.floor(Math.random() * 1001);
 
-        let extras = this.state.extras;
+        let extras = this.state.extrasList;
         let extrasSelect = [];
         extras.map( item => {
             if(item.ckecked){
@@ -155,7 +114,7 @@ class ProductDetails extends Component {
             id: this.state.id,
             name: this.state.name, 
             price: this.state.price,
-            image: this.state.background,
+            image: this.state.image,
             count: this.state.counProduct,
             subtotal: this.state.totalPrice,
             extras: extrasSelect
@@ -195,15 +154,13 @@ class ProductDetails extends Component {
     };
 
     handleOnPressRadios = (id) => {
-        
         let product = this.state.similarProducts.find(item => item.id == id);
-        console.log(product.price)
         this.setState({
             id: product.id,
             name: product.name,
             details: product.details,
             price: product.price,
-            background: product.image,
+            image: product.image,
             totalPrice: (product.price * this.state.counProduct) + this.state.priceExtras
         });
     }
@@ -214,7 +171,7 @@ class ProductDetails extends Component {
             <BackgroundTop
                 title=''
                 subtitle=''
-                image={this.state.background}
+                image={this.state.image}
             />
             {/* Share Button */}
             <View style={{ position: 'absolute', top: 200, right: 15 }}>
@@ -237,11 +194,11 @@ class ProductDetails extends Component {
                     </View>
                     <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
                 </View>
-                <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
-                <View style={{ margin: 20, alignItems: 'center' }}>
+                <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
+                <View style={{ margin: 15, alignItems: 'center' }}>
                     <RadioForm
                         radio_props={this.state.similarProductsRadios}
-                        initial={this.state.typeId}
+                        initial={0}
                         onPress={ this.handleOnPressRadios }
                         formHorizontal={true}
                         labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
@@ -249,14 +206,14 @@ class ProductDetails extends Component {
                         selectedButtonColor={ Config.color.primary }
                     />
                 </View>
-                <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
+                <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
                 <View style={style.section}>
                     <View style={style.header}>
-                        <Text style={style.headerItem}>Extras</Text>
+                        <Text style={{fontWeight: 'bold'}}>Extras</Text>
                     </View>
                     <View style={{ margin: 10, width: screenWidth-20, }}>
                         {
-                            this.state.extras.map(item => 
+                            this.state.extrasList.map(item => 
                                 <ItemExtra
                                     ckecked={item.ckecked}
                                     onChange={() => this.handleCheckbox(item.id)}
@@ -267,7 +224,7 @@ class ProductDetails extends Component {
                         }
                     </View>
                 </View>
-                <Divider color={Config.color.textMuted} size={1} width={screenWidth-20} />
+                <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
                 <View style={{ height:80 }}></View>
             </ScrollView>
             <View style={style.footer}>
@@ -284,7 +241,7 @@ class ProductDetails extends Component {
                     />
                 </View>
                 <View style={{ width: '60%', alignItems: 'center', justifyContent: 'center' }}>
-                    <ButtonSecondary onPress={()=>this.handleCart()}>
+                    <ButtonSecondary onPress={()=>this.handleCart()} icon='ios-cart'>
                         Añadir
                     </ButtonSecondary>
                 </View>
@@ -304,13 +261,12 @@ const style = StyleSheet.create({
     section: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 5,
-        width: screenWidth-20
+        marginTop: 10
     },
     header: {
         flex: 1,
         flexDirection: 'row',
-        width: screenWidth-20,
+        marginHorizontal: 10,
     },
     headerItem: {
         width: '50%',

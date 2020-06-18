@@ -12,66 +12,11 @@ import ItemProductAlt from "../../components/ItemProductAlt/ItemProductAlt";
 import { Config } from '../../config/config';
 import { MainStyle } from '../../config/styles.js';
 
+// Registers
+import { Products, Categories } from '../../config/registers';
+
 // UI
 import Separator from '../../ui/Separator';
-
-const screenHeight = Math.round(Dimensions.get('window').height);
-
-const categories = [
-  {
-    id: 1,
-    title: 'Hamburguesas',
-    subtitle: 'Las mejores hamburguesas caseras',
-    image: 'https://cdn.pixabay.com/photo/2015/04/20/13/25/burger-731298_960_720.jpg'
-  },
-  {
-    id: 2,
-    title: 'Gaseosas',
-    subtitle: 'Variedad de sabores',
-    image: 'https://cdn.pixabay.com/photo/2017/09/12/04/42/soft-drink-2741251_960_720.jpg'
-  },
-  {
-    id: 3,
-    title: 'Postres',
-    subtitle: 'La mejor variedad en postres',
-    image: 'https://cdn.pixabay.com/photo/2016/03/23/15/00/ice-cream-cone-1274894_960_720.jpg'
-  }
-];
-
-const products = [
-  {
-      'id': 1,
-      'name': 'Hamburguesa sencilla',
-      'details': 'Carne, ensalada, salsa y huevo.',
-      'price': '15.00',
-      'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-      'typeId': 1
-  },
-  {
-      'id': 2,
-      'name': 'Hamburguesa doble',
-      'details': 'Doble carne, ensalada, salsa y huevo.',
-      'price': '20.00',
-      'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238459__340.jpg',
-      'typeId': 1
-  },
-  {
-      'id': 3,
-      'name': 'Lomito',
-      'details': 'Lomito de carne, ensalada, salsa y huevo.',
-      'price': '18.00',
-      'image': 'https://cdn.pixabay.com/photo/2017/03/10/13/49/fast-food-2132863__340.jpg',
-      'typeId': 1
-  },
-  {
-      'id': 4,
-      'name': 'Hamburguesa Completa',
-      'details': 'Carne, ensalada, salsa, tocino y huevo.',
-      'price': '18.00',
-      'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238457__340.jpg',
-      'typeId': 1
-  }
-];
 
 const scrollY = new Animated.Value(0);
 const traslateY = scrollY.interpolate({
@@ -83,9 +28,10 @@ class Index extends Component {
   constructor(props){
     super(props);
     this.state = {
-      searchVisible: false
+      categories: Categories,
+      productsList: Products,
+      productsSales: Products
     }
-    // console.log(this.props.user, this.props.locations, this.props.cart)
   }
 
   onPressCategory(category){
@@ -117,7 +63,7 @@ class Index extends Component {
               <Text style={ MainStyle.h4 }>Categorías</Text>
               <ScrollView showsHorizontalScrollIndicator={false} horizontal>
                 {
-                  categories.map(item =>
+                  this.state.categories.map(item =>
                     <ImageCard
                       title={item.title}
                       subtitle={item.subtitle}
@@ -142,7 +88,7 @@ class Index extends Component {
           </Animated.View>
           <Text style={ MainStyle.h4 }>Populares</Text>
           <FlatList
-            data={products}
+            data={this.state.productsList}
             renderItem={({item, index})=>
               <ItemProductAlt
                 name={item.name}
@@ -158,7 +104,7 @@ class Index extends Component {
           <Separator />
           <Text style={ MainStyle.h4 }>Más vendidos</Text>
           <FlatList
-            data={products}
+            data={this.state.productsSales}
             renderItem={({item, index})=>
               <ItemProductAlt
                 name={item.name}
