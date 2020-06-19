@@ -78,11 +78,10 @@ class ProductDetails extends Component {
                 this[index].ckecked = !this[index].ckecked;
             }
         }, extras);
-        this.setState({ extras: extras });
-        this.calculateTotal();
+        this.setState({ extras: extras }, this.calculateTotal);
     }
 
-    calculateTotal(){
+    calculateTotal = () => {
         // Obtener costo total de extras
         let price = this.state.price;
         let extras = this.state.extrasList;
@@ -162,7 +161,7 @@ class ProductDetails extends Component {
             price: product.price,
             image: product.image,
             totalPrice: (product.price * this.state.counProduct) + this.state.priceExtras
-        });
+        }, this.calculateTotal);
     }
 
     render(){
@@ -184,14 +183,16 @@ class ProductDetails extends Component {
                 />
             </View>
             {/* ============ */}
+            <View style={style.section}>
+                <View style={style.header}>
+                    <Text style={style.headerItem}>{this.state.name}</Text>
+                    <Text style={[style.headerItem, { textAlign: 'right' }]}>{parseFloat(this.state.totalPrice).toFixed(2)} Bs.</Text>
+                </View>
+            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
             >
                 <View style={style.section}>
-                    <View style={style.header}>
-                        <Text style={style.headerItem}>{this.state.name}</Text>
-                        <Text style={[style.headerItem, { textAlign: 'right' }]}>{parseFloat(this.state.totalPrice).toFixed(2)} Bs.</Text>
-                    </View>
                     <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
                 </View>
                 <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
@@ -208,9 +209,7 @@ class ProductDetails extends Component {
                 </View>
                 <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
                 <View style={style.section}>
-                    <View style={style.header}>
-                        <Text style={{fontWeight: 'bold'}}>Extras</Text>
-                    </View>
+                    <Text style={{fontWeight: 'bold'}}>Extras</Text>
                     <View style={{ margin: 10, width: screenWidth-20, }}>
                         {
                             this.state.extrasList.map(item => 
@@ -230,7 +229,7 @@ class ProductDetails extends Component {
             <View style={style.footer}>
                 <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}>
                     <NumericInput
-                        onChange={value => {this.setState({ counProduct: value });this.calculateTotal()}}
+                        onChange={value => {this.setState({ counProduct: value }, this.calculateTotal)}}
                         value={this.state.counProduct}
                         iconStyle={{ color: 'white', fontSize: 30, fontWeight: 'bold' }} 
                         rightButtonBackgroundColor={Config.color.primary}
@@ -264,7 +263,6 @@ const style = StyleSheet.create({
         marginTop: 10
     },
     header: {
-        flex: 1,
         flexDirection: 'row',
         marginHorizontal: 10,
     },

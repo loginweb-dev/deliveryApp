@@ -58,7 +58,7 @@ class ProductDetails extends Component {
         });
     }
 
-    calculateTotal(){
+    calculateTotal = () => {
         // Obtener costo total de extras
         let price = this.state.price;
         let counProduct = this.state.counProduct;
@@ -146,14 +146,16 @@ class ProductDetails extends Component {
                 />
             </View>
             {/* ============ */}
+            <View style={style.section}>
+                <View style={style.header}>
+                    <Text style={style.headerItem}>{this.state.name}</Text>
+                    <Text style={[style.headerItem, { textAlign: 'right' }]}>{parseFloat(this.state.totalPrice).toFixed(2)} Bs.</Text>
+                </View>
+            </View>
             <ScrollView
                 showsVerticalScrollIndicator={false}
             >
                 <View style={style.section}>
-                    <View style={style.header}>
-                        <Text style={style.headerItem}>{this.state.name}</Text>
-                        <Text style={[style.headerItem, { textAlign: 'right' }]}>{parseFloat(this.state.totalPrice).toFixed(2)} Bs.</Text>
-                    </View>
                     <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
                 </View>
                 <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
@@ -172,7 +174,7 @@ class ProductDetails extends Component {
             <View style={style.footer}>
                 <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}>
                     <NumericInput
-                        onChange={value => {this.setState({ counProduct: value });this.calculateTotal()}}
+                        onChange={value => {this.setState({ counProduct: value }, this.calculateTotal)}}
                         value={this.state.counProduct}
                         iconStyle={{ color: 'white', fontSize: 30, fontWeight: 'bold' }} 
                         rightButtonBackgroundColor={Config.color.primary}
@@ -206,7 +208,6 @@ const style = StyleSheet.create({
         marginVertical: 10
     },
     header: {
-        flex: 1,
         flexDirection: 'row',
         marginHorizontal: 10,
     },

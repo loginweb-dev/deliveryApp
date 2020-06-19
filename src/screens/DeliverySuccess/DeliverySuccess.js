@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Text, Dimensions } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Dimensions, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 
@@ -21,6 +21,7 @@ class DeliverySuccess extends Component {
     componentDidMount(){
         setTimeout(() => {
             this.props.updateCart([]);
+            AsyncStorage.setItem('UserShoppingcart', '[]');
         }, 500);
     }
 
