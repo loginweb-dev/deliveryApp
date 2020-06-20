@@ -33,7 +33,34 @@ export  const Products = [
                 'typeId': 3,
                 'typeName': 'Familiar'
             },
-        ]
+        ],
+        'extras': [
+            {
+                id: 1,
+                name: 'Papas',
+                price: '5.00',
+                ckecked: false
+            },
+            {
+                id: 2,
+                name: 'Tocino',
+                price: '5.00',
+                ckecked: false
+            },
+            {
+                id: 3,
+                name: 'Salsa',
+                price: '3.00',
+                ckecked: false
+            },
+            {
+                id: 4,
+                name: 'Huevo',
+                price: '2.00',
+                ckecked: false
+            },
+        ],
+        'slug': 'Hamburguesa-sencilla',
     },
     {
         'id': 2,
@@ -69,7 +96,28 @@ export  const Products = [
                 'typeId': 3,
                 'typeName': 'Familiar'
             },
-        ]
+        ],
+        'extras': [
+            {
+                id: 1,
+                name: 'Papas',
+                price: '5.00',
+                ckecked: false
+            },
+            {
+                id: 2,
+                name: 'Tocino',
+                price: '5.00',
+                ckecked: false
+            },
+            {
+                id: 3,
+                name: 'Salsa',
+                price: '3.00',
+                ckecked: false
+            },
+        ],
+        'slug': 'Hamburguesa-doble',
     },
     {
         'id': 3,
@@ -105,7 +153,28 @@ export  const Products = [
                 'typeId': 3,
                 'typeName': 'Familiar'
             },
-        ]
+        ],
+        'extras': [
+            {
+                id: 1,
+                name: 'Papas',
+                price: '5.00',
+                ckecked: false
+            },
+            {
+                id: 3,
+                name: 'Salsa',
+                price: '3.00',
+                ckecked: false
+            },
+            {
+                id: 4,
+                name: 'Huevo',
+                price: '2.00',
+                ckecked: false
+            },
+        ],
+        'slug': 'lomito',
     },
     {
         'id': 4,
@@ -141,7 +210,28 @@ export  const Products = [
                 'typeId': 3,
                 'typeName': 'Familiar'
             },
-        ]
+        ],
+        'extras': [
+            {
+                id: 2,
+                name: 'Tocino',
+                price: '5.00',
+                ckecked: false
+            },
+            {
+                id: 3,
+                name: 'Salsa',
+                price: '3.00',
+                ckecked: false
+            },
+            {
+                id: 4,
+                name: 'Huevo',
+                price: '2.00',
+                ckecked: false
+            },
+        ],
+        'slug': 'Hamburguesa-Completa',
     }
 ];
 
@@ -164,31 +254,4 @@ export  const Categories = [
         subtitle: 'La mejor variedad en postres',
         image: 'https://cdn.pixabay.com/photo/2016/03/23/15/00/ice-cream-cone-1274894_960_720.jpg'
     }
-];
-
-export const Extras = [
-    {
-        id: 1,
-        name: 'Papas',
-        price: '5.00',
-        ckecked: false
-    },
-    {
-        id: 2,
-        name: 'Tocino',
-        price: '5.00',
-        ckecked: false
-    },
-    {
-        id: 3,
-        name: 'Salsa',
-        price: '3.00',
-        ckecked: false
-    },
-    {
-        id: 4,
-        name: 'Huevo',
-        price: '2.00',
-        ckecked: false
-    },
 ];

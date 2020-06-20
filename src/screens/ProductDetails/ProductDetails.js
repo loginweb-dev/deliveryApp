@@ -17,9 +17,6 @@ import BtnCircle from '../../ui/BtnCircle';
 // Configurations
 import { Config } from '../../config/config.js';
 
-// Registers
-import { Extras } from '../../config/registers';
-
 const screenWidth = Math.round(Dimensions.get('window').width);
 
 class ProductDetails extends Component {
@@ -31,10 +28,11 @@ class ProductDetails extends Component {
             details: this.props.route.params.product.details,
             price: this.props.route.params.product.price,
             image: this.props.route.params.product.image,
+            slug: this.props.route.params.product.slug,
             priceExtras: 0,
             counProduct: 1,
             totalPrice : this.props.route.params.product.price,
-            extrasList: [],
+            extrasList: this.props.route.params.product.extras,
             // Productos similares
             similarProducts: this.props.route.params.product.similar,
             similarProductsRadios: []
@@ -53,7 +51,7 @@ class ProductDetails extends Component {
         });
 
         // Reset CheckBoxs
-        Extras.map((item) => {
+        this.state.extrasList.map((item) => {
             extras.push({...item, ckecked: false});
         });
 
@@ -136,7 +134,7 @@ class ProductDetails extends Component {
         try {
             const result = await Share.share({
                 message:
-                'React Native | A framework for building native apps using React',
+                `Echa un vistazo a ${this.state.name} de ${Config.appName} ingresando en ${Config.API}detalle/${this.state.slug}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
