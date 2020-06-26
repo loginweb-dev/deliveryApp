@@ -9,7 +9,7 @@ import { Config } from '../config/config.js';
 const CartHeader = (props) => {
   return (
     <View style={{ flex: 1, flexDirection: 'row', marginTop:10, marginRight:10 }}>
-        <Icon name="shopping-cart" size={35} color={Config.color.menuText} />
+        <Icon name="shopping-cart" size={30} color={Config.color.menuText} />
         <Text style={style.badge}>
             { props.cartItems }
         </Text>

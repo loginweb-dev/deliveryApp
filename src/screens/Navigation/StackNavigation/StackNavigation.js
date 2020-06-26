@@ -14,6 +14,7 @@ import SplashScreen from '../../SplashScreen/SplashScreen';
 import Login from '../../Auth/Login/Login';
 import Index from '../../Index/Index';
 import CategoryDetails from '../../CategoryDetails/CategoryDetails';
+import OfferDetails from '../../OfferDetails/OfferDetails';
 import ProductDetails from '../../ProductDetails/ProductDetails';
 import Cart from '../../Cart/Cart';
 import LocationsList from '../../LocationsList/LocationsList';
@@ -49,7 +50,7 @@ class Main extends Component {
                 isLoggedIn: isLoggedIn == '1' ? true : false,
                 isLoading: false
             });
-        }, 2500);
+        }, 2300);
     };
 
     render() {
@@ -97,6 +98,20 @@ class Main extends Component {
                     component={CategoryDetails}
                     options={({ route }) => ({
                         title: <Text style={ MainStyle.h3 }>{route.params.category.title}</Text>,
+                        headerRight: () => (
+                            <TouchableOpacity
+                                onPress={() => this.props.navigation.navigate('Cart')}
+                            >
+                                <CartHeader />
+                            </TouchableOpacity>
+                        ),
+                    })}
+                />
+                <Stack.Screen
+                    name="OfferDetails"
+                    component={OfferDetails}
+                    options={({ route }) => ({
+                        title: <Text style={ MainStyle.h3 }>{route.params.offer.title}</Text>,
                         headerRight: () => (
                             <TouchableOpacity
                                 onPress={() => this.props.navigation.navigate('Cart')}

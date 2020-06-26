@@ -14,7 +14,7 @@ import ButtonSecondary from "../../ui/ButtonSecondary";
 import BtnCircle from '../../ui/BtnCircle';
 
 // Configurations
-import { Config } from '../../config/config.js';
+import { Config, reziseImage } from '../../config/config.js';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -41,7 +41,7 @@ class ProductDetails extends Component {
         let radioButtons = [];
         products.map((item, index) => {
             radioButtons.push({
-                value: item.id, label: item.typeName
+                value: item.id, label: item.name
             });
         });
 
@@ -133,7 +133,7 @@ class ProductDetails extends Component {
             <BackgroundTop
                 title=''
                 subtitle=''
-                image={this.state.image}
+                image={reziseImage(this.state.image)}
             />
             {/* Share Button */}
             <View style={{ position: 'absolute', top: 200, right: 15 }}>
@@ -142,7 +142,7 @@ class ProductDetails extends Component {
                     color='white'
                     onPress={this.onShare}
                     icon='md-share'
-                    size={1}
+                    size={4}
                 />
             </View>
             {/* ============ */}

@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image } from "rea
 import Icon from 'react-native-vector-icons/Feather';
 
 // Configurations
-import { Config } from '../../config/config.js';
+import { Config, reziseImage } from '../../config/config.js';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
+const apiStorage = Config.debug ? '' : `${Config.API}/storage/`;
 
 const ItemProduct = (props) => {
     return(
@@ -18,7 +19,7 @@ const ItemProduct = (props) => {
                         <View style={style.ItemListImage} >
                             <Image
                                 style={{width: '100%', height: '100%'}}
-                                source={{ uri: props.image }}
+                                source={{ uri: `${apiStorage}${reziseImage(props.image, 'small')}` }}
                                 resizeMode="cover"
                             />
                         </View>

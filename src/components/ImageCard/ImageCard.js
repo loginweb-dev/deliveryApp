@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, ImageBackground, Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 
-const screenWidth = Math.round(Dimensions.get('window').width);
+// Configurations
+import { Config } from '../../config/config';
+
+const apiStorage = Config.debug ? '' : `${Config.API}/storage/`;
 
 const ImageCard = (props) => {
     return(
@@ -9,7 +12,7 @@ const ImageCard = (props) => {
         onPress={props.onPress}
       >
         <View style={ style.cardOption }>
-            <ImageBackground source={{ uri: props.image }} style={style.cardImage}>
+            <ImageBackground source={{ uri: `${apiStorage}${props.image}` }} style={style.cardImage}>
                 <View style={style.maskDark} />
                 <Text style={ style.cardTitle }>{props.title}</Text>
                 <Text style={ style.cardSubtitle }>{props.subtitle}</Text>

@@ -18,7 +18,7 @@ const OrderItem = props => {
                 <Text style={{ color: '#000' }}>{ props.date }</Text>
             </View>
             <View style={style.colum_right}>
-                <Badge color={ Config.color.primary } >Entregado</Badge>
+                <Badge color={ props.status ? 'green' : 'red' } >{ props.status ? props.statusName : 'Cancelado' }</Badge>
             </View>
         </View>
     );

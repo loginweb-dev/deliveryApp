@@ -1,49 +1,21 @@
-export  const Products = [
+export const Products = [
     {
         'id': 1,
         'name': 'Hamburguesa sencilla',
         'details': 'Carne, ensalada, salsa y huevo.',
         'price': '15.00',
         'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-        'similar': [
-            {
-                'id': 1,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '15.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 1,
-                'typeName': 'Pequeña'
-            },
-            {
-                'id': 2,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '16.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 2,
-                'typeName': 'Mediana'
-            },
-            {
-                'id': 3,
-                'name': 'Hamburguesa sencilla',
-                'details': 'Carne, ensalada, salsa y huevo.',
-                'price': '18.00',
-                'image': 'https://cdn.pixabay.com/photo/2016/03/05/19/08/abstract-1238262_960_720.jpg',
-                'typeId': 3,
-                'typeName': 'Familiar'
-            },
-        ],
+        'similar': [],
         'extras': [
             {
-                id: 1,
-                name: 'Papas',
-                price: '5.00',
-                ckecked: false
+                "id": 1,
+                "name": 'Papas',
+                "price": '5.00',
+                "ckecked": false
             },
             {
-                id: 2,
-                name: 'Tocino',
+                "id": 2,
+                "name": 'Tocino',
                 price: '5.00',
                 ckecked: false
             },
@@ -235,23 +207,80 @@ export  const Products = [
     }
 ];
 
-export  const Categories = [
+export const Categories = [
+    {
+        id: 10,
+        title: '20% de descuento',
+        subtitle: 'Oferta semanal en todos los productos',
+        image: 'https://cdn.pixabay.com/photo/2017/10/30/08/41/black-friday-2901748_960_720.png',
+        type: 'offert'
+    },
     {
         id: 1,
         title: 'Hamburguesas',
         subtitle: 'Las mejores hamburguesas caseras',
-        image: 'https://cdn.pixabay.com/photo/2015/04/20/13/25/burger-731298_960_720.jpg'
+        image: 'https://cdn.pixabay.com/photo/2015/04/20/13/25/burger-731298_960_720.jpg',
+        type: 'category'
     },
     {
         id: 2,
         title: 'Gaseosas',
         subtitle: 'Variedad de sabores',
-        image: 'https://cdn.pixabay.com/photo/2017/09/12/04/42/soft-drink-2741251_960_720.jpg'
+        image: 'https://cdn.pixabay.com/photo/2017/09/12/04/42/soft-drink-2741251_960_720.jpg',
+        type: 'category'
     },
     {
         id: 3,
         title: 'Postres',
         subtitle: 'La mejor variedad en postres',
-        image: 'https://cdn.pixabay.com/photo/2016/03/23/15/00/ice-cream-cone-1274894_960_720.jpg'
+        image: 'https://cdn.pixabay.com/photo/2016/03/23/15/00/ice-cream-cone-1274894_960_720.jpg',
+        type: 'category'
+    }
+];
+
+export const Orders = [
+    {
+        id: 1,
+        code: '00001',
+        details: 'Product 1, Product 4, Product 3',
+        amount: "25.00",
+        status: 1,
+        statusName: 'En proceso',
+        date: 'Hace 1 dias',
+        tracking: [
+            {time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
+            {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
+            {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
+            {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
+        ]
+    },
+    {
+        id: 2,
+        code: '00002',
+        details: 'Product 1, Product 5, Product 3',
+        amount: "25.00",
+        status: 0,
+        statusName: 'En proceso',
+        date: 'Hace 2 dias',
+        tracking: [
+            {time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
+            {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
+        ]
+    },
+    {
+        id: 3,
+        code: '00003',
+        details: 'Product 1, Product 2, Product 3',
+        amount: "25.00",
+        status: 1,
+        statusName: 'En proceso',
+        date: 'Hace 1 mes',
+        tracking: [
+            {time: '09:00', title: 'Event 1', description: 'Event 1 Description'},
+            {time: '10:45', title: 'Event 2', description: 'Event 2 Description'},
+            {time: '12:00', title: 'Event 3', description: 'Event 3 Description'},
+            {time: '14:00', title: 'Event 4', description: 'Event 4 Description'},
+            {time: '16:30', title: 'Event 5', description: 'Event 5 Description'}
+        ]
     }
 ];

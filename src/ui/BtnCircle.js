@@ -8,12 +8,12 @@ const BtnCircle = props => {
     const style = StyleSheet.create({
         container: {
             backgroundColor: props.backgroundColor ? props.backgroundColor : 'white',
-            borderRadius: 20,
+            borderRadius: props.size ? (props.size*10)/2 : 20,
             borderColor: props.color ? props.color : 'white',
             borderStyle: 'solid',
             borderWidth: 2,
-            width: 40,
-            height: 40,
+            width: props.size ? (props.size*10) : 40,
+            height: props.size ? (props.size*10) : 40,
             justifyContent: 'center',
             alignItems: 'center'
         },

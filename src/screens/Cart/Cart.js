@@ -22,6 +22,7 @@ import ButtonSecondary from "../../ui/ButtonSecondary";
 
 // Configurations
 import { Config } from '../../config/config.js';
+import { MainStyle } from '../../config/styles.js';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -46,7 +47,6 @@ class Cart extends Component {
         this.setState({cart});
         AsyncStorage.setItem('UserShoppingcart', JSON.stringify(cart), () => {
             this.props.updateCart(cart);
-            console.log(cart)
         });
     }
 
@@ -79,7 +79,7 @@ class Cart extends Component {
     }
 
     onPressAccept(){
-        if(this.props.user.NumberPhone){
+        if(this.props.user.numberPhone){
             this.props.navigation.navigate('LocationsList', { cartSuccess: true });
         }else{
             Alert.alert(
@@ -156,7 +156,7 @@ class Cart extends Component {
                                 style={{ width: 100, height: 100 }}
                                 source={ require('../../assets/images/cart-empty.png') }
                             />
-                            <Text style={{ marginTop: 20, fontSize: 30, color: '#aeaeae' }}>Carrito vacío</Text>
+                            <Text style={[MainStyle.h2, MainStyle.textMuted]}>Carrito vacío</Text>
                         </View>
                     }
                 </ScrollView>

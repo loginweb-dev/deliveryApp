@@ -2,9 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet, Dimensions, TouchableOpacity, Image, ImageBackground } from "react-native";
 
 // Configurations
-import { Config } from '../../config/config.js';
+import { Config, reziseImage } from '../../config/config.js';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
+const apiStorage = Config.debug ? '' : `${Config.API}/storage/`;
 
 const ItemProductAlt = (props) => {
     return(
@@ -13,7 +14,7 @@ const ItemProductAlt = (props) => {
                 onPress={props.onPress}
                 style={{ padding: 5, width: screenWidth/2 }}
             >
-                <ImageBackground source={ { uri: props.image } } style={ style.itemListImage } />
+                <ImageBackground source={ { uri: `${apiStorage}${reziseImage(props.image, 'small')}` } } style={ style.itemListImage } />
                 <View style={ style.itemList }>
                     <Text style={style.itemListDetailTitle} numberOfLines={1}>{props.name}</Text>
                     <Text style={style.itemListDetailSubtitle} numberOfLines={2}>{props.details}</Text>

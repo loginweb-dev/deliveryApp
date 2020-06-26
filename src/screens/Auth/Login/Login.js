@@ -221,27 +221,31 @@ class Login extends Component {
 
     guestLogin = () => {
         let guetsUser = {
-            id: 1,
-            name: 'John Doe',
+            id: null,
+            name: 'Invitado',
             email: '',
             codePhone: '+591',
-            NumberPhone: '75199157',
+            numberPhone: '',
             avatar: '',
-            nit: '121212121212'
+            businessName: 'Invitado',
+            nit: '00000000',
+            type: 'guest'
         }
-        this.setInfoUser(guetsUser);
+        this.props.setUser(guetsUser)
+        this.successLogin();
     }
 
     phoneLogin = () => {
         if(this.state.inputName){
             let phoneUser = {
-                id: 1,
+                id: null,
                 name: this.state.inputName,
-                email: '',
+                email: `${this.state.phoneNumber}@loginweb.dev`,
                 codePhone: this.state.phoneNumberCode,
-                NumberPhone: this.state.phoneNumber,
+                numberPhone: this.state.phoneNumber,
                 avatar: '',
-                nit: this.state.inputNit
+                nit: this.state.inputNit,
+                type: 'sms'
             }
             this.setInfoUser(phoneUser);
         }else{
@@ -250,10 +254,47 @@ class Login extends Component {
     }
 
     async setInfoUser(userInfo){
-        AsyncStorage.setItem('UserSession', JSON.stringify(userInfo), () => {
-            this.props.setUser(userInfo)
-            this.successLogin();
-        });
+        // Si la app no está en modo desarrollo se hace la petición a la API
+        if(Config.debug){
+            AsyncStorage.setItem('UserSession', JSON.stringify(userInfo), () => {
+                this.props.setUser(userInfo)
+                this.successLogin();
+            });
+        }else{
+            let apiURL = `${Config.API}/api/v2`;
+            let header = {
+                method: 'POST',
+                body: JSON.stringify(userInfo),
+                headers:{
+                'Content-Type': 'application/json'
+                }
+            }
+            fetch(`${apiURL}/login`, header)
+            .then(res => res.json())
+            .then(res => {
+                if(!res.error){
+                    AsyncStorage.setItem('UserSession', JSON.stringify(res.user), () => {
+                        this.props.setUser(res.user);
+                        this.successLogin();
+                    });
+                }else{
+                    this.renderMessage('Error!', res.error, 'danger');
+                    this.setState({
+                        awesomeAlert: {
+                            show: false, showProgress: true, title: '',message: '',
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                this.renderMessage('Error!', 'Ocurrió un problema inesperado', 'danger');
+                this.setState({
+                    awesomeAlert: {
+                        show: false, showProgress: true, title: '',message: '',
+                    }
+                });
+            });
+        }
     }
 
     successLogin = () =>{
@@ -287,16 +328,16 @@ class Login extends Component {
                         .then(res => res.json())
                         .then(res => {
                             let user = {
-                                id: 1,
+                                id: null,
                                 name: res.name,
-                                email: res.email ? res.email : null,
-                                codePhone: '',
-                                NumberPhone: '',
+                                email: res.email ? res.email : `${res.id}@loginweb.dev`,
+                                codePhone: '+591',
+                                numberPhone: '',
                                 avatar: `http://graph.facebook.com/${res.id}/picture?type=large`,
-                                nit: ''
+                                nit: '',
+                                type: 'facebook'
                             }
                             this.setInfoUser(user);
-                            // console.log(response);
                         })
                         .catch(error => {
                             console.log(error);
@@ -330,6 +371,8 @@ class Login extends Component {
                     showProgress={this.state.awesomeAlert.showProgress}
                     title={this.state.awesomeAlert.title}
                     message={this.state.awesomeAlert.message}
+                    closeOnTouchOutside={false}
+                    closeOnHardwareBackPress={false}
                 />
             </View>
         );

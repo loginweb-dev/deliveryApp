@@ -10,6 +10,7 @@ const ButtonPrimary = props => {
     <TouchableOpacity
         onPress={props.onPress}
         style={[style.button, {backgroundColor: props.color ? props.color : Config.color.primary}]}
+        disabled={props.disabled ? props.disabled : false}
     >
         <Text style={style.buttonText}>{props.children} {props.icon && <Icon name={props.icon} size={20} />} </Text>
     </TouchableOpacity>

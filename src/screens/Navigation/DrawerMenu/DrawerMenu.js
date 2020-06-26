@@ -23,6 +23,13 @@ class DrawerMenu extends Component {
     }
 
     render(){
+        // Verificar si el avatar está almacenado en nuestro servidor o en el de la red social
+        let avatar = this.props.user.avatar;
+        if(avatar){
+            avatar = avatar.includes('http') ? {uri: avatar} : {uri: `${Config.API}/storage/${avatar}`};
+        }else{
+            avatar = require('../../../assets/images/user.png');
+        }
         return (
             <View>
                 <ImageBackground source={ Config.images.bannerAlt } style={{width: '100%', height: 200}}>
@@ -32,14 +39,14 @@ class DrawerMenu extends Component {
                             color={ Config.draweMenu.colorText }
                             onPress={() => this.props.navigation.closeDrawer()}
                             icon='md-arrow-back'
-                            size={1}
+                            size={4}
                         />
                     </View>
                     <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                         <Avatar
                             width={80}
                             borderColor='white'
-                            image={this.props.user.avatar ? {uri: this.props.user.avatar} : require('../../../assets/images/user.png')}
+                            image={ avatar }
                         />
                         <View style={{ marginTop: 10 }}>
                         <Badge color={ Config.color.primary } size={15} >{ this.props.user.name }</Badge>

@@ -3,47 +3,62 @@ import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 
 // Components
 import OrderItem from '../../components/OrderItem/OrderItem';
+import Loading from '../../ui/Loading';
 
 // Configurations
 import { Config } from '../../config/config';
 
-const orders = [
-    {
-        id: 1,
-        cod: '00001',
-        details: 'Product 1, Product 2, Product 3',
-        date: 'Hace 1 dias'
-    },
-    {
-        id: 2,
-        cod: '00002',
-        details: 'Product 1, Product 2, Product 3',
-        date: 'Hace 2 dias'
-    },
-    {
-        id: 3,
-        cod: '00003',
-        details: 'Product 1, Product 2, Product 3',
-        date: 'Hace 1 mes'
-    }
-  ];
+// Registers
+import { Orders } from '../../config/registers';
 
 class OrderList extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            ordersList: Config.debug ? Orders : [],
+            loading: true,
+        }
     }
 
+    componentDidMount() {
+        if(!Config.debug){
+          this.getData()
+        }else{
+          this.setState({ loading: false });
+        }
+      }
+    
+      getData = () => {
+        let apiURL = `${Config.API}/api/v2`;
+        fetch(`${apiURL}/orders_list/2`)
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            ordersList: res.ordersList,
+            loading: false
+          });
+        })
+        .catch(error => {
+            console.log(error);
+        });
+      }
+
     render(){
+        if(this.state.loading){
+            return <Loading size="large" />
+        }
         return (
             <View style={ style.container }>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     {
-                        orders.map(order => {
+                        this.state.ordersList.map(order => {
                             return (
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('OrderDetails')}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('OrderDetails', {order})}>
                                     <OrderItem
-                                        cod={order.cod}
+                                        cod={order.code}
                                         details={order.details}
+                                        status={order.status}
+                                        statusName={order.statusName}
                                         date={order.date}
                                     />
                                 </TouchableOpacity>

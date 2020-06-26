@@ -25,14 +25,14 @@ const traslateY = scrollY.interpolate({
     outputRange:[0, -250]
 });
 
-class CategoryDetails extends Component {
+class OfferDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            id: this.props.route.params.category.id,
-            background : this.props.route.params.category.image,
-            title: this.props.route.params.category.title,
-            subtitle: this.props.route.params.category.subtitle,
+            id: this.props.route.params.offer.id,
+            background : this.props.route.params.offer.image,
+            title: this.props.route.params.offer.title,
+            subtitle: this.props.route.params.offer.subtitle,
             productsList: Config.debug ? Products : [],
             loading: true,
         }
@@ -48,7 +48,7 @@ class CategoryDetails extends Component {
     
     getData = () => {
         let apiURL = `${Config.API}/api/v2`;
-        fetch(`${apiURL}/category_products/${this.state.id}`)
+        fetch(`${apiURL}/offer_products/${this.state.id}`)
         .then(res => res.json())
         .then(res => {
             this.setState({
@@ -97,49 +97,49 @@ class CategoryDetails extends Component {
 
     render(){
         return (
-            <View style={ style.container }>
-                <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    onScroll={(e)=>{
-                        scrollY.setValue(e.nativeEvent.contentOffset.y);
+        <View style={ style.container }>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                onScroll={(e)=>{
+                    scrollY.setValue(e.nativeEvent.contentOffset.y);
+                }}
+            >
+                <Animated.View
+                    style={{ 
+                        transform:[{
+                            translateY: traslateY
+                        }]
                     }}
                 >
-                    <Animated.View
-                        style={{ 
-                            transform:[{
-                                translateY: traslateY
-                            }]
-                        }}
-                    >
-                        <BackgroundTop
-                            title={this.state.title}
-                            subtitle={this.state.subtitle}
-                            image={this.state.background}
-                            maskDark
-                        />
-                    </Animated.View>
-                    <Separator height={5} />
-                    {   this.state.loading &&
+                    <BackgroundTop
+                        title={this.state.title}
+                        subtitle={this.state.subtitle}
+                        image={this.state.background}
+                        maskDark
+                    />
+                </Animated.View>
+                <Separator height={5} />
+                {   this.state.loading &&
                         <View style={{ marginTop: 20 }}>
                             <Loading />
                         </View>
                     }
-                    {
-                        this.state.productsList.map(item=>
-                            <ItemProduct
-                                name={item.name}
-                                details={item.details}
-                                price={item.price}
-                                image={item.image}
-                                type={item.type}
-                                onPress={() => this.onPressProduct(item)}
-                                onPressAdd={() => this.addCart(item)}
-                            />
-                        )
-                    }
-                    <Separator height={30} />
-                </ScrollView>
-            </View>
+                {
+                    this.state.productsList.map(item=>
+                        <ItemProduct
+                            name={item.name}
+                            details={item.details}
+                            price={item.price}
+                            image={item.image}
+                            type={item.type}
+                            onPress={() => this.onPressProduct(item)}
+                            onPressAdd={() => this.addCart(item)}
+                        />
+                    )
+                }
+                <Separator height={30} />
+            </ScrollView>
+        </View>
         );
     }
 }
@@ -169,4 +169,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferDetails);

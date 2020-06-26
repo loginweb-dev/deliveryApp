@@ -1,8 +1,9 @@
-export  const Config = {
+export const Config = {
     appName: "DeliveryApp",
     appDescription: "Versión inical de una aplicación que incluye react-navigation y redux.",
     autor: "LoginWeb",
-    API: "https://loginweb.dev/",
+    API: "",
+    debug: true,
     images: {
         banner: require('../assets/images/banner.png'),
         bannerAlt: require('../assets/images/banner.png'),
@@ -37,4 +38,8 @@ export  const Config = {
         latitude: -14.834821,
         longitude: -64.904159,
     }
+}
+
+export const reziseImage = (image, size = 'medium') => {
+    return Config.debug ? image : image.replace('.', `_${size}.`);
 }

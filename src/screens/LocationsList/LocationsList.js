@@ -10,10 +10,10 @@ import Geolocation from '@react-native-community/geolocation';
 import PartialModal from "../../ui/PartialModal";
 import ButtonPrimary from "../../ui/ButtonPrimary";
 import ButtonSecondary from "../../ui/ButtonSecondary";
+import BtnCircle from '../../ui/BtnCircle';
 
 // Configurations
-import { Config } from '../../config/config.js';
-
+import { Config } from '../../config/config';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 const screenHeight = Math.round(Dimensions.get('window').height);
@@ -41,11 +41,13 @@ class LocationsList extends Component {
             locationsName: [],
             locationSelecte: false,
             // Verificar si se recibe el parametro cartSuccess para activar las opciones de realizar pedido
-            cartSuccess: this.props.route.params ? this.props.route.params.cartSuccess : false
+            cartSuccess: this.props.route.params ? this.props.route.params.cartSuccess : false,
+            showTips: false
         }
     }
 
     componentDidMount(){
+        this.showTips();
         // Si el carrito está vacío limpiar historial de navegación
         this.props.navigation.addListener('focus', () => {
             if(this.state.cartSuccess && this.props.cart.length == 0){
@@ -58,7 +60,7 @@ class LocationsList extends Component {
         });
         
         this.loadLocations();
-    }[0]
+    }
 
     getCurrentLocation(){
         Geolocation.getCurrentPosition(position => {
@@ -182,10 +184,6 @@ class LocationsList extends Component {
             this.props.updateLocation(locationState);
             AsyncStorage.setItem('UserLocations', JSON.stringify(locationState), () => {
                 this.setState({messageErrorVisible: false, modalVisible: false, buttonEditVisible: false});
-
-                // Actualizar los datos en la base de datos
-                // ******************************+
-                
                 showMessage({
                     message: 'Ubicación editada',
                     description: `Se actualizaron los datos de la ubicación: ${locationState[index].name}.`,
@@ -208,12 +206,21 @@ class LocationsList extends Component {
                 {
                     text: 'OK',
                     onPress: () => {
-                        this.props.navigation.navigate('DeliverySuccess');
+                        let index = this.state.selectedIndexTab;
+                        let location = this.props.locations[index];
+                        this.props.navigation.navigate('DeliverySuccess', {location});
                     }
                 },
             ],
             { cancelable: false }
         )
+    }
+
+    showTips = () => {
+        this.setState({showTips: true})
+        this.timeOutTip = setTimeout(() => {
+            this.setState({showTips: false})
+        }, 3000);
     }
 
     render(){
@@ -228,12 +235,19 @@ class LocationsList extends Component {
                         tabTextStyle={{ color: Config.color.primary }}
                         activeTabStyle={{ backgroundColor: Config.color.primary }}
                     />
+                    {this.state.showTips &&
+                        <View style={{ alignItems: 'center', margin: 5 }}>
+                            <Text>Mantenga presionado el marcador para moverlo</Text>
+                        </View>
+                    }
                 </View>
                 <MapView
                     ref={map => {this.map = map}}
                     provider={PROVIDER_GOOGLE}
                     style={style.map}
                     initialRegion={this.state.region}
+                    onPress={ this.showTips }
+                    onPanDrag={ this.showTips }
                 >
                     <Marker
                         draggable
@@ -254,27 +268,37 @@ class LocationsList extends Component {
                         />
                     </Marker>
                 </MapView>
-               {
-                   this.state.buttonEditVisible &&
-                   <View style={style.footer}>
+                <View style={{ position: 'absolute', bottom: 50, right: 20 }}>
+                <BtnCircle
+                    backgroundColor={ Config.color.primary }
+                    color={ Config.color.textPrimary }
+                    onPress={() => this.getCurrentLocation()}
+                    icon='md-locate'
+                    size={5}
+                />
+                </View>
+                {
+                    this.state.buttonEditVisible &&
+                    <View style={style.footer}>
                         <ButtonPrimary onPress={() => this.setState({modalVisible:!this.state.modalVisible})} icon='ios-pin'>
                             Actualizar
                         </ButtonPrimary>
                     </View>
-               }
-               {/* Si no se está editando la ubicación y el pedido fué aceptado se muestra el boton de aceptar */}
-               {
-                   !this.state.buttonEditVisible && this.state.cartSuccess && this.state.locationSelecte &&
-                   <View style={style.footer}>
+                }
+                {/* Si no se está editando la ubicación y el pedido fué aceptado se muestra el boton de aceptar */}
+                {
+                    !this.state.buttonEditVisible && this.state.cartSuccess && this.state.locationSelecte &&
+                    <View style={style.footer}>
                         <ButtonPrimary onPress={() => this.AcceptDelivery()} icon='ios-checkmark-circle-outline' >
                             Continuar
                         </ButtonPrimary>
                     </View>
-               }
+                }
                 <PartialModal
                     animationType="slide"
                     visible={this.state.modalVisible}
                     height={230}
+                    onRequestClose={()=> this.setState({modalVisible: false})}
                 >
                     <View style={{ marginHorizontal: 10, marginTop: 10 }}>
                         <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10 }}>Describenos tu ubicación</Text>
@@ -337,7 +361,6 @@ const style = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        margin: 10,
         zIndex:1
     },
     messageError: {
@@ -352,7 +375,8 @@ const style = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         locations: state.locations,
-        cart: state.cart
+        cart: state.cart,
+        user: state.user
     }
 }
 

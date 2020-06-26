@@ -11,11 +11,12 @@ import ItemExtra from "../../components/ItemExtra/ItemExtra";
 
 // UI
 import Divider from "../../ui/Divider";
+import Separator from '../../ui/Separator';
 import ButtonSecondary from "../../ui/ButtonSecondary";
 import BtnCircle from '../../ui/BtnCircle';
 
 // Configurations
-import { Config } from '../../config/config.js';
+import { Config, reziseImage } from '../../config/config.js';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -46,7 +47,7 @@ class ProductDetails extends Component {
         let extras = [];
         products.map((item, index) => {
             radioButtons.push({
-                value: item.id, label: item.typeName
+                value: item.id, label: item.name
             });
         });
 
@@ -56,16 +57,21 @@ class ProductDetails extends Component {
         });
 
         this.setState({
-            similarProductsRadios: radioButtons,
-            //////////////////
-            id: products[0].id,
-            name: products[0].name,
-            details: products[0].details,
-            price: products[0].price,
-            totalPrice: products[0].price,
-            image: products[0].image,
             extrasList: extras
         });
+
+        // Si existen productos similares seleccionar el primero
+        if(radioButtons.length > 0){
+            this.setState({
+                similarProductsRadios: radioButtons,
+                id: products[0].id,
+                name: products[0].name,
+                details: products[0].details,
+                price: products[0].price,
+                totalPrice: products[0].price,
+                image: products[0].image
+            });
+        }
     }
 
     handleCheckbox(id){
@@ -168,7 +174,7 @@ class ProductDetails extends Component {
             <BackgroundTop
                 title=''
                 subtitle=''
-                image={this.state.image}
+                image={reziseImage(this.state.image)}
             />
             {/* Share Button */}
             <View style={{ position: 'absolute', top: 200, right: 15 }}>
@@ -177,7 +183,7 @@ class ProductDetails extends Component {
                     color='white'
                     onPress={this.onShare}
                     icon='md-share'
-                    size={1}
+                    size={4}
                 />
             </View>
             {/* ============ */}
@@ -193,36 +199,45 @@ class ProductDetails extends Component {
                 <View style={style.section}>
                     <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
                 </View>
-                <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
-                <View style={{ margin: 15, alignItems: 'center' }}>
-                    <RadioForm
-                        radio_props={this.state.similarProductsRadios}
-                        initial={0}
-                        onPress={ this.handleOnPressRadios }
-                        formHorizontal={true}
-                        labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
-                        buttonColor={ Config.color.primary }
-                        selectedButtonColor={ Config.color.primary }
-                    />
-                </View>
-                <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
-                <View style={style.section}>
-                    <Text style={{fontWeight: 'bold'}}>Extras</Text>
-                    <View style={{ margin: 10, width: screenWidth-20, }}>
-                        {
-                            this.state.extrasList.map(item => 
-                                <ItemExtra
-                                    ckecked={item.ckecked}
-                                    onChange={() => this.handleCheckbox(item.id)}
-                                    name={item.name}
-                                    price={item.price}
-                                />
-                            )
-                        }
+                {/* Si existen productos similares se muestras los radio buttons */}
+                {    this.state.similarProductsRadios.length > 0 &&
+                    <View>
+                        <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
+                        <View style={{ margin: 15, alignItems: 'center' }}>
+                            <RadioForm
+                                radio_props={this.state.similarProductsRadios}
+                                initial={0}
+                                onPress={ this.handleOnPressRadios }
+                                formHorizontal={true}
+                                labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
+                                buttonColor={ Config.color.primary }
+                                selectedButtonColor={ Config.color.primary }
+                            />
+                        </View>
                     </View>
-                </View>
-                <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
-                <View style={{ height:80 }}></View>
+                }
+                {   this.state.extrasList.length > 0 &&
+                    <View>
+                        <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
+                        <View style={style.section}>
+                            <Text style={{fontWeight: 'bold'}}>Extras</Text>
+                            <View style={{ margin: 10, width: screenWidth-20, }}>
+                                {
+                                    this.state.extrasList.map(item => 
+                                        <ItemExtra
+                                            ckecked={item.ckecked}
+                                            onChange={() => this.handleCheckbox(item.id)}
+                                            name={item.name}
+                                            price={item.price}
+                                        />
+                                    )
+                                }
+                            </View>
+                        </View>
+                        <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
+                    </View>
+                }
+                <Separator height={50} />
             </ScrollView>
             <View style={style.footer}>
                 <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}>

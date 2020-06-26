@@ -11,6 +11,7 @@ import ButtonPrimary from "../../ui/ButtonPrimary";
 
 // UI
 import Avatar from "../../ui/Avatar";
+import Loading from '../../ui/Loading';
 
 // Configurations
 import { Config } from '../../config/config.js';
@@ -36,15 +37,13 @@ class Profile extends Component {
         super(props);
         this.state = {
             inputName: this.props.user.name,
-            inputPhoneNumber: this.props.user.NumberPhone,
+            inputPhoneNumber: this.props.user.numberPhone,
+            inputBusinessName: this.props.user.businessName,
             inputNit: this.props.user.nit,
             // Parametro para redirección en caso de edición rápida
-            kickUpdate: this.props.route.params ? this.props.route.params.kickUpdate : false
+            kickUpdate: this.props.route.params ? this.props.route.params.kickUpdate : false,
+            sending: false
         };
-    }
-
-    componentDidMount(){
-
     }
 
     handleChangeAvatar = () => {
@@ -59,28 +58,51 @@ class Profile extends Component {
             } else if (response.customButton) {
               console.log('User tapped custom button: ', response.customButton);
             } else {
-                // RNFetchBlob.fetch('POST', `${BASE_URL}/api/update/profile/delivery/avatar/${this.state.id_field}`, {
-                //     Authorization : "Bearer access-token",
-                //     otherHeader : "foo",
-                //     'Content-Type' : 'multipart/form-data',
-                // }, [
-                //     { name : 'avatar', filename : 'avatar-png.png', type:'image/png', data: response.data},
-                // ]).then(response => response.json())
-                // .then(async (res) => {
-                //     if(res.error){
-                //         this.setState({alertErrorMessage: res.error, alertColorEdit : 'red', alertEdit: true, submited: false});
-                //     }else{
-                //         const data = await AsyncStorage.getItem('tatuUserDelivery');
-                //         let user = JSON.parse(data);
-                //         let new_user = {
-                //             id: user.id, empleado_id: user.empleado_id, name: user.name, email: user.email, phone: user.phone, address: user.address, avatar: res.avatar
-                //         }
-                //         AsyncStorage.setItem('tatuUserDelivery', JSON.stringify(new_user));
-                //         this.setState({alertErrorMessage: res.success, alertColorEdit : 'green', alertEdit: true, urlAvatar: `${BASE_URL}storage/${res.avatar}`,submited: false});
-                //     }
-                // }).catch((err) => {
-                //     console.log(err)
-                // })
+                if(this.props.user.id && !Config.debug){
+                    this.setState({ sending: true });
+                    let apiURL = `${Config.API}/api/v2`;
+                    RNFetchBlob.fetch('POST', `${apiURL}/update_user_avatar/${this.props.user.id}`, {
+                        Authorization : "Bearer access-token",
+                        'Content-Type' : 'multipart/form-data',
+                    }, [
+                        { name : 'avatar', filename : 'avatar-png.png', type:'image/png', data: response.data},
+                    ]).then(response => response.json())
+                    .then(res => {
+                        if(res.error){
+                            showMessage({
+                                message: 'Error',
+                                description: `Ocurrió un error en el servidor.`,
+                                type: 'danger', icon: 'danger',
+                            });
+                        }else{
+                            let user = this.props.user;
+                            let newUser = {
+                                ...user,
+                                avatar: `${Config.API}/storage/${res.avatar}`
+                            }
+                            this.props.updateUser(newUser);
+                            showMessage({
+                                message: 'Avatar actualizado',
+                                description: `Tu imagen de perfil fue actualizada.`,
+                                type: 'info', icon: 'info',
+                            });
+                            this.setState({ sending: false });
+                        }
+                    }).catch((err) => {
+                        showMessage({
+                            message: 'Error!',
+                            description: 'Ocurrió un problema inesperado',
+                            type: 'danger', icon: 'danger',
+                        });
+                        this.setState({ sending: false });
+                    })
+                }else{
+                    showMessage({
+                        message: 'Advertencia',
+                        description: `Tu imagen de perfil solo se puede editar si inicias sesión.`,
+                        type: 'warning', icon: 'warning',
+                    });
+                }
             }
           });
     }
@@ -91,22 +113,52 @@ class Profile extends Component {
             let newUser = {
                 ...user,
                 name: this.state.inputName,
-                NumberPhone: this.state.inputPhoneNumber,
+                numberPhone: this.state.inputPhoneNumber,
+                businessName: this.state.inputBusinessName,
                 nit: this.state.inputNit
             }
             AsyncStorage.setItem('UserSession', JSON.stringify(newUser), () => {
-                this.props.updateUser(newUser);
-                showMessage({
-                    message: 'Datos actualizados',
-                    description: `Tu información de perfil fue actualizada.`,
-                    type: 'info',
-                    icon: 'info',
-                });
-
-                if(this.state.kickUpdate){
-                    setTimeout(() => {
-                        this.props.navigation.goBack();
-                    }, 1500);
+                if(newUser.id && !Config.debug){
+                    this.setState({ sending: true });
+                    let apiURL = `${Config.API}/api/v2`;
+                    let header = {
+                        method: 'POST',
+                        body: JSON.stringify(newUser),
+                        headers:{
+                        'Content-Type': 'application/json'
+                        }
+                    }
+                    fetch(`${apiURL}/update_user_profile`, header)
+                    .then(res => res.json())
+                    .then(res => {
+                        if(!res.error){
+                            let user = res.user;
+                            let newUser = {
+                                ...user,
+                                avatar: `${Config.API}/storage/${res.user.avatar}`
+                            }
+                            this.props.updateUser(newUser);
+                            this.successUpdate();
+                        }else{
+                            showMessage({
+                                message: 'Error!',
+                                description: res.error,
+                                type: 'danger', icon: 'danger',
+                            });
+                        }
+                        this.setState({ sending: false });
+                    })
+                    .catch(error => {
+                        showMessage({
+                            message: 'Error!',
+                            description: `Ocurrió un problema inesperado.`,
+                            type: 'danger', icon: 'danger',
+                        });
+                        this.setState({ sending: false });
+                    });
+                }else{
+                    this.props.updateUser(newUser);
+                    this.successUpdate();
                 }
             });
         }else{
@@ -119,7 +171,29 @@ class Profile extends Component {
         }
     }
 
+    successUpdate = () => {
+        showMessage({
+            message: 'Datos actualizados',
+            description: `Tu información de perfil fue actualizada.`,
+            type: 'info',
+            icon: 'info',
+        });
+
+        if(this.state.kickUpdate){
+            setTimeout(() => {
+                this.props.navigation.goBack();
+            }, 1500);
+        }
+    }
+
     render(){
+        // Verificar si el avatar está almacenado en nuestro servidor o en el de la red social
+        let avatar = this.props.user.avatar;
+        if(avatar){
+            avatar = avatar.includes('http') ? {uri: avatar} : {uri: `${Config.API}/storage/${avatar}`};
+        }else{
+            avatar = require('../../assets/images/user.png');
+        }
         return (
             <View style={ style.container }>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -127,7 +201,7 @@ class Profile extends Component {
                         <Avatar
                             width={120}
                             borderColor='white'
-                            image={this.props.user.avatar ? {uri: this.props.user.avatar} : require('../../assets/images/user.png')}
+                            image={ avatar }
                             onPress={this.handleChangeAvatar}
                         />
                     </View>
@@ -150,6 +224,14 @@ class Profile extends Component {
                     <View style={ style.item }>
                         <TextInput
                             style={MainStyle.input}
+                            placeholder="Razón social"
+                            onChangeText={ (value) => this.setState({'inputBusinessName': value}) }
+                            value={ this.state.inputBusinessName }
+                        />
+                    </View>
+                    <View style={ style.item }>
+                        <TextInput
+                            style={MainStyle.input}
                             placeholder="NIT o CI"
                             onChangeText={ (value) => this.setState({'inputNit': value}) }
                             value={ this.state.inputNit }
@@ -158,8 +240,11 @@ class Profile extends Component {
                     <View style={{ alignItems: 'center' }}>
                         <Text style={ [MainStyle.textMuted, MainStyle.p] }>No compartimos tu información personal con nadie.</Text>
                     </View>
+                    { this.state.sending && <Loading/>}
                     <View style={ style.footer }>
-                        <ButtonPrimary onPress={ this.handleSubmit } icon='ios-checkmark-circle-outline'>
+                        <ButtonPrimary
+                            disabled={this.state.sending}
+                            onPress={ this.handleSubmit } icon='ios-checkmark-circle-outline'>
                             Actualizar información
                         </ButtonPrimary>
                     </View>

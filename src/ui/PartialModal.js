@@ -9,9 +9,7 @@ const PartialModal = props => {
         transparent={true}
         animationType={props.animationType}
         visible={props.visible}
-        onRequestClose={() => {
-            console.log('close');
-        }}
+        onRequestClose={props.onRequestClose}
     >
         <View style={style.container}>
             <View style={[style.body, {height: props.height}]}>
@@ -28,12 +26,13 @@ const style = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-end',
         alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)'
     },
     body: {
         backgroundColor: 'white',
         width: screenWidth,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
     }
 });
 
