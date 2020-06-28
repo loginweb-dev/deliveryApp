@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, Text, Dimensions, AsyncStorage } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { showMessage } from "react-native-flash-message";
 import { connect } from 'react-redux';
 
 // UI
 import ButtonPrimary from "../../ui/ButtonPrimary";
 import ButtonSecondary from "../../ui/ButtonSecondary";
+import Loading from '../../ui/Loading';
 
 // Configurations
 import { Config } from '../../config/config.js';
+
+// Registers
+import { Orders } from '../../config/registers';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -16,16 +21,97 @@ class DeliverySuccess extends Component {
 
     constructor(props){
         super(props);
+        this.state = {
+            OrderDetails: Config.debug ? Orders[0] : [],
+            orderError: {
+                show: false,
+                message: ''
+            },
+            loading: true
+        }
     }
 
     componentDidMount(){
-        setTimeout(() => {
-            this.props.updateCart([]);
-            AsyncStorage.setItem('UserShoppingcart', '[]');
-        }, 500);
+        if(this.props.user.id && !Config.debug){
+            let request = {
+                'id': this.props.user.id,
+                'location': this.props.route.params.location,
+                'cart': this.props.cart,
+                'billValue': this.state.billValue
+            }
+            let apiURL = `${Config.API}/api/v2`;
+            let header = {
+                method: 'POST',
+                body: JSON.stringify(request),
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+            }
+            fetch(`${apiURL}/order_register`, header)
+            .then(res => res.json())
+            .then(res => {
+                if(!res.error){
+                    this.setState({OrderDetails: res.order});
+                    this.props.updateCart([]);
+                    AsyncStorage.setItem('UserShoppingcart', '[]');
+                }else{
+                    switch (res.error) {
+                        case 1:
+                            this.setState({
+                                orderError: {show: true, message: 'Has llegado al límite de pedidos pendientes que puedes tener.'}
+                            });
+                            break;
+                        case 2:
+                            this.setState({
+                                orderError: {show: true, message: 'Nuestro servicio de delivery está temporalmente fuera de servicio.'}
+                            });
+                            break;
+                    
+                        default:
+                            this.setState({
+                                orderError: {show: true, message: 'Ocurrió un error inesperado, por favor intenta nuevamente.'}
+                            });
+                            break;
+                    }
+                }
+                this.setState({ loading: false });
+            })
+            .catch(error => {
+                showMessage({
+                    message: 'Error!',
+                    description: `Ocurrió un problema inesperado.`,
+                    type: 'danger', icon: 'danger',
+                });
+                this.setState({ loading: false });
+            });
+        }else{
+            this.setState({ loading: false });
+        }
     }
 
     render(){
+        if(this.state.loading){
+            return <Loading size="large" />
+        }
+
+        // Mostrar error si no se registró el pedido
+        if(this.state.orderError.show){
+            return (
+                <View style={ style.container }>
+                    <View style={ style.header }>
+                        <Icon name="ios-close-circle-outline" size={100} color={Config.color.primary} />
+                        <Text style={{ fontSize: 30 }}>Ocurrió un problema!</Text>
+                        <Text style={{ fontSize: 20, marginTop: 20, textAlign: 'center' }}>{ this.state.orderError.message }</Text>
+                    </View>
+                    <View style={ style.footer }>
+                        <ButtonSecondary onPress={() => this.props.navigation.navigate(Config.appName)} icon='md-home'>
+                            Volver al inicio
+                        </ButtonSecondary>
+                    </View>
+                </View>
+            );
+        }
+
         return (
             <View style={ style.container }>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -39,7 +125,7 @@ class DeliverySuccess extends Component {
                             <Text style={{ fontSize: 20 }}>Código de orden</Text>
                         </View>
                         <View style={ style.colum_right }>
-                            <Text style={{ fontSize: 20 }}>00001</Text>
+                            <Text style={{ fontSize: 20 }}>{ this.state.OrderDetails.code }</Text>
                         </View>
                     </View>
                     <View style={ style.item }>
@@ -47,7 +133,7 @@ class DeliverySuccess extends Component {
                             <Text style={{ fontSize: 20 }}>Monto</Text>
                         </View>
                         <View style={ style.colum_right }>
-                            <Text style={{ fontSize: 20 }}>Bs. 100</Text>
+                            <Text style={{ fontSize: 20 }}>Bs. { this.state.OrderDetails.amount }</Text>
                         </View>
                     </View>
                     <View style={ style.item_details }>
@@ -55,11 +141,11 @@ class DeliverySuccess extends Component {
                             <Text style={{ fontSize: 20 }}>Detalles</Text>
                         </View>
                         <View>
-                            <Text>Producto 1, producto 2,producto 3</Text>
+                            <Text>{ this.state.OrderDetails.details }</Text>
                         </View>
                     </View>
                     <View style={ style.footer }>
-                        <ButtonPrimary onPress={() => this.props.navigation.navigate('OrderDetails')} icon='md-list-box'>
+                        <ButtonPrimary onPress={() => this.props.navigation.navigate('OrderDetails', {order: this.state.OrderDetails})} icon='md-list-box'>
                             Ver mi orden
                         </ButtonPrimary>
                         <ButtonSecondary onPress={() => this.props.navigation.navigate(Config.appName)} icon='md-home'>
@@ -81,7 +167,7 @@ const style = StyleSheet.create({
     },
     header: {
         alignItems: 'center',
-        padding: 30
+        margin: 30
     },
     item: {
         flex: 1,
@@ -113,6 +199,13 @@ const style = StyleSheet.create({
     }
 });
 
+const mapStateToProps = (state) => {
+    return {
+        cart: state.cart,
+        user: state.user,
+        billValue: state.billValue
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -124,4 +217,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default connect(null, mapDispatchToProps)(DeliverySuccess);
+export default connect(mapStateToProps, mapDispatchToProps)(DeliverySuccess);

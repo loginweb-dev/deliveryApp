@@ -9,6 +9,7 @@ import {
     TouchableOpacity,
     Image,
     Alert,
+    Switch,
     AsyncStorage
 } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
@@ -16,22 +17,24 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { showMessage } from "react-native-flash-message";
 import { connect } from 'react-redux';
 
-
 // UI
 import ButtonSecondary from "../../ui/ButtonSecondary";
+import Separator from '../../ui/Separator';
 
 // Configurations
 import { Config } from '../../config/config.js';
 import { MainStyle } from '../../config/styles.js';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
+const apiStorage = Config.debug ? '' : `${Config.API}/storage/`;
 
 class Cart extends Component {
     constructor(props){
         super(props);
         this.state = {
             cart: this.props.cart,
-            amountCart : 0
+            amountCart: 0,
+            billValue: this.props.user.nit ? true : false
         }
     }
 
@@ -78,8 +81,30 @@ class Cart extends Component {
         )
     }
 
-    onPressAccept(){
+    handlebillValue = () => {
+        if(this.props.user.businessName && this.props.user.nit){
+            this.setState({billValue: !this.state.billValue})
+        }else{
+            Alert.alert(
+                'Completa tu información',
+                `Debes proporcionar una razón social y un NIT para generar tu factura.`,
+                [
+                    {text: 'Cancelar', style: 'cancel'},
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            this.props.navigation.navigate('Profile', { kickUpdate: true });
+                        }
+                    },
+                ],
+                { cancelable: false }
+            )
+        }
+    }
+
+    onPressAccept = () => {
         if(this.props.user.numberPhone){
+            this.props.setBillValue(this.state.billValue);
             this.props.navigation.navigate('LocationsList', { cartSuccess: true });
         }else{
             Alert.alert(
@@ -97,21 +122,19 @@ class Cart extends Component {
                 { cancelable: false }
             )
         }
-        
     }
 
     render(){
         return (
             <View style={ style.container }>
                 <ScrollView style={{ marginTop: 10, marginBottom: 30}}>
-                    <View>
                     {
                         this.state.cart.map(item => 
                             <View style={{ flexDirection: 'row', width: screenWidth-10, height: 90, backgroundColor: 'white', marginBottom: 3}}>
                                 <View style={{ width: '25%', alignItems: 'center', justifyContent: 'center' }}>
                                     <Image
                                         style={{ width: '100%', height: 80 }}
-                                        source={{ uri: item.image }}
+                                        source={{ uri: `${apiStorage}${item.image}` }}
                                         resizeMode="cover"
                                     />
                                 </View>
@@ -148,7 +171,6 @@ class Cart extends Component {
                             </View>
                         )
                     }
-                    </View>
                     {/* Si el carrito está vacío se muestra el logo de cart-empty */}
                     { this.state.cart.length == 0 &&
                         <View style={{ alignItems: 'center', marginTop: 100 }}>
@@ -159,22 +181,36 @@ class Cart extends Component {
                             <Text style={[MainStyle.h2, MainStyle.textMuted]}>Carrito vacío</Text>
                         </View>
                     }
+                    <Separator height={50} />
                 </ScrollView>
                 <View style={style.footer}>
-                    <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 22 }}>Bs. { this.state.cart.reduce((amount, item)=> {
-                            return parseFloat(amount) + parseFloat(item.subtotal);
-                        }, 0).toFixed(2) }
-                        </Text>
+                    <View style={style.footerItem}>
+                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10 }}>
+                            <Text style={{ fontSize: 18 }}> Factura </Text>
+                        </View>
+                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
+                            <Switch
+                                onValueChange={this.handlebillValue}
+                                value={this.state.billValue}
+                            />
+                        </View>
                     </View>
-                    <View style={{ width: '65%', alignItems: 'center', justifyContent: 'center' }}>
-                        <ButtonSecondary
-                            onPress={()=>this.onPressAccept()}
-                            disabled={this.state.cart.length == 0 ? true : false}
-                            icon='ios-checkmark-circle-outline'
-                        >
-                            Realizar pedido
-                        </ButtonSecondary>
+                    <View style={style.footerItem}>
+                        <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 22 }}>Bs. { this.state.cart.reduce((amount, item)=> {
+                                return parseFloat(amount) + parseFloat(item.subtotal);
+                            }, 0).toFixed(2) }
+                            </Text>
+                        </View>
+                        <View style={{ width: '65%', alignItems: 'center', justifyContent: 'center' }}>
+                            <ButtonSecondary
+                                onPress={this.onPressAccept}
+                                disabled={this.state.cart.length == 0 ? true : false}
+                                icon='ios-checkmark-circle-outline'
+                            >
+                                Realizar pedido
+                            </ButtonSecondary>
+                        </View>
                     </View>
                 </View>
             </View>
@@ -189,15 +225,17 @@ const style = StyleSheet.create({
         backgroundColor: Config.color.background
     },
     footer: {
-        flex: 1,
-        flexDirection: 'row',
-        width: screenWidth,
         position: 'absolute',
         left: 0,
         right: 0,
         bottom: 0,
         backgroundColor: 'white'
     },
+    footerItem: {
+        flex: 1,
+        flexDirection: 'row',
+        width: screenWidth,
+    }
 });
 
 // export default ProductDetails;
@@ -218,6 +256,10 @@ const mapDispatchToProps = (dispatch) => {
         removeItemToCart : (index) => dispatch({
             type: 'REMOVE_FROM_CART',
             payload: index
+        }),
+        setBillValue : (value) => dispatch({
+            type: 'SET_BILL_VALUE',
+            payload: value
         }),
     }
 }

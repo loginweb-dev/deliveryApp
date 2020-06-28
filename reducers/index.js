@@ -19,7 +19,8 @@ const reducerApp = (
                     description: '',
                     coor: {lat: null, lon: null}
                 }
-            ]
+            ],
+            billValue: false
         }, action
     ) => {
     switch (action.type) {
@@ -37,6 +38,8 @@ const reducerApp = (
         case 'UPDATE_LOCATION':
             // var cart = state.cart.filter(cartItem => cartItem.index !== action.payload);
             return {...state, locations: action.payload};
+        case 'SET_BILL_VALUE':
+        return {...state, billValue: action.payload};
     }
     return state;
 }

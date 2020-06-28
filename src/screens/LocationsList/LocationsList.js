@@ -58,7 +58,6 @@ class LocationsList extends Component {
                 });
             }
         });
-        
         this.loadLocations();
     }
 
@@ -375,8 +374,7 @@ const style = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         locations: state.locations,
-        cart: state.cart,
-        user: state.user
+        cart: state.cart
     }
 }
 

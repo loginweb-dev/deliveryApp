@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Text, Dimensions, TextInput, AsyncStorage } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Dimensions, TextInput, AsyncStorage, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { showMessage } from "react-native-flash-message";
 // Change Input Image
@@ -107,6 +107,23 @@ class Profile extends Component {
           });
     }
 
+    confirmSubmit = () => {
+        Alert.alert(
+            'Confirmar actualización',
+            `Estás seguro que deseas actualizar tu información de perfil?`,
+            [
+                {text: 'Cancelar', style: 'cancel'},
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        this.handleSubmit();
+                    }
+                },
+            ],
+            { cancelable: false }
+        )
+    }
+
     handleSubmit = () => {
         if(this.state.inputName && this.state.inputPhoneNumber){
             let user = this.props.user;
@@ -117,50 +134,52 @@ class Profile extends Component {
                 businessName: this.state.inputBusinessName,
                 nit: this.state.inputNit
             }
-            AsyncStorage.setItem('UserSession', JSON.stringify(newUser), () => {
-                if(newUser.id && !Config.debug){
-                    this.setState({ sending: true });
-                    let apiURL = `${Config.API}/api/v2`;
-                    let header = {
-                        method: 'POST',
-                        body: JSON.stringify(newUser),
-                        headers:{
-                        'Content-Type': 'application/json'
-                        }
+            if(newUser.id && !Config.debug){
+                this.setState({ sending: true });
+                let apiURL = `${Config.API}/api/v2`;
+                let header = {
+                    method: 'POST',
+                    body: JSON.stringify(newUser),
+                    headers:{
+                    'Content-Type': 'application/json'
                     }
-                    fetch(`${apiURL}/update_user_profile`, header)
-                    .then(res => res.json())
-                    .then(res => {
-                        if(!res.error){
-                            let user = res.user;
-                            let newUser = {
-                                ...user,
-                                avatar: `${Config.API}/storage/${res.user.avatar}`
-                            }
+                }
+                fetch(`${apiURL}/update_user_profile`, header)
+                .then(res => res.json())
+                .then(res => {
+                    if(!res.error){
+                        let user = res.user;
+                        let newUser = {
+                            ...user,
+                            avatar: `${Config.API}/storage/${res.user.avatar}`
+                        }
+                        AsyncStorage.setItem('UserSession', JSON.stringify(newUser), () => {
                             this.props.updateUser(newUser);
                             this.successUpdate();
-                        }else{
-                            showMessage({
-                                message: 'Error!',
-                                description: res.error,
-                                type: 'danger', icon: 'danger',
-                            });
-                        }
-                        this.setState({ sending: false });
-                    })
-                    .catch(error => {
+                        });
+                    }else{
                         showMessage({
                             message: 'Error!',
-                            description: `Ocurrió un problema inesperado.`,
+                            description: res.error,
                             type: 'danger', icon: 'danger',
                         });
-                        this.setState({ sending: false });
+                    }
+                    this.setState({ sending: false });
+                })
+                .catch(error => {
+                    showMessage({
+                        message: 'Error!',
+                        description: `Ocurrió un problema inesperado.`,
+                        type: 'danger', icon: 'danger',
                     });
-                }else{
+                    this.setState({ sending: false });
+                });
+            }else{
+                AsyncStorage.setItem('UserSession', JSON.stringify(newUser), () => {
                     this.props.updateUser(newUser);
                     this.successUpdate();
-                }
-            });
+                });
+            }
         }else{
             showMessage({
                 message: 'Advertencia',
@@ -244,7 +263,7 @@ class Profile extends Component {
                     <View style={ style.footer }>
                         <ButtonPrimary
                             disabled={this.state.sending}
-                            onPress={ this.handleSubmit } icon='ios-checkmark-circle-outline'>
+                            onPress={ this.confirmSubmit } icon='ios-checkmark-circle-outline'>
                             Actualizar información
                         </ButtonPrimary>
                     </View>

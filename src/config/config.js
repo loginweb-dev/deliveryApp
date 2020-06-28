@@ -2,8 +2,8 @@ export const Config = {
     appName: "DeliveryApp",
     appDescription: "Versión inical de una aplicación que incluye react-navigation y redux.",
     autor: "LoginWeb",
-    API: "",
-    debug: true,
+    API: "http://192.168.1.20/fatcom/public",
+    debug: false,
     images: {
         banner: require('../assets/images/banner.png'),
         bannerAlt: require('../assets/images/banner.png'),

@@ -177,13 +177,13 @@ class ProductDetails extends Component {
                 image={reziseImage(this.state.image)}
             />
             {/* Share Button */}
-            <View style={{ position: 'absolute', top: 200, right: 15 }}>
+            <View style={{ position: 'absolute', top: 200, right: 10 }}>
                 <BtnCircle
                     backgroundColor='rgba(0,0,0,0.4)'
                     color='white'
                     onPress={this.onShare}
                     icon='md-share'
-                    size={4}
+                    size={3}
                 />
             </View>
             {/* ============ */}
@@ -203,17 +203,19 @@ class ProductDetails extends Component {
                 {    this.state.similarProductsRadios.length > 0 &&
                     <View>
                         <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
-                        <View style={{ margin: 15, alignItems: 'center' }}>
-                            <RadioForm
-                                radio_props={this.state.similarProductsRadios}
-                                initial={0}
-                                onPress={ this.handleOnPressRadios }
-                                formHorizontal={true}
-                                labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
-                                buttonColor={ Config.color.primary }
-                                selectedButtonColor={ Config.color.primary }
-                            />
-                        </View>
+                        <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+                            <View style={{ margin: 15, alignItems: 'center' }}>
+                                <RadioForm
+                                    radio_props={this.state.similarProductsRadios}
+                                    initial={0}
+                                    onPress={ this.handleOnPressRadios }
+                                    formHorizontal={true}
+                                    labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
+                                    buttonColor={ Config.color.primary }
+                                    selectedButtonColor={ Config.color.primary }
+                                />
+                            </View>
+                        </ScrollView>
                     </View>
                 }
                 {   this.state.extrasList.length > 0 &&

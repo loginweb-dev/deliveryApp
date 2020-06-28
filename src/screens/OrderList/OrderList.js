@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 
 // Components
 import OrderItem from '../../components/OrderItem/OrderItem';
+
+// UI
 import Loading from '../../ui/Loading';
 
 // Configurations
@@ -30,7 +33,8 @@ class OrderList extends Component {
     
       getData = () => {
         let apiURL = `${Config.API}/api/v2`;
-        fetch(`${apiURL}/orders_list/2`)
+        let userID = this.props.user.id ? this.props.user.id : 1;
+        fetch(`${apiURL}/orders_list/${userID}`)
         .then(res => res.json())
         .then(res => {
           this.setState({
@@ -80,4 +84,10 @@ const style = StyleSheet.create({
     },
 });
 
-export default OrderList;
+const mapStateToProps = (state) => {
+    return {
+        user: state.user,
+    }
+}
+
+export default connect(mapStateToProps, null)(OrderList);

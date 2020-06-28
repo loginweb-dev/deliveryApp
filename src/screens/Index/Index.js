@@ -39,6 +39,7 @@ const traslateY = scrollY.interpolate({
 });
 
 const screenHeight = Math.round(Dimensions.get('window').height);
+const apiURL = `${Config.API}/api/v2`;
 
 // NOTA IMPORTANTE: la variable de entorno "Config.debug" ubicada en /src/config/config.js
 // sirve para elegir de donde se van a obtener los datos de la app, si es "true" se muestran los datos estáticos,
@@ -56,6 +57,7 @@ class Index extends Component {
       inputSearch: '',
       searchEmpty: false,
       loading: true,
+      loadingSearch: false,
     }
     this.timeoutSearch = null;
   }
@@ -73,7 +75,6 @@ class Index extends Component {
   }
 
   getData = () => {
-    let apiURL = `${Config.API}/api/v2`;
     fetch(`${apiURL}/index`)
     .then(res => res.json())
     .then(res => {
@@ -106,8 +107,38 @@ class Index extends Component {
     this.setState({ inputSearch: text }, () => {
       this.timeoutSearch = setTimeout(() => {
         if(this.state.inputSearch){
-          if(this.state.inputSearch == 'no'){
-            this.setState({productsSearch: [], searchEmpty: true});
+          if(!Config.debug){
+            this.setState({loadingSearch: true, searchEmpty: false});
+            let request = {
+              key: this.state.inputSearch
+            }
+            let header = {
+              method: 'POST',
+              body: JSON.stringify(request),
+              headers:{
+                  'Content-Type': 'application/json'
+              }
+            }
+            fetch(`${apiURL}/filter/products`, header)
+            .then(res => res.json())
+            .then(res => {
+              if(res.productsList.length > 0){
+                this.setState({
+                  productsSearch: res.productsList,
+                  searchEmpty: false,
+                  loadingSearch: false
+                });
+              }else{
+                this.setState({
+                  productsSearch: [],
+                  searchEmpty: true,
+                  loadingSearch: false
+                });
+              }
+            })
+            .catch(error => {
+                console.log(error);
+            });
           }else{
             this.setState({productsSearch: Products, searchEmpty: false});
           }
@@ -195,6 +226,7 @@ class Index extends Component {
               <View style={{ alignItems: 'center' }}>
                 <Text style={ [MainStyle.textMuted, { marginTop: 5 }] }>presione X para cancelar la busqueda.</Text>
               </View>
+              { this.state.loadingSearch && <Loading size="large" />}
               <ScrollView style={{ marginTop: 10 }}>
                 {
                   this.state.productsSearch.map(item=>

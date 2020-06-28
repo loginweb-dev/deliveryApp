@@ -24,7 +24,7 @@ const BtnCircle = props => {
             style={ style.container }
             onPress={props.onPress}
         >
-            <Icon name={props.icon} color={props.color ? props.color : 'white'} size={25} />
+            <Icon name={props.icon} color={props.color ? props.color : 'white'} size={props.size ? (props.size*5) : 25} />
         </TouchableOpacity>
     );
 }
