@@ -80,6 +80,18 @@ class ProductDetails extends Component {
         extras.forEach(function(part, index) {
             if(this[index].id == id){
                 this[index].ckecked = !this[index].ckecked;
+                this[index].quantity = 1;
+            }
+        }, extras);
+        this.setState({ extras: extras }, this.calculateTotal);
+    }
+    handleCheckboxQuantity(id, quantity){
+        // Actualizar cantidad de chechbox
+        let extras = this.state.extrasList;
+        extras.forEach(function(part, index) {
+            if(this[index].id == id){
+                this[index].quantity = quantity;
+                this[index].ckecked = quantity > 0 ? true : false;
             }
         }, extras);
         this.setState({ extras: extras }, this.calculateTotal);
@@ -93,7 +105,7 @@ class ProductDetails extends Component {
         var totalExtras = 0;
         extras.map( item => {
             if(item.ckecked){
-                totalExtras += parseFloat(item.price);
+                totalExtras += (parseFloat(item.price)*parseFloat(item.quantity));
             }
         });
 
@@ -108,7 +120,7 @@ class ProductDetails extends Component {
         let extrasSelect = [];
         extras.map( item => {
             if(item.ckecked){
-                extrasSelect.push({id: item.id, name: item.name, price: item.price, count: 1, total: item.price,});
+                extrasSelect.push({id: item.id, name: item.name, price: item.price, count: item.quantity, total: item.price,});
             }
         });
 
@@ -140,7 +152,7 @@ class ProductDetails extends Component {
         try {
             const result = await Share.share({
                 message:
-                `Echa un vistazo a ${this.state.name} de ${Config.appName} ingresando en ${Config.API}detalle/${this.state.slug}`,
+                `Echa un vistazo a ${this.state.name} de ${Config.appName} ingresando en ${Config.API}/detalle/${this.state.slug}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -200,7 +212,7 @@ class ProductDetails extends Component {
                     <Text numberOfLines={3} style={style.detailsText}>{this.state.details}</Text>
                 </View>
                 {/* Si existen productos similares se muestras los radio buttons */}
-                {    this.state.similarProductsRadios.length > 0 &&
+                {    this.state.similarProductsRadios.length > 1 &&
                     <View>
                         <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
                         <ScrollView showsHorizontalScrollIndicator={false} horizontal>
@@ -231,6 +243,7 @@ class ProductDetails extends Component {
                                             onChange={() => this.handleCheckbox(item.id)}
                                             name={item.name}
                                             price={item.price}
+                                            onChangeQuantity={(value) => this.handleCheckboxQuantity(item.id, value)}
                                         />
                                     )
                                 }
@@ -239,7 +252,7 @@ class ProductDetails extends Component {
                         <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
                     </View>
                 }
-                <Separator height={50} />
+                <Separator height={100} />
             </ScrollView>
             <View style={style.footer}>
                 <View style={{ width: '40%', alignItems: 'center', justifyContent: 'center' }}>
@@ -252,6 +265,7 @@ class ProductDetails extends Component {
                         minValue={1}
                         rounded={true}
                         totalHeight={35}
+                        // editable={true}
                     />
                 </View>
                 <View style={{ width: '60%', alignItems: 'center', justifyContent: 'center' }}>

@@ -39,23 +39,25 @@ class ProductDetails extends Component {
         let products = this.state.similarProducts;
         // Generar radio buttons
         let radioButtons = [];
+        let extras = [];
         products.map((item, index) => {
             radioButtons.push({
                 value: item.id, label: item.name
             });
         });
 
-        this.setState({
-            similarProducts: products,
-            similarProductsRadios: radioButtons,
-            //////////////////
-            id: products[0].id,
-            name: products[0].name,
-            details: products[0].details,
-            price: products[0].price,
-            totalPrice: products[0].price,
-            image: products[0].image,
-        });
+        // Si existen productos similares seleccionar el primero
+        if(radioButtons.length > 0){
+            this.setState({
+                similarProductsRadios: radioButtons,
+                id: products[0].id,
+                name: products[0].name,
+                details: products[0].details,
+                price: products[0].price,
+                totalPrice: products[0].price,
+                image: products[0].image
+            });
+        }
     }
 
     calculateTotal = () => {
@@ -98,7 +100,7 @@ class ProductDetails extends Component {
         try {
             const result = await Share.share({
                 message:
-                'React Native | A framework for building native apps using React',
+                `Echa un vistazo a ${this.state.name} de ${Config.appName} ingresando en ${Config.API}detalle/${this.state.slug}`,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {

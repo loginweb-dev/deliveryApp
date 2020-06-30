@@ -144,7 +144,7 @@ class Cart extends Component {
                                     <View style={{ height: '20%' }}>
                                         <Text style={{ fontSize:13 }} numberOfLines={1}>
                                         {
-                                            item.extras.map(extra => `${extra.name}, `)
+                                            item.extras.map(extra => `${extra.count} ${extra.name}, `)
                                         }
                                         </Text>
                                     </View>
@@ -157,7 +157,8 @@ class Cart extends Component {
                                             leftButtonBackgroundColor={Config.color.primary}
                                             minValue={1}
                                             rounded={true}
-                                            totalHeight={25}
+                                            totalHeight={30}
+                                            totalWidth={90}
                                         />
                                     </View>
                                 </View>

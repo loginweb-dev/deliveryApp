@@ -11,6 +11,7 @@ import PartialModal from "../../ui/PartialModal";
 import ButtonPrimary from "../../ui/ButtonPrimary";
 import ButtonSecondary from "../../ui/ButtonSecondary";
 import BtnCircle from '../../ui/BtnCircle';
+import Badge from "../../ui/Badge";
 
 // Configurations
 import { Config } from '../../config/config';
@@ -44,6 +45,7 @@ class LocationsList extends Component {
             cartSuccess: this.props.route.params ? this.props.route.params.cartSuccess : false,
             showTips: false
         }
+        this.timeOutTip = null;
     }
 
     componentDidMount(){
@@ -216,10 +218,11 @@ class LocationsList extends Component {
     }
 
     showTips = () => {
+        clearTimeout(this.timeOutTip);
         this.setState({showTips: true})
         this.timeOutTip = setTimeout(() => {
             this.setState({showTips: false})
-        }, 3000);
+        }, 8000);
     }
 
     render(){
@@ -235,8 +238,14 @@ class LocationsList extends Component {
                         activeTabStyle={{ backgroundColor: Config.color.primary }}
                     />
                     {this.state.showTips &&
-                        <View style={{ alignItems: 'center', margin: 5 }}>
-                            <Text>Mantenga presionado el marcador para moverlo</Text>
+                        <View style={{ alignItems: 'center', marginTop: 10 }}>
+                            <Badge
+                                color={ 'white' }
+                                textColor={ Config.color.primary }
+                                borderColor={ Config.color.primary }
+                                size={15} >
+                                Mantenga presionado el marcador para moverlo
+                            </Badge>
                         </View>
                     }
                 </View>

@@ -42,13 +42,14 @@ class Profile extends Component {
             inputNit: this.props.user.nit,
             // Parametro para redirección en caso de edición rápida
             kickUpdate: this.props.route.params ? this.props.route.params.kickUpdate : false,
-            sending: false
+            sending: false,
+            sendingAvatar: false
         };
     }
 
     handleChangeAvatar = () => {
         this.setState({
-            alertEdit: false,
+            sendingAvatar: false,
         });
         ImagePicker.showImagePicker(optionsImagePicker, (response) => {
             if (response.didCancel) {
@@ -59,7 +60,7 @@ class Profile extends Component {
               console.log('User tapped custom button: ', response.customButton);
             } else {
                 if(this.props.user.id && !Config.debug){
-                    this.setState({ sending: true });
+                    this.setState({ sendingAvatar: true });
                     let apiURL = `${Config.API}/api/v2`;
                     RNFetchBlob.fetch('POST', `${apiURL}/update_user_avatar/${this.props.user.id}`, {
                         Authorization : "Bearer access-token",
@@ -86,7 +87,7 @@ class Profile extends Component {
                                 description: `Tu imagen de perfil fue actualizada.`,
                                 type: 'info', icon: 'info',
                             });
-                            this.setState({ sending: false });
+                            this.setState({ sendingAvatar: false });
                         }
                     }).catch((err) => {
                         showMessage({
@@ -221,8 +222,9 @@ class Profile extends Component {
                             width={120}
                             borderColor='white'
                             image={ avatar }
-                            onPress={this.handleChangeAvatar}
+                            onPress={this.state.sendingAvatar ? null : this.handleChangeAvatar}
                         />
+                        { this.state.sendingAvatar && <Loading/>}
                     </View>
                     <View style={ style.item }>
                         <TextInput
@@ -262,7 +264,7 @@ class Profile extends Component {
                     { this.state.sending && <Loading/>}
                     <View style={ style.footer }>
                         <ButtonPrimary
-                            disabled={this.state.sending}
+                            disabled={this.state.sending || this.state.sendingAvatar}
                             onPress={ this.confirmSubmit } icon='ios-checkmark-circle-outline'>
                             Actualizar información
                         </ButtonPrimary>

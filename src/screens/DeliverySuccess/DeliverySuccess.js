@@ -50,29 +50,15 @@ class DeliverySuccess extends Component {
             fetch(`${apiURL}/order_register`, header)
             .then(res => res.json())
             .then(res => {
+                // console.log(res)
                 if(!res.error){
                     this.setState({OrderDetails: res.order});
                     this.props.updateCart([]);
                     AsyncStorage.setItem('UserShoppingcart', '[]');
                 }else{
-                    switch (res.error) {
-                        case 1:
-                            this.setState({
-                                orderError: {show: true, message: 'Has llegado al límite de pedidos pendientes que puedes tener.'}
-                            });
-                            break;
-                        case 2:
-                            this.setState({
-                                orderError: {show: true, message: 'Nuestro servicio de delivery está temporalmente fuera de servicio.'}
-                            });
-                            break;
-                    
-                        default:
-                            this.setState({
-                                orderError: {show: true, message: 'Ocurrió un error inesperado, por favor intenta nuevamente.'}
-                            });
-                            break;
-                    }
+                    this.setState({
+                        orderError: {show: true, message: res.error}
+                    });
                 }
                 this.setState({ loading: false });
             })
@@ -82,7 +68,11 @@ class DeliverySuccess extends Component {
                     description: `Ocurrió un problema inesperado.`,
                     type: 'danger', icon: 'danger',
                 });
-                this.setState({ loading: false });
+                this.setState({
+                    loading: false,
+                    show: true,
+                    message: 'Ocurrió un error inesperado, por favor intenta nuevamente.'
+                });
             });
         }else{
             this.setState({ loading: false });

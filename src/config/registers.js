@@ -8,14 +8,14 @@ export const Products = [
         'similar': [],
         'extras': [
             {
-                "id": 1,
-                "name": 'Papas',
-                "price": '5.00',
-                "ckecked": false
+                id: 1,
+                name: 'Papas',
+                price: '5.00',
+                ckecked: false
             },
             {
-                "id": 2,
-                "name": 'Tocino',
+                id: 2,
+                name: 'Tocino',
                 price: '5.00',
                 ckecked: false
             },
