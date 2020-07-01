@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, ImageBackground, Text, Alert, AsyncStorage, Dimensions } from 'react-native';
 import firebase from 'react-native-firebase';
+import { LoginManager } from "react-native-fbsdk";
 import { connect } from 'react-redux';
 
 // UI
@@ -95,6 +96,7 @@ class DrawerMenu extends Component {
                                                 this.props.setUser({});
                                                 this.props.updateCart([]);
                                                 firebase.auth().signOut();
+                                                LoginManager.logOut();
                                                 // Reset navigation y redireccionar al login
                                                 this.props.navigation.reset({
                                                     index: 0,

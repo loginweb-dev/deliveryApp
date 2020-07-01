@@ -16,10 +16,11 @@ import {
 
 // Configurations
 import { Config } from '../../config/config';
+import { Settings } from '../../config/registers';
 
 // UI
-import Badge from "../../ui/Badge";
 import Separator from '../../ui/Separator';
+import HyperLink from "../../ui/HyperLink";
 
 const screenWidth = Math.round(Dimensions.get('window').width);
 
@@ -32,47 +33,62 @@ export default class Help extends Component {
         return (
             <View style={ style.container }>
                 <ScrollView>
-                    <ImageBackground source={ Config.images.bannerAlt } style={{width: '100%', height: 300}} />
+                    <ImageBackground source={ Settings.aboutUs.background } style={{width: '100%', height: 300}} />
                     <View style={{ width: screenWidth }}>
                         <View style={ style.item }>
                             <Text style={style.title}>Sobre nosotros</Text>
-                            <Text style={style.details}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</Text>
+                            <Text style={style.details}>{ Settings.aboutUs.description }</Text>
                         </View>
                     </View>
                     <View style={{ width: screenWidth }}>
                         <View style={ style.item }>
-                            <Text style={style.title}>Donde nos encontramos</Text>
-                            <Text style={style.details}>Lorem ipsum dolor sit amet, consectetur adipiscing elit</Text>
+                            <Text style={style.title}>Donde nos encuentras</Text>
+                            {
+                                Settings.aboutUs.address.map(item => 
+                                    <HyperLink url={`http://www.google.com/maps/place/${item.location.latitude},${item.location.longitude}`}>
+                                        { item.details }
+                                    </HyperLink>
+                                )
+                            }
                         </View>
                     </View>
                     <View style={{ width: screenWidth }}>
                         <View style={ style.item }>
                             <Text style={style.title}>Telefonos de contacto</Text>
-                            <Text style={style.details}>46255555 - 5917777777</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                {
+                                    Settings.aboutUs.phones.map(item => 
+                                        <HyperLink url={`tel:${item}`}>
+                                            { item }
+                                        </HyperLink>
+                                    )
+                                }
+                            </View>
                         </View>
                     </View>
                     <View style={{ width: screenWidth }}>
                         <View style={ style.item }>
                             <Text style={style.title}>Correo electrónico</Text>
-                            <Text style={style.details}>example@domain.com</Text>
+                            {
+                                Settings.aboutUs.email.map(item => 
+                                    <HyperLink url={`mailto:${item}`}>
+                                        { item }
+                                    </HyperLink>
+                                )
+                            }
                         </View>
                     </View>
                     <View style={{ width: screenWidth }}>
                         <View style={ style.item }>
                             <Text style={style.title}>Acerca del desarrollador</Text>
-                            <Text style={style.details}>La presente aplicación móvil fue desarrollada por la empresa de tecnología LoginWeb.</Text>
-                                <TouchableOpacity 
-                                    style={{ alignItems: 'center', marginTop: 5}}
-                                    onPress={() => {
-                                        Linking.openURL(
-                                          `http://loginweb.dev`
-                                        );
-                                    }}
-                                >
-                                    <Badge color={ Config.color.primary } size={15} >Más información</Badge>
-                                </TouchableOpacity>
-                            <View style={{ alignItems: 'center', marginTop: 20 }}>
-                                <Text style={style.details}>Santísima Trinidad - Beni – Bolivia.</Text>
+                            <Text style={style.details}>{ Settings.aboutDev.description }</Text>
+                            <View style={{ alignItems: 'center', marginTop: 10 }}>
+                                <HyperLink url={ Settings.aboutDev.url } size={ 20 } color={ Config.color.primary } >
+                                    Más información
+                                </HyperLink>
+                                <Separator height={10} />
+                                <Text style={style.details}>{ Settings.aboutDev.addess }</Text>
+                                <Text style={style.detailsAlt}>{ Settings.aboutDev.city }</Text>
                             </View>
                             <Separator height={30} />
                         </View>
@@ -105,9 +121,13 @@ const style = StyleSheet.create({
     },
     details: {
         color: '#8C8C8C',
-        fontSize: 18
+        fontSize: 18,
+        marginHorizontal: 5,
+        textAlign: 'justify'
     },
-    footer: {
-        padding: 20
+    detailsAlt: {
+        color: '#8C8C8C',
+        fontSize: 13,
+        marginHorizontal: 5
     }
 });

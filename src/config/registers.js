@@ -1,3 +1,38 @@
+export const Settings = {
+    aboutUs: {
+        name: '',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
+        background: require('../assets/images/banner.png'),
+        address: [
+            {
+                details: 'Av. 6 de agosto Esq. Santa Cruz',
+                location: {
+                    latitude: -14.834821,
+                    longitude: -64.904159,
+                }
+            },
+            {
+                details: 'Calle 18 de Nov. Nro 400',
+                location: {
+                    latitude: -14.834821,
+                    longitude: -64.904159,
+                }
+            },
+        ],
+        phones: ['75199157', '34623456'],
+        email: ['empresa.loginweb@gmail.com'],
+        social: [
+            {name: '', icon: '', url: ''}
+        ]
+    },
+    aboutDev: {
+        description: 'La presente aplicación móvil fue desarrollada por la empresa de tecnología LoginWeb.',
+        url: 'http://loginweb.dev',
+        addess: 'Urbanización Santa Inés Av. David Shriqui ',
+        city: 'Santísima Trinidad - Beni - Bolivia'
+    }
+}
+
 export const Products = [
     {
         'id': 1,

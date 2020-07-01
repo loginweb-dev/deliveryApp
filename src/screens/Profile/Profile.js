@@ -150,9 +150,9 @@ class Profile extends Component {
                 .then(res => {
                     if(!res.error){
                         let user = res.user;
+                        let avatar = res.user.avatar.includes('http') ? res.user.avatar : {uri: `${Config.API}/storage/${res.user.avatar}`};
                         let newUser = {
-                            ...user,
-                            avatar: `${Config.API}/storage/${res.user.avatar}`
+                            ...user, avatar
                         }
                         AsyncStorage.setItem('UserSession', JSON.stringify(newUser), () => {
                             this.props.updateUser(newUser);

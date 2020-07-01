@@ -33,6 +33,11 @@ class Main extends Component {
       this.bootstrapAsync();
   }
 
+  getDate = () => {
+    var date = new Date();
+    return `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+  }
+
   bootstrapAsync = async () => {
     // Obetenr información de sesión
     let user = await AsyncStorage.getItem('UserSession');
@@ -48,8 +53,15 @@ class Main extends Component {
 
     // Obtener información del carrito de compra
     let cart = await AsyncStorage.getItem('UserShoppingcart');
-    if(cart){
-      this.props.updateCart(JSON.parse(cart))
+    let dateCart = await AsyncStorage.getItem('dateNow');
+
+    // Si existe un carrito de compra y no ha caducado (solo debe perdurar 1 día)
+    if(cart && dateCart == this.getDate()){
+      this.props.updateCart(JSON.parse(cart));
+    }else{
+      AsyncStorage.setItem('UserShoppingcart', JSON.stringify([]), () => {
+        this.props.updateCart([]);
+      });
     }
 
     setTimeout(()=>{

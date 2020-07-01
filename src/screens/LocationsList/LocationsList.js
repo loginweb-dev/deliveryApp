@@ -199,22 +199,39 @@ class LocationsList extends Component {
     }
 
     AcceptDelivery(){
-        Alert.alert(
-            'Deseas realizar tu pedido?',
-            `Tu pedido se registrará y será enviado a la ubicación seleccionada`,
-            [
-                {text: 'Cancelar', style: 'cancel'},
-                {
-                    text: 'OK',
-                    onPress: () => {
-                        let index = this.state.selectedIndexTab;
-                        let location = this.props.locations[index];
-                        this.props.navigation.navigate('DeliverySuccess', {location});
-                    }
-                },
-            ],
-            { cancelable: false }
-        )
+        if(this.props.user.id){
+            Alert.alert(
+                'Deseas realizar tu pedido?',
+                `Tu pedido se registrará y será enviado a la ubicación seleccionada`,
+                [
+                    {text: 'Cancelar', style: 'cancel'},
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            let index = this.state.selectedIndexTab;
+                            let location = this.props.locations[index];
+                            this.props.navigation.navigate('DeliverySuccess', {location});
+                        }
+                    },
+                ],
+                { cancelable: false }
+            )
+        }else{
+            Alert.alert(
+                'Inicia sesión',
+                `Para realizar tu pedido debes iniciar sesión primero.`,
+                [
+                    {text: 'Cancelar', style: 'cancel'},
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            this.props.navigation.navigate('Login');
+                        }
+                    },
+                ],
+                { cancelable: false }
+            )
+        }
     }
 
     showTips = () => {
@@ -383,7 +400,8 @@ const style = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         locations: state.locations,
-        cart: state.cart
+        cart: state.cart,
+        user: state.user
     }
 }
 

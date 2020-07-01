@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, ScrollView, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import { connect } from 'react-redux';
 
 // Components
@@ -10,6 +10,7 @@ import Loading from '../../ui/Loading';
 
 // Configurations
 import { Config } from '../../config/config';
+import { MainStyle } from '../../config/styles.js';
 
 // Registers
 import { Orders } from '../../config/registers';
@@ -70,6 +71,17 @@ class OrderList extends Component {
                         })
                     }
                 </ScrollView>
+
+                {/* Si el carrito está vacío se muestra el logo de cart-empty */}
+                { this.state.ordersList.length == 0 &&
+                    <View style={{ alignItems: 'center' }}>
+                        <Image
+                            style={{ width: 100, height: 100 }}
+                            source={ require('../../assets/images/cart-empty.png') }
+                        />
+                        <Text style={[MainStyle.h2, MainStyle.textMuted]}>No tienes pedidos aún</Text>
+                    </View>
+                }
             </View>
         );
     }

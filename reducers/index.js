@@ -1,3 +1,12 @@
+import { AsyncStorage } from 'react-native';
+
+// Guardar la fecha de creación del carrito de compra para que solo dure 1 día
+const getDate = async () => {
+    var date = new Date();
+    var dateNow = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`;
+    await AsyncStorage.setItem('dateNow', dateNow);
+}
+
 const reducerApp = (
         state = {
             user: {},
@@ -29,8 +38,10 @@ const reducerApp = (
         case 'SET_LOCATION':
             return {...state, locations: action.payload};
         case 'RELOAD_CART':
+            getDate();
             return {...state, cart: action.payload};
         case 'ADD_TO_CART':
+            getDate();
             return {...state, cart: [...state.cart, action.payload]};
         case 'REMOVE_FROM_CART':
             var cart = state.cart.filter(cartItem => cartItem.index !== action.payload);

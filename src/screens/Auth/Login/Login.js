@@ -247,6 +247,13 @@ class Login extends Component {
                 nit: this.state.inputNit,
                 type: 'sms'
             }
+            this.setState({
+                awesomeAlert: {
+                    show: true, showProgress: true,
+                    title: 'Cargando...',
+                    message: 'Registrando información',
+                }
+            });
             this.setInfoUser(phoneUser);
         }else{
             this.renderMessage('Advertencia!', `Debes ingresar al menos tu nombre.`, 'warning')
@@ -279,12 +286,12 @@ class Login extends Component {
                     });
                 }else{
                     this.renderMessage('Error!', res.error, 'danger');
-                    this.setState({
-                        awesomeAlert: {
-                            show: false, showProgress: true, title: '',message: '',
-                        }
-                    });
                 }
+                this.setState({
+                    awesomeAlert: {
+                        show: false, showProgress: true, title: '',message: '',
+                    }
+                });
             })
             .catch(error => {
                 this.renderMessage('Error!', 'Ocurrió un problema inesperado', 'danger');
