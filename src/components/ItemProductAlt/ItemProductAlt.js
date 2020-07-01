@@ -19,7 +19,10 @@ const ItemProductAlt = (props) => {
                     <Text style={style.itemListDetailTitle} numberOfLines={1}>{props.name}</Text>
                     <Text style={style.itemListDetailSubtitle} numberOfLines={2}>{props.details}</Text>
                     <View style={{ flexDirection: 'row-reverse' }}>
-                        <Text style={style.itemListActionsPriceText} numberOfLines={1}>{props.price} <Text style={{ fontSize:12 }}>Bs.</Text></Text>
+                        <Text style={style.itemListActionsPriceText} numberOfLines={1}>{props.price} Bs.</Text>
+                        {   props.oldPrice != props.price &&
+                            <Text style={style.ItemListActionsOldPriceText} numberOfLines={1}>{props.oldPrice} Bs.</Text>
+                        }
                     </View>
                 </View>
             </TouchableOpacity>
@@ -82,6 +85,13 @@ const style = StyleSheet.create({
     itemListActionsPriceText: {
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    ItemListActionsOldPriceText: {
+        marginVertical: 5,
+        fontSize:12,
+        fontStyle: 'italic',
+        textDecorationLine: 'line-through',
+        color: 'red'
     }
 });
 

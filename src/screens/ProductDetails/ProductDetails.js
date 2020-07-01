@@ -28,6 +28,7 @@ class ProductDetails extends Component {
             name: this.props.route.params.product.name,
             details: this.props.route.params.product.details,
             price: this.props.route.params.product.price,
+            oldPrice: this.props.route.params.product.oldPrice,
             image: this.props.route.params.product.image,
             slug: this.props.route.params.product.slug,
             priceExtras: 0,
@@ -68,6 +69,7 @@ class ProductDetails extends Component {
                 name: products[0].name,
                 details: products[0].details,
                 price: products[0].price,
+                oldPrice: products[0].oldPrice,
                 totalPrice: products[0].price,
                 image: products[0].image
             });
@@ -175,6 +177,7 @@ class ProductDetails extends Component {
             name: product.name,
             details: product.details,
             price: product.price,
+            oldPrice: product.oldPrice,
             image: product.image,
             totalPrice: (product.price * this.state.counProduct) + this.state.priceExtras
         }, this.calculateTotal);
@@ -202,7 +205,12 @@ class ProductDetails extends Component {
             <View style={style.section}>
                 <View style={style.header}>
                     <Text style={style.headerItem}>{this.state.name}</Text>
-                    <Text style={[style.headerItem, { textAlign: 'right' }]}>{parseFloat(this.state.totalPrice).toFixed(2)} Bs.</Text>
+                    <Text style={[style.headerItem, { textAlign: 'right' }]}>
+                        {   this.state.oldPrice != this.state.price &&
+                            <Text style={style.ItemListActionsOldPriceText} numberOfLines={1}>{this.state.oldPrice} Bs.</Text>
+                        }
+                        {parseFloat(this.state.totalPrice).toFixed(2)} Bs.
+                    </Text>
                 </View>
             </View>
             <ScrollView
@@ -299,6 +307,12 @@ const style = StyleSheet.create({
         width: '50%',
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    ItemListActionsOldPriceText: {
+        fontSize:12,
+        fontStyle: 'italic',
+        textDecorationLine: 'line-through',
+        color: 'red'
     },
     detailsText: {
         textAlign: 'justify',

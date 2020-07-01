@@ -198,6 +198,7 @@ class Index extends Component {
                 name={item.name}
                 details={item.details}
                 price={item.price}
+                oldPrice={item.oldPrice}
                 image={item.image}
                 onPress={() => this.onPressProduct(item)}
                 // onPressAdd={() => this.addCart(item)}
@@ -234,6 +235,7 @@ class Index extends Component {
                         name={item.name}
                         details={item.details}
                         price={item.price}
+                        oldPrice={item.oldPrice}
                         image={item.image}
                         type={item.type}
                         onPress={() => this.onPressProduct(item)}

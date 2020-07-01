@@ -42,7 +42,7 @@ class Cart extends Component {
         let cart = this.state.cart;
         cart.forEach(function(part, index) {
             if(this[index].index == id){
-                let subtotal = this[index].subtotal / this[index].count;
+                let subtotal = parseFloat(this[index].subtotal) / this[index].count;
                 this[index].count = value;
                 this[index].subtotal = subtotal * this[index].count;
             }
