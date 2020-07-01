@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 // UI
 import ButtonSecondary from "../../ui/ButtonSecondary";
 import Separator from '../../ui/Separator';
+import Card from '../../ui/Card';
 
 // Configurations
 import { Config } from '../../config/config.js';
@@ -34,8 +35,28 @@ class Cart extends Component {
         this.state = {
             cart: this.props.cart,
             amountCart: 0,
-            billValue: this.props.user.nit ? true : false
+            billValue: this.props.user.nit ? true : false,
+            error: {
+                value: false,
+                message: ''
+            }
         }
+    }
+
+    componentDidMount(){
+        let apiURL = `${Config.API}/api/v2`;
+        fetch(`${apiURL}/get_params/sucursal_active`)
+        .then(res => res.json())
+        .then(res => {
+            if(!res.error){
+                this.setState({
+                    error: {
+                        value: !res.open,
+                        message: res.message
+                    }
+                });
+            }
+        })
     }
 
     handleItem(id, value){
@@ -185,6 +206,11 @@ class Cart extends Component {
                     <Separator height={50} />
                 </ScrollView>
                 <View style={style.footer}>
+                    {   this.state.error.value &&
+                        <Card title='Aviso importante!' backgroundColor='#E24141'>
+                            { this.state.error.message }
+                        </Card>
+                    }
                     <View style={style.footerItem}>
                         <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10 }}>
                             <Text style={{ fontSize: 18 }}> Factura </Text>
@@ -206,7 +232,7 @@ class Cart extends Component {
                         <View style={{ width: '65%', alignItems: 'center', justifyContent: 'center' }}>
                             <ButtonSecondary
                                 onPress={this.onPressAccept}
-                                disabled={this.state.cart.length == 0 ? true : false}
+                                disabled={this.state.cart.length == 0 || this.state.error.value ? true : false}
                                 icon='ios-checkmark-circle-outline'
                             >
                                 Realizar pedido

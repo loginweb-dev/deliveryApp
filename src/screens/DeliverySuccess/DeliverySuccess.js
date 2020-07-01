@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import ButtonPrimary from "../../ui/ButtonPrimary";
 import ButtonSecondary from "../../ui/ButtonSecondary";
 import Loading from '../../ui/Loading';
+import Card from '../../ui/Card';
 
 // Configurations
 import { Config } from '../../config/config.js';
@@ -27,7 +28,11 @@ class DeliverySuccess extends Component {
                 show: false,
                 message: ''
             },
-            loading: true
+            loading: true,
+            warning: {
+                value: false,
+                message: ''
+            }
         }
     }
 
@@ -50,9 +55,14 @@ class DeliverySuccess extends Component {
             fetch(`${apiURL}/order_register`, header)
             .then(res => res.json())
             .then(res => {
-                // console.log(res)
                 if(!res.error){
-                    this.setState({OrderDetails: res.order});
+                    this.setState({
+                        OrderDetails: res.order,
+                        warning: {
+                            value: !res.sucursal.open,
+                            message: res.sucursal.message
+                        }
+                    });
                     this.props.updateCart([]);
                     AsyncStorage.setItem('UserShoppingcart', '[]');
                 }else{
@@ -70,8 +80,7 @@ class DeliverySuccess extends Component {
                 });
                 this.setState({
                     loading: false,
-                    show: true,
-                    message: 'Ocurrió un error inesperado, por favor intenta nuevamente.'
+                    orderError: {show: true, message: 'Ocurrió un error inesperado, por favor intenta nuevamente.'}
                 });
             });
         }else{
@@ -142,6 +151,11 @@ class DeliverySuccess extends Component {
                             Volver al inicio
                         </ButtonSecondary>
                     </View>
+                    {   this.state.warning.value &&
+                        <Card title='Aviso importante!' backgroundColor='#3D89F1'>
+                            { this.state.warning.message }
+                        </Card>
+                    }
                 </ScrollView>
             </View>
         );
