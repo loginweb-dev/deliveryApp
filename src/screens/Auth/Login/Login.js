@@ -245,7 +245,8 @@ class Login extends Component {
                 numberPhone: this.state.phoneNumber,
                 avatar: '',
                 nit: this.state.inputNit,
-                type: 'sms'
+                type: 'sms',
+                tokenDevice: this.props.tokenDevice
             }
             this.setState({
                 awesomeAlert: {
@@ -342,7 +343,8 @@ class Login extends Component {
                                 numberPhone: '',
                                 avatar: `http://graph.facebook.com/${res.id}/picture?type=large`,
                                 nit: '',
-                                type: 'facebook'
+                                type: 'facebook',
+                                tokenDevice: this.props.tokenDevice
                             }
                             this.setInfoUser(user);
                         })
@@ -407,6 +409,7 @@ const style = StyleSheet.create({
 const mapStateToProps = (state) => {
     return {
         user : state.user,
+        tokenDevice : state.tokenDevice,
     }
 }
 

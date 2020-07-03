@@ -29,7 +29,8 @@ const reducerApp = (
                     coor: {lat: null, lon: null}
                 }
             ],
-            billValue: false
+            billValue: false,
+            tokenDevice: null,
         }, action
     ) => {
     switch (action.type) {
@@ -50,7 +51,9 @@ const reducerApp = (
             // var cart = state.cart.filter(cartItem => cartItem.index !== action.payload);
             return {...state, locations: action.payload};
         case 'SET_BILL_VALUE':
-        return {...state, billValue: action.payload};
+            return {...state, billValue: action.payload};
+        case 'SET_TOKEN_DEVICE':
+            return {...state, tokenDevice: action.payload};
     }
     return state;
 }

@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import FlashMessage from "react-native-flash-message";
 import { Provider } from 'react-redux';
 import store from './store';
+import  HandleNotifications  from "./src/config/HandleNotifications";
 
 class App extends Component {
 
@@ -14,7 +15,8 @@ class App extends Component {
       <Provider store={store}>
         <NavigationContainer>
           <Main />
-          <FlashMessage position="bottom" duration={3000} />
+          <HandleNotifications />
+          <FlashMessage position="bottom" duration={2000} />
         </NavigationContainer>
       </Provider>
     );
