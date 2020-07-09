@@ -4,12 +4,12 @@ import {
     Text,
     TextInput,
     AsyncStorage,
-    ImageBackground,
     SafeAreaView,
     Dimensions,
     TouchableOpacity,
     StyleSheet,
-    Keyboard
+    Keyboard,
+    Image
 } from 'react-native';
 import firebase from 'react-native-firebase';
 import { LoginManager, AccessToken } from "react-native-fbsdk";
@@ -362,13 +362,19 @@ class Login extends Component {
         const { user, confirmResult } = this.state;
         return (
             <View style={ style.container }>
-                {/* <ImageBackground source={ Config.images.banner } style={{width: '100%', height: 250}} /> */}
                 <View style={ style.containerLogo }>
-                    <Avatar
+                    <Image
+                        style={{
+                            width: this.state.widthAvatar,
+                            height: this.state.widthAvatar
+                        }}
+                        source={ Config.images.icon }
+                    />
+                    {/* <Avatar
                         width={this.state.widthAvatar}
                         borderColor='#F2F2F2'
                         image={ Config.images.icon }
-                    />
+                    /> */}
                 </View>
                 {!user && !confirmResult && this.renderPhoneNumberInput()}
                 {!user && confirmResult && this.renderVerificationCodeInput()}

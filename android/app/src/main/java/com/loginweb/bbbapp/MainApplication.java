@@ -1,4 +1,4 @@
-package com.loginweb.deliveryapp;
+package com.loginweb.bbbapp;
 
 import android.app.Application;
 import android.content.Context;

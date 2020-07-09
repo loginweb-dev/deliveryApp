@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Delivery App</string>
-    <string name="facebook_app_id">254238056025338</string>
-    <string name="fb_login_protocol_scheme">fb254238056025338</string>
+    <string name="app_name">Bueno Bonito y Barato</string>
+    <string name="facebook_app_id">282058089698416</string>
+    <string name="fb_login_protocol_scheme">fb282058089698416</string>
     <string name="default_notification_channel_id">delivery_app</string>
 </resources>

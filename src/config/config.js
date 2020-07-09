@@ -1,8 +1,8 @@
 export const Config = {
-    appName: "DeliveryApp",
+    appName: "Bueno Bonito & Barato",
     appDescription: "Versión inical de una aplicación que incluye react-navigation y redux.",
     autor: "LoginWeb",
-    API: "https://freedev.tk",
+    API: "https://buenobonitobarato.com.bo",
     debug: false,
     images: {
         banner: require('../assets/images/banner.png'),
@@ -19,7 +19,7 @@ export const Config = {
         colorTextAlt: '#000000'
     },
     color: {
-        'primary': 'red',
+        'primary': '#216DFC',
         'secondary': '#8C8C8C',
         'textPrimary': '#FFFFFF',
         'textSecondary': '#FFFFFF',
@@ -30,9 +30,9 @@ export const Config = {
         'backgroundAlt': '#F2F2F2',
         'backgroundText': '#ccc',
         'backgroundTextAlt': '#ccc',
-        'menu': '#FFF',
-        'menuText': '#000000',
-        'menuBadge': 'red',
+        'menu': '#216DFC',
+        'menuText': '#ffffff',
+        'menuBadge': '#F02A2A',
     },
     location: {
         latitude: -14.834821,
