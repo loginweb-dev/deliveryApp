@@ -41,5 +41,10 @@ export const Config = {
 }
 
 export const reziseImage = (image, size = 'medium') => {
-    return Config.debug ? image : image.replace('.', `_${size}.`);
+    if(image){
+        return Config.debug ? image : image.replace('.', `_${size}.`);
+    }else{
+        return '../img/default.png';
+    }
+    
 }
