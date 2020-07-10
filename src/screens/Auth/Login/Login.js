@@ -288,11 +288,11 @@ class Login extends Component {
                 }else{
                     this.renderMessage('Error!', res.error, 'danger');
                 }
-                this.setState({
-                    awesomeAlert: {
-                        show: false, showProgress: true, title: '',message: '',
-                    }
-                });
+                // this.setState({
+                //     awesomeAlert: {
+                //         show: false, showProgress: true, title: '',message: '',
+                //     }
+                // });
             })
             .catch(error => {
                 this.renderMessage('Error!', 'Ocurrió un problema inesperado', 'danger');

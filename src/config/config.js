@@ -1,8 +1,8 @@
 export const Config = {
-    appName: "DeliveryApp",
+    appName: "Pizzas Tatu",
     appDescription: "Versión inical de una aplicación que incluye react-navigation y redux.",
     autor: "LoginWeb",
-    API: "https://freedev.tk",
+    API: "https://delivery.pizzastatu.com",
     debug: false,
     images: {
         banner: require('../assets/images/banner.png'),
@@ -19,20 +19,20 @@ export const Config = {
         colorTextAlt: '#000000'
     },
     color: {
-        'primary': 'red',
+        'primary': '#fbbc00',
         'secondary': '#8C8C8C',
-        'textPrimary': '#FFFFFF',
+        'textPrimary': '#000000',
         'textSecondary': '#FFFFFF',
         'textMuted': '#AFADAD',
-        'backgroundSplash': '#F2F2F2',
+        'backgroundSplash': '#fbbc00',
         'backgroundSplashText': '#000000',
         'background': '#F2F2F2',
         'backgroundAlt': '#F2F2F2',
         'backgroundText': '#ccc',
         'backgroundTextAlt': '#ccc',
-        'menu': '#FFF',
+        'menu': '#fbbc00',
         'menuText': '#000000',
-        'menuBadge': 'red',
+        'menuBadge': '#000000',
     },
     location: {
         latitude: -14.834821,

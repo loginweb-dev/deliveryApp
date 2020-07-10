@@ -1,4 +1,4 @@
-package com.loginweb.deliveryapp;
+package com.loginweb.pizzastatu;
 
 import android.app.Application;
 import android.content.Context;

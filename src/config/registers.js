@@ -1,26 +1,26 @@
 export const Settings = {
     aboutUs: {
         name: '',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
+        description: 'Pizzería tatu, la mejor combinación entre, sabor , precio y calidad',
         background: require('../assets/images/banner.png'),
         address: [
             {
-                details: 'Av. 6 de agosto Esq. Santa Cruz',
+                details: 'Av. del Mar Esq. Santa Cruz',
                 location: {
-                    latitude: -14.834821,
-                    longitude: -64.904159,
+                    latitude: -14.830670,
+                    longitude: -64.906834,
                 }
             },
             {
-                details: 'Calle 18 de Nov. Nro 400',
+                details: 'Delipark',
                 location: {
-                    latitude: -14.834821,
-                    longitude: -64.904159,
+                    latitude: -14.819089,
+                    longitude: -64.903664,
                 }
             },
         ],
-        phones: ['75199157', '34623456'],
-        email: ['empresa.loginweb@gmail.com'],
+        phones: ['75195380'],
+        email: ['pedidos@pizzastatu.com'],
         social: [
             {name: '', icon: '', url: ''}
         ]

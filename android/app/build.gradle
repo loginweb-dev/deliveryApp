@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.loginweb.deliveryapp"
+        applicationId "com.loginweb.pizzastatu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

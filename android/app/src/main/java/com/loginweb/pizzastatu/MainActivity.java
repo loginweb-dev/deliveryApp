@@ -1,4 +1,4 @@
-package com.loginweb.deliveryapp;
+package com.loginweb.pizzastatu;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "DeliveryApp";
+    return "PizzasTatu";
   }
 }

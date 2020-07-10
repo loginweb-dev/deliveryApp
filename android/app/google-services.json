@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "891030351690",
-    "firebase_url": "https://deliveryapp-20512.firebaseio.com",
-    "project_id": "deliveryapp-20512",
-    "storage_bucket": "deliveryapp-20512.appspot.com"
+    "project_number": "578030582824",
+    "firebase_url": "https://pizzas-tatu-267420.firebaseio.com",
+    "project_id": "pizzas-tatu-267420",
+    "storage_bucket": "pizzas-tatu-267420.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:891030351690:android:243225d9775a71fd5d9bb3",
+        "mobilesdk_app_id": "1:578030582824:android:66d61b2f4f7711400f491d",
         "android_client_info": {
-          "package_name": "com.loginweb.deliveryapp"
+          "package_name": "com.loginweb.pizzastatu"
         }
       },
       "oauth_client": [
         {
-          "client_id": "891030351690-r7p49kdrkreco0rqiku1va8usqj6902k.apps.googleusercontent.com",
+          "client_id": "578030582824-6ctpafgnk8r32dpsuhle429qgd97dd0g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCTx9nCB5UPLVRV55Ujs7tvXD4wjeRUcFs"
+          "current_key": "AIzaSyAa-f8cCg-cKx42F-7U5up4ussI2UK5lZ4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "891030351690-r7p49kdrkreco0rqiku1va8usqj6902k.apps.googleusercontent.com",
+              "client_id": "578030582824-6ctpafgnk8r32dpsuhle429qgd97dd0g.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
