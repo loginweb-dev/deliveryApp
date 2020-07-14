@@ -22,7 +22,11 @@ export const Settings = {
         phones: ['75199157', '34623456'],
         email: ['empresa.loginweb@gmail.com'],
         social: [
-            {name: '', icon: '', url: ''}
+            {name: 'Facebook', icon: 'logo-facebook', url: 'https://facebook.com/'},
+            {name: 'Instagram', icon: 'logo-instagram', url: 'https://instagram.com/'},
+            {name: 'Twitter', icon: 'logo-twitter', url: 'https://twitter.com/'},
+            // El número de celular de WhatsApp va con el código de país sin el signo +
+            {name: 'WhatsApp', icon: 'logo-whatsapp', url: 'whatsapp://send?phone=59175199157'},
         ]
     },
     aboutDev: {

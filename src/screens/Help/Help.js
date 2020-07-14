@@ -13,6 +13,7 @@ import {
     Linking,
     TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Configurations
 import { Config } from '../../config/config';
@@ -60,6 +61,20 @@ export default class Help extends Component {
                                     Settings.aboutUs.phones.map(item => 
                                         <HyperLink url={`tel:${item}`}>
                                             { item }
+                                        </HyperLink>
+                                    )
+                                }
+                            </View>
+                        </View>
+                    </View>
+                    <View style={{ width: screenWidth }}>
+                        <View style={ style.item }>
+                            <Text style={style.title}>Redes sociales</Text>
+                            <View style={{ flexDirection: 'row' }}>
+                                {
+                                    Settings.aboutUs.social.map(item => 
+                                        <HyperLink url={ item.url }>
+                                            <Icon name={ item.icon } size={15} /> { item.name }
                                         </HyperLink>
                                     )
                                 }
@@ -121,7 +136,7 @@ const style = StyleSheet.create({
     },
     details: {
         color: '#8C8C8C',
-        fontSize: 18,
+        fontSize: 16,
         marginHorizontal: 5,
         textAlign: 'justify'
     },

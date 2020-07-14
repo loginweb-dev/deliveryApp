@@ -16,7 +16,7 @@ const style = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Config.color.backgroundSplash,
+        backgroundColor: Config.color.background,
     },
 });
 
