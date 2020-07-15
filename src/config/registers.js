@@ -22,7 +22,11 @@ export const Settings = {
         phones: ['75195380'],
         email: ['pedidos@pizzastatu.com'],
         social: [
-            {name: '', icon: '', url: ''}
+            {name: 'Facebook', icon: 'logo-facebook', url: 'https://www.facebook.com/PizzasTatu'},
+            {name: 'Instagram', icon: 'logo-instagram', url: 'https://www.instagram.com/pizzas_tatu'},
+            // {name: 'Twitter', icon: 'logo-twitter', url: 'https://twitter.com/'},
+            // El número de celular de WhatsApp va con el código de país sin el signo +
+            {name: 'WhatsApp', icon: 'logo-whatsapp', url: 'whatsapp://send?phone=59175195380'},
         ]
     },
     aboutDev: {
