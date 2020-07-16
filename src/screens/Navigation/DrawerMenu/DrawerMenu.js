@@ -69,7 +69,7 @@ class DrawerMenu extends Component {
                         <TouchableOpacity
                             onPress={()=> this.props.navigation.navigate('LocationsList')}
                         >
-                            <MenuDrawerOption icon="ios-pin" text="Mis Ubicaciones" />
+                            <MenuDrawerOption icon="ios-pin" text="Mis ubicaciones" />
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={()=> this.props.navigation.navigate('Help')}
