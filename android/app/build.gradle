@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.loginweb.deliveryapp"
+        applicationId "com.loginweb.skotburger"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Delivery App</string>
+    <string name="app_name">SkotBurger</string>
     <string name="facebook_app_id">254238056025338</string>
     <string name="fb_login_protocol_scheme">fb254238056025338</string>
     <string name="default_notification_channel_id">delivery_app</string>

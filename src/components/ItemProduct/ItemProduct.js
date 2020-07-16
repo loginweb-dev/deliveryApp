@@ -96,7 +96,7 @@ const style = StyleSheet.create({
         justifyContent: 'center'
     },
     btnAdd: {
-        borderColor: Config.color.primary,
+        borderColor: Config.color.secondary,
         borderStyle: 'solid',
         borderWidth: 2,
         borderRadius: 5,

@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "891030351690",
-    "firebase_url": "https://deliveryapp-20512.firebaseio.com",
-    "project_id": "deliveryapp-20512",
-    "storage_bucket": "deliveryapp-20512.appspot.com"
+    "project_number": "416558003739",
+    "firebase_url": "https://skotburgers.firebaseio.com",
+    "project_id": "skotburgers",
+    "storage_bucket": "skotburgers.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:891030351690:android:243225d9775a71fd5d9bb3",
+        "mobilesdk_app_id": "1:416558003739:android:da70d0b37a797956042abe",
         "android_client_info": {
-          "package_name": "com.loginweb.deliveryapp"
+          "package_name": "com.loginweb.skotburger"
         }
       },
       "oauth_client": [
         {
-          "client_id": "891030351690-r7p49kdrkreco0rqiku1va8usqj6902k.apps.googleusercontent.com",
+          "client_id": "416558003739-a26uoige9j52tj9ne3pomq0ubpol0bsl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCTx9nCB5UPLVRV55Ujs7tvXD4wjeRUcFs"
+          "current_key": "AIzaSyBqj0DhS_KYEOHR5d3PxaRm9JpzjDd07rc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "891030351690-r7p49kdrkreco0rqiku1va8usqj6902k.apps.googleusercontent.com",
+              "client_id": "416558003739-a26uoige9j52tj9ne3pomq0ubpol0bsl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

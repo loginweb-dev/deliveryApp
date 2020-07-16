@@ -1,32 +1,32 @@
 export const Settings = {
     aboutUs: {
         name: '',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-        background: require('../assets/images/banner.png'),
+        description: 'Hamburguesas tipo americano, con 130gr de carne, queso mozzarella, pan especial y lechuga y la combinación perfecta de nuestras salsas!!!!',
+        background: require('../assets/images/banner.jpg'),
         address: [
             {
-                details: 'Av. 6 de agosto Esq. Santa Cruz',
+                details: 'Av. 27 de Mayo esquina Antonio Vaca Diez',
                 location: {
-                    latitude: -14.834821,
-                    longitude: -64.904159,
+                    latitude: -14.8413636,
+                    longitude: -64.8940948,
                 }
             },
             {
-                details: 'Calle 18 de Nov. Nro 400',
+                details: 'Plazuela de la tradición',
                 location: {
-                    latitude: -14.834821,
-                    longitude: -64.904159,
+                    latitude: -14.822317,
+                    longitude: -64.890428,
                 }
             },
         ],
-        phones: ['75199157', '34623456'],
-        email: ['empresa.loginweb@gmail.com'],
+        phones: ['67271431', '67271416'],
+        email: ['soporte@skotburger.com'],
         social: [
-            {name: 'Facebook', icon: 'logo-facebook', url: 'https://facebook.com/'},
-            {name: 'Instagram', icon: 'logo-instagram', url: 'https://instagram.com/'},
-            {name: 'Twitter', icon: 'logo-twitter', url: 'https://twitter.com/'},
+            {name: 'Facebook', icon: 'logo-facebook', url: 'https://www.facebook.com/skotburger130gr'},
+            {name: 'Instagram', icon: 'logo-instagram', url: 'https://www.instagram.com/skotburger/'},
+            // {name: 'Twitter', icon: 'logo-twitter', url: 'https://twitter.com/'},
             // El número de celular de WhatsApp va con el código de país sin el signo +
-            {name: 'WhatsApp', icon: 'logo-whatsapp', url: 'whatsapp://send?phone=59175199157'},
+            {name: 'WhatsApp', icon: 'logo-whatsapp', url: 'whatsapp://send?phone=59167271416'},
         ]
     },
     aboutDev: {

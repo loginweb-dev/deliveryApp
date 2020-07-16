@@ -12,7 +12,7 @@ const ButtonSecondary = props => {
         style={style.button}
         disabled={props.disabled ? true : false}
     >
-        <Text style={style.buttonText}>{props.children} {props.icon && <Icon name={props.icon} size={20} />} </Text>
+        <Text style={[style.buttonText, { fontSize: props.size ? props.size : 20 }]}>{props.children} {props.icon && <Icon name={props.icon} size={props.sizeIcon ? props.sizeIcon : 20} />} </Text>
     </TouchableOpacity>
   );
 }
@@ -26,11 +26,11 @@ const style = StyleSheet.create({
         borderRadius: 5,
         margin: 10,
         borderWidth: 2,
-        borderColor: Config.color.primary
+        borderColor: Config.color.secondary
     },
     buttonText: {
         color: Config.color.primary,
-        fontSize: 20,
+        // fontSize: 20,
         textAlign: 'center'
     }
 });

@@ -28,13 +28,13 @@ const style = StyleSheet.create({
     },
     logo: {
         flexDirection: 'column',
-        width: 300,
-        height:300,
+        width: 250,
+        height: 250,
         marginBottom: 10
     },
     title: {
         textAlign: 'center',
-        fontSize: 30,
+        fontSize: 35,
         fontWeight: 'bold',
         marginBottom:10,
         color: Config.color.backgroundSplashText
