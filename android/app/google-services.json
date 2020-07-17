@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "78158339672",
-    "firebase_url": "https://bueno-b.firebaseio.com",
-    "project_id": "bueno-b",
-    "storage_bucket": "bueno-b.appspot.com"
+    "project_number": "664225247934",
+    "firebase_url": "https://bueno-bonito-barato-283601.firebaseio.com",
+    "project_id": "bueno-bonito-barato-283601",
+    "storage_bucket": "bueno-bonito-barato-283601.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:78158339672:android:2fe9311204b252ca42742d",
+        "mobilesdk_app_id": "1:664225247934:android:c448b3389df18a6956e4ef",
         "android_client_info": {
           "package_name": "com.loginweb.bbbapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "78158339672-3uogmelqekf0lhl5an2mi6cifv5g5ur6.apps.googleusercontent.com",
+          "client_id": "664225247934-m1dtnti2dnegahedvu57a94dsnigh3rt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCTIbDH0rWaHS8b4d2hp-h-35nMHmuCBeM"
+          "current_key": "AIzaSyBuyWWP_0-85zEp_pXqBbsfVUxdl6fAYl0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "78158339672-3uogmelqekf0lhl5an2mi6cifv5g5ur6.apps.googleusercontent.com",
+              "client_id": "664225247934-m1dtnti2dnegahedvu57a94dsnigh3rt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
