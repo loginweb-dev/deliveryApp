@@ -221,16 +221,16 @@ class ProductDetails extends Component {
                 </View>
                 {/* Si existen productos similares se muestras los radio buttons */}
                 {    this.state.similarProductsRadios.length > 1 &&
-                    <View>
+                    <View style={{ alignItems: 'center' }}>
                         <Divider color={Config.color.textMuted} size={1} width={screenWidth} />
                         <ScrollView showsHorizontalScrollIndicator={false} horizontal>
-                            <View style={{ margin: 15, alignItems: 'center' }}>
+                            <View style={{ margin: 20, alignItems: 'center' }}>
                                 <RadioForm
                                     radio_props={this.state.similarProductsRadios}
                                     initial={0}
                                     onPress={ this.handleOnPressRadios }
                                     formHorizontal={true}
-                                    labelStyle={{ paddingHorizontal: 20, color: Config.color.primary }}
+                                    labelStyle={{ paddingHorizontal: 25, color: Config.color.primary }}
                                     buttonColor={ Config.color.primary }
                                     selectedButtonColor={ Config.color.primary }
                                 />
