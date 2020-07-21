@@ -27,7 +27,7 @@ const ItemProduct = (props) => {
                             <Text style={style.ItemListDetailTitle} numberOfLines={1}>{props.name}</Text>
                             <Text style={style.ItemListDetailSubtitle} numberOfLines={2}>{props.details}</Text>
                         </View>
-                        <View style={style.ItemListActions}>
+                        {/* <View style={style.ItemListActions}>
                             { props.onPressAdd &&
                                 <View style={style.ItemListActionsPrice}>
                                     <TouchableOpacity
@@ -44,7 +44,7 @@ const ItemProduct = (props) => {
                                     <Text style={style.ItemListActionsOldPriceText} numberOfLines={1}>{props.oldPrice} Bs.</Text>
                                 }
                             </View>
-                        </View>
+                        </View> */}
                     </View>
                 </View>
             </TouchableOpacity>
@@ -67,7 +67,7 @@ const style = StyleSheet.create({
     ItemListDetail: {
         flex: 1,
         flexDirection: 'column',
-        width: '50%',
+        width: '80%',
         paddingLeft: 10,
         paddingRight: 5
     },

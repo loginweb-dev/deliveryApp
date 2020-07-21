@@ -10,9 +10,7 @@ const CartHeader = (props) => {
   return (
     <View style={{ flex: 1, flexDirection: 'row', marginTop:10, marginRight:10 }}>
         <Icon name="shopping-cart" size={30} color={Config.color.menuText} />
-        <Text style={style.badge}>
-            { props.cartItems }
-        </Text>
+        {props.cartItems > 0 && <Text style={style.badge}>{ props.cartItems }</Text>}
     </View>
   );
 }
