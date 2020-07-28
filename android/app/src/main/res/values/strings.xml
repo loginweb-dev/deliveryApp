@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Pizzas Tatu</string>
-    <string name="facebook_app_id">254238056025338</string>
-    <string name="fb_login_protocol_scheme">fb254238056025338</string>
+    <string name="app_name">Tatu Delivery</string>
+    <string name="facebook_app_id">721458525086359</string>
+    <string name="fb_login_protocol_scheme">fb721458525086359</string>
     <string name="default_notification_channel_id">delivery_app</string>
 </resources>

@@ -138,7 +138,7 @@ class Login extends Component {
                         </View>
                     </View>
                     <View style={{ margin: 10, marginTop: 10 }}>
-                        <Text style={{ textAlign: 'center', color: '#aaa' }}>Te enviaremos un mensaje con tu código de verificación para registrate, luego te pediremos alginos datos para completar tu registro.</Text>
+                        <Text style={{ textAlign: 'center', color: '#aaa' }}>Te enviaremos un mensaje con tu código de verificación para registrate, luego te pediremos algunos datos para completar tu registro.</Text>
                     </View>
                 </View>
                 { this.state.viewButtons &&
@@ -206,12 +206,12 @@ class Login extends Component {
                 />
                 <TextInput
                     style={{ height: 40, borderColor: Config.color.textMuted, borderWidth: 2, marginTop: 20, borderRadius: 5, paddingHorizontal: 10 }}
-                    placeholder="NIT"
+                    placeholder="NIT (Opcional)"
                     onChangeText={ (value) => this.setState({'inputNit': value}) }
                     value={ this.state.inputNit }
                     keyboardType='numeric'
                 />
-                <Text style={{ color: Config.color.textMuted, marginBottom: 10 }}>El NIT es opcional</Text>
+                {/* <Text style={{ color: Config.color.textMuted, marginBottom: 10 }}>El NIT es opcional</Text> */}
                 <ButtonPrimary onPress={this.phoneLogin} icon='ios-checkmark-circle-outline'>
                     Guardar información
                 </ButtonPrimary>

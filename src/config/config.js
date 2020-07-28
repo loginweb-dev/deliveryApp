@@ -1,5 +1,5 @@
 export const Config = {
-    appName: "Pizzas Tatu",
+    appName: "Tatu Delivery",
     appDescription: "Versión inical de una aplicación que incluye react-navigation y redux.",
     autor: "LoginWeb",
     API: "https://delivery.pizzastatu.com",

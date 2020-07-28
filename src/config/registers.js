@@ -1,14 +1,15 @@
 export const Settings = {
     aboutUs: {
         name: '',
-        description: 'Pizzería tatu, la mejor combinación entre, sabor , precio y calidad',
+        description: `Abrimos  muestras puertas a mediados de 2016, y desde entonces  no hemos parado de ganar seguidores  por tres motivos: la receta de nuestra masa estilo italiana  que elaboramos con total dedicación , las largas fermentaciones que se dedican a la misma  y los ingredientes cuidadosamente seleccionados que  se usan nuestras  pizzas.
+Estamos obsesionados con buscar   la perfección tanto en la atención a nuestros clientes  como en nuestras pizzas , para que siempre puedas disfrutar una deliciosa 🍕TATU  en el menor tiempo posible  y con el la calidad calidez humana que nos caracteriza a la hora de entenderte.`,
         background: require('../assets/images/banner.png'),
         address: [
             {
-                details: 'Av. del Mar Esq. Santa Cruz',
+                details: 'Av 27 de mayo diagonal madre Trinitaria',
                 location: {
-                    latitude: -14.830670,
-                    longitude: -64.906834,
+                    latitude: -14.8302922,
+                    longitude: -64.9120521,
                 }
             },
             {
