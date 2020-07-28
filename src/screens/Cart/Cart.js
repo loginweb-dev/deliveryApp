@@ -10,7 +10,8 @@ import {
     Image,
     Alert,
     Switch,
-    AsyncStorage
+    AsyncStorage,
+    TextInput
 } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -39,7 +40,8 @@ class Cart extends Component {
             error: {
                 value: false,
                 message: ''
-            }
+            },
+            cartObservations: ''
         }
     }
 
@@ -126,6 +128,7 @@ class Cart extends Component {
     onPressAccept = () => {
         if(this.props.user.numberPhone){
             this.props.setBillValue(this.state.billValue);
+            this.props.setCartObservations(this.state.cartObservations);
             this.props.navigation.navigate('LocationsList', { cartSuccess: true });
         }else{
             Alert.alert(
@@ -212,6 +215,15 @@ class Cart extends Component {
                         </Card>
                     }
                     <View style={style.footerItem}>
+                        <TextInput
+                            style={{ width: '100%', height: 80, borderColor: '#F2F2F2', borderWidth: 1 }}
+                            maxLength={150}
+                            placeholder="Ej: sin aceitunas..."
+                            multiline={true}
+                            onChangeText={ (value) => this.setState({cartObservations: value}) }
+                        />
+                    </View>
+                    <View style={style.footerItem}>
                         <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10 }}>
                             <Text style={{ fontSize: 18 }}> Factura </Text>
                         </View>
@@ -286,6 +298,10 @@ const mapDispatchToProps = (dispatch) => {
         }),
         setBillValue : (value) => dispatch({
             type: 'SET_BILL_VALUE',
+            payload: value
+        }),
+        setCartObservations : (value) => dispatch({
+            type: 'SET_CART_OBSERVATIONS',
             payload: value
         }),
     }

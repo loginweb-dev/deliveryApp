@@ -11,6 +11,7 @@ const reducerApp = (
         state = {
             user: {},
             cart:[],
+            cartObservations: '',
             config: {},
             locations:[
                 {
@@ -47,8 +48,9 @@ const reducerApp = (
         case 'REMOVE_FROM_CART':
             var cart = state.cart.filter(cartItem => cartItem.index !== action.payload);
             return {...state, cart: cart};
+        case 'SET_CART_OBSERVATIONS':
+            return {...state, cartObservations: action.payload};
         case 'UPDATE_LOCATION':
-            // var cart = state.cart.filter(cartItem => cartItem.index !== action.payload);
             return {...state, locations: action.payload};
         case 'SET_BILL_VALUE':
             return {...state, billValue: action.payload};

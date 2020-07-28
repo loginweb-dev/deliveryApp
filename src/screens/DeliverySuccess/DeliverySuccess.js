@@ -42,7 +42,8 @@ class DeliverySuccess extends Component {
                 'id': this.props.user.id,
                 'location': this.props.route.params.location,
                 'cart': this.props.cart,
-                'billValue': this.state.billValue
+                'billValue': this.props.billValue,
+                'cartObservations': this.props.cartObservations
             }
             let apiURL = `${Config.API}/api/v2`;
             let header = {
@@ -207,7 +208,8 @@ const mapStateToProps = (state) => {
     return {
         cart: state.cart,
         user: state.user,
-        billValue: state.billValue
+        billValue: state.billValue,
+        cartObservations: state.cartObservations
     }
 }
 
