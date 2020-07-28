@@ -51,4 +51,4 @@ const ItemExtra = props => {
     );
 }
 
-export default  ItemExtra;
+export default ItemExtra;

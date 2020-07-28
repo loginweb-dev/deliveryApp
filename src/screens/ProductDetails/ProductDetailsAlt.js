@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 // Components
 import BackgroundTop from "../../components/BackgroundTop/BackgroundTop";
-import ItemExtra from "../../components/ItemExtra/ItemExtra";
+import ItemExtra from "../../components/ItemExtra/ItemExtraAlt";
 
 // UI
 import Divider from "../../ui/Divider";
@@ -260,7 +260,7 @@ class ProductDetails extends Component {
                                             onChange={() => this.handleCheckbox(item.id)}
                                             name={item.name}
                                             price={item.price}
-                                            onChangeQuantity={(value) => this.handleCheckboxQuantity(item.id, value)}
+                                            // onChangeQuantity={(value) => this.handleCheckboxQuantity(item.id, value)}
                                         />
                                     )
                                 }
