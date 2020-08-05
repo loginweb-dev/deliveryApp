@@ -40,6 +40,8 @@ class Profile extends Component {
             inputPhoneNumber: this.props.user.numberPhone,
             inputBusinessName: this.props.user.businessName,
             inputNit: this.props.user.nit,
+            // Si el avatar no existe se le asigna uno por defecto, si existe se debe tener en verificar si es de una red social o el avatar por defecto del sistema
+            userAvatar: this.props.user.avatar ? this.props.user.avatar.includes('http') ? {uri: this.props.user.avatar} : {uri: `${Config.API}/storage/${this.props.user.avatar}`} : require('../../assets/images/user.png'),
             // Parametro para redirección en caso de edición rápida
             kickUpdate: this.props.route.params ? this.props.route.params.kickUpdate : false,
             sending: false,
@@ -81,21 +83,25 @@ class Profile extends Component {
                                 ...user,
                                 avatar: `${Config.API}/storage/${res.avatar}`
                             }
-                            this.props.updateUser(newUser);
-                            showMessage({
-                                message: 'Avatar actualizado',
-                                description: `Tu imagen de perfil fue actualizada.`,
-                                type: 'info', icon: 'info',
+
+                            AsyncStorage.setItem('UserSession', JSON.stringify(newUser), () => {
+                                this.props.updateUser(newUser);
+                                showMessage({
+                                    message: 'Avatar actualizado',
+                                    description: `Tu imagen de perfil fue actualizada.`,
+                                    type: 'info', icon: 'info',
+                                });
+                                this.setState({userAvatar: { uri: `${Config.API}/storage/${res.avatar}`}});
                             });
-                            this.setState({ sendingAvatar: false });
                         }
+                        this.setState({ sendingAvatar: false });
                     }).catch((err) => {
                         showMessage({
                             message: 'Error!',
                             description: 'Ocurrió un problema inesperado',
                             type: 'danger', icon: 'danger',
                         });
-                        this.setState({ sending: false });
+                        this.setState({ sendingAvatar: false });
                     })
                 }else{
                     showMessage({
@@ -149,11 +155,7 @@ class Profile extends Component {
                 .then(res => res.json())
                 .then(res => {
                     if(!res.error){
-                        let user = res.user;
-                        let avatar = res.user.avatar.includes('http') ? res.user.avatar : {uri: `${Config.API}/storage/${res.user.avatar}`};
-                        let newUser = {
-                            ...user, avatar
-                        }
+                        let newUser = res.user;
                         AsyncStorage.setItem('UserSession', JSON.stringify(newUser), () => {
                             this.props.updateUser(newUser);
                             this.successUpdate();
@@ -207,13 +209,6 @@ class Profile extends Component {
     }
 
     render(){
-        // Verificar si el avatar está almacenado en nuestro servidor o en el de la red social
-        let avatar = this.props.user.avatar;
-        if(avatar){
-            avatar = avatar.includes('http') ? {uri: avatar} : {uri: `${Config.API}/storage/${avatar}`};
-        }else{
-            avatar = require('../../assets/images/user.png');
-        }
         return (
             <View style={ style.container }>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -221,7 +216,7 @@ class Profile extends Component {
                         <Avatar
                             width={120}
                             borderColor='white'
-                            image={ avatar }
+                            image={ this.state.userAvatar }
                             onPress={this.state.sendingAvatar ? null : this.handleChangeAvatar}
                         />
                         { this.state.sendingAvatar && <Loading/>}
