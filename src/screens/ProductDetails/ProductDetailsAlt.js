@@ -47,7 +47,7 @@ class ProductDetails extends Component {
         let radioButtons = [];
         products.map((item, index) => {
             radioButtons.push({
-                value: item.id, label: item.name
+                value: item.id, label: item.category
             });
         });
 
