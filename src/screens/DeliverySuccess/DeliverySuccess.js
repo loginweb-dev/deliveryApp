@@ -41,6 +41,7 @@ class DeliverySuccess extends Component {
             let request = {
                 'id': this.props.user.id,
                 'location': this.props.route.params.location,
+                'brachOffice_id': this.props.route.params.location.id ? this.props.route.params.location.id : false, 
                 'cart': this.props.cart,
                 'billValue': this.props.billValue,
                 'cartObservations': this.props.cartObservations
