@@ -41,24 +41,35 @@ class Cart extends Component {
                 value: false,
                 message: ''
             },
-            cartObservations: ''
+            cartObservations: '',
+            deliveryHome: false, 
+            deliveryPrice: 0
         }
     }
 
     componentDidMount(){
         let apiURL = `${Config.API}/api/v2`;
+        // Obtener sucursales activas
         fetch(`${apiURL}/get_params/sucursal_active`)
         .then(res => res.json())
         .then(res => {
-            if(!res.error){
-                this.setState({
-                    error: {
-                        value: !res.open,
-                        message: res.message
-                    }
-                });
-            }
-        })
+            this.setState({
+                error: {
+                    value: !res.open,
+                    message: res.message
+                }
+            });
+        });
+
+        // Obtener costo de envío
+        fetch(`${apiURL}/get_params/delivery.costo_envio`)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                deliveryPrice: res.value ? res.value : 0,
+                deliveryHome: true
+            });
+        });
     }
 
     handleItem(id, value){
@@ -104,9 +115,9 @@ class Cart extends Component {
         )
     }
 
-    handlebillValue = () => {
+    handlebillValue = (value) => {
         if(this.props.user.businessName && this.props.user.nit){
-            this.setState({billValue: !this.state.billValue})
+            this.setState({billValue: value})
         }else{
             Alert.alert(
                 'Completa tu información',
@@ -129,7 +140,11 @@ class Cart extends Component {
         if(this.props.user.numberPhone){
             this.props.setBillValue(this.state.billValue);
             this.props.setCartObservations(this.state.cartObservations);
-            this.props.navigation.navigate('LocationsList', { cartSuccess: true });
+            if(this.state.deliveryHome){
+                this.props.navigation.navigate('LocationsList', { cartSuccess: true });
+            }else{
+                this.props.navigation.navigate('BranchOfficeList');
+            }
         }else{
             Alert.alert(
                 'Completa tu información',
@@ -196,6 +211,14 @@ class Cart extends Component {
                             </View>
                         )
                     }
+                    <View style={[style.footerItem, { backgroundColor: '#fff' }]}>
+                        <View style={{ width: '50%', margin: 10 }}>
+                            <Text style={{ fontSize: 15 }}> Costo de envío </Text>
+                        </View>
+                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
+                            <Text style={{ fontSize: 18 }}>Bs. { this.state.deliveryHome ? parseFloat(this.state.deliveryPrice).toFixed(2) : '0.00' } </Text>
+                        </View>
+                    </View>
                     {/* Si el carrito está vacío se muestra el logo de cart-empty */}
                     { this.state.cart.length == 0 &&
                         <View style={{ alignItems: 'center', marginTop: 100 }}>
@@ -235,9 +258,20 @@ class Cart extends Component {
                         </View>
                     </View>
                     <View style={style.footerItem}>
+                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10 }}>
+                            <Text style={{ fontSize: 18 }}> { this.state.deliveryHome ? `Entrega a domicilio` : 'Recoger en restaurante' } </Text>
+                        </View>
+                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
+                            <Switch
+                                onValueChange={ (value) => this.setState({deliveryHome: value})}
+                                value={this.state.deliveryHome}
+                            />
+                        </View>
+                    </View>
+                    <View style={style.footerItem}>
                         <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 22 }}>Bs. { this.state.cart.reduce((amount, item)=> {
-                                return parseFloat(amount) + parseFloat(item.subtotal);
+                            <Text style={{ fontSize: 22 }}>Bs. { this.state.cart.reduce((amount, item) => {
+                                return parseFloat(amount) + parseFloat(item.subtotal) + (this.state.deliveryHome ? parseFloat(this.state.deliveryPrice) : 0);
                             }, 0).toFixed(2) }
                             </Text>
                         </View>
