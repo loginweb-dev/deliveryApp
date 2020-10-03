@@ -18,6 +18,7 @@ import OfferDetails from '../../OfferDetails/OfferDetails';
 import ProductDetails from '../../ProductDetails/ProductDetails';
 import Cart from '../../Cart/Cart';
 import LocationsList from '../../LocationsList/LocationsList';
+import BranchOfficeList from '../../BranchOfficeList/BranchOfficeList';
 import DeliverySuccess from '../../DeliverySuccess/DeliverySuccess';
 import OrderList from '../../OrderList/OrderList';
 import OrderDetails from '../../OrderDetails/OrderDetails';
@@ -147,6 +148,13 @@ class Main extends Component {
                     component={LocationsList}
                     options={() => ({
                         title: <Text style={ MainStyle.h3 }>Mis ubicaciones</Text>,
+                    })}
+                />
+                <Stack.Screen
+                    name="BranchOfficeList"
+                    component={BranchOfficeList}
+                    options={() => ({
+                        title: <Text style={ MainStyle.h3 }>Sucursales disponibles</Text>,
                     })}
                 />
                 <Stack.Screen

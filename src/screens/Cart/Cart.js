@@ -10,7 +10,8 @@ import {
     Image,
     Alert,
     Switch,
-    AsyncStorage
+    AsyncStorage,
+    TextInput
 } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -39,24 +40,36 @@ class Cart extends Component {
             error: {
                 value: false,
                 message: ''
-            }
+            },
+            cartObservations: '',
+            deliveryHome: false, 
+            deliveryPrice: 0
         }
     }
 
     componentDidMount(){
         let apiURL = `${Config.API}/api/v2`;
+        // Obtener sucursales activas
         fetch(`${apiURL}/get_params/sucursal_active`)
         .then(res => res.json())
         .then(res => {
-            if(!res.error){
-                this.setState({
-                    error: {
-                        value: !res.open,
-                        message: res.message
-                    }
-                });
-            }
-        })
+            this.setState({
+                error: {
+                    value: !res.open,
+                    message: res.message
+                }
+            });
+        });
+
+        // Obtener costo de envío
+        fetch(`${apiURL}/get_params/delivery.costo_envio`)
+        .then(res => res.json())
+        .then(res => {
+            this.setState({
+                deliveryPrice: res.value ? res.value : 0,
+                deliveryHome: true
+            });
+        });
     }
 
     handleItem(id, value){
@@ -102,9 +115,9 @@ class Cart extends Component {
         )
     }
 
-    handlebillValue = () => {
+    handlebillValue = (value) => {
         if(this.props.user.businessName && this.props.user.nit){
-            this.setState({billValue: !this.state.billValue})
+            this.setState({billValue: value})
         }else{
             Alert.alert(
                 'Completa tu información',
@@ -126,7 +139,12 @@ class Cart extends Component {
     onPressAccept = () => {
         if(this.props.user.numberPhone){
             this.props.setBillValue(this.state.billValue);
-            this.props.navigation.navigate('LocationsList', { cartSuccess: true });
+            this.props.setCartObservations(this.state.cartObservations);
+            if(this.state.deliveryHome){
+                this.props.navigation.navigate('LocationsList', { cartSuccess: true });
+            }else{
+                this.props.navigation.navigate('BranchOfficeList');
+            }
         }else{
             Alert.alert(
                 'Completa tu información',
@@ -193,6 +211,14 @@ class Cart extends Component {
                             </View>
                         )
                     }
+                    <View style={[style.footerItem, { backgroundColor: '#fff' }]}>
+                        <View style={{ width: '50%', margin: 10 }}>
+                            <Text style={{ fontSize: 15 }}> Costo de envío </Text>
+                        </View>
+                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
+                            <Text style={{ fontSize: 18 }}>Bs. { this.state.deliveryHome ? parseFloat(this.state.deliveryPrice).toFixed(2) : '0.00' } </Text>
+                        </View>
+                    </View>
                     {/* Si el carrito está vacío se muestra el logo de cart-empty */}
                     { this.state.cart.length == 0 &&
                         <View style={{ alignItems: 'center', marginTop: 100 }}>
@@ -212,6 +238,15 @@ class Cart extends Component {
                         </Card>
                     }
                     <View style={style.footerItem}>
+                        <TextInput
+                            style={{ width: '100%', height: 80, borderColor: '#F2F2F2', borderWidth: 1 }}
+                            maxLength={150}
+                            placeholder="Ej: sin aceitunas..."
+                            multiline={true}
+                            onChangeText={ (value) => this.setState({cartObservations: value}) }
+                        />
+                    </View>
+                    <View style={style.footerItem}>
                         <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10 }}>
                             <Text style={{ fontSize: 18 }}> Factura </Text>
                         </View>
@@ -219,6 +254,17 @@ class Cart extends Component {
                             <Switch
                                 onValueChange={this.handlebillValue}
                                 value={this.state.billValue}
+                            />
+                        </View>
+                    </View>
+                    <View style={style.footerItem}>
+                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10 }}>
+                            <Text style={{ fontSize: 18 }}> { this.state.deliveryHome ? `Entrega a domicilio` : 'Recoger en restaurante' } </Text>
+                        </View>
+                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
+                            <Switch
+                                onValueChange={ (value) => this.setState({deliveryHome: value})}
+                                value={this.state.deliveryHome}
                             />
                         </View>
                     </View>
@@ -286,6 +332,10 @@ const mapDispatchToProps = (dispatch) => {
         }),
         setBillValue : (value) => dispatch({
             type: 'SET_BILL_VALUE',
+            payload: value
+        }),
+        setCartObservations : (value) => dispatch({
+            type: 'SET_CART_OBSERVATIONS',
             payload: value
         }),
     }

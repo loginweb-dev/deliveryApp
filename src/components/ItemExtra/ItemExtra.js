@@ -27,20 +27,20 @@ const ItemExtra = props => {
                     onChange={props.onChange}
                 />
             </View>
-            <View style={{ width: '50%', padding: 5 }}>
+            <View style={{ width: '40%', padding: 5 }}>
                 <Text style={{ color: '#8C8C8C' }}>{props.name}</Text>
             </View>
-            <View style={{ width: '20%', padding: 5 }}>
+            <View style={{ width: '30%', padding: 5 }}>
                 <NumericInput
                     onChange={props.onChangeQuantity}
                     value={0}
-                    iconStyle={{ color: 'white', fontSize: 12 }} 
+                    iconStyle={{ color: 'white', fontSize: 15 }} 
                     rightButtonBackgroundColor={Config.color.primary}
                     leftButtonBackgroundColor={Config.color.primary}
                     minValue={0}
                     rounded={true}
-                    totalHeight={25}
-                    totalWidth={55}
+                    totalHeight={28}
+                    totalWidth={90}
                     editable={false}
                 />
             </View>
