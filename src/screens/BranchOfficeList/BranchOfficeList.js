@@ -92,26 +92,28 @@ class BranchOfficeList extends Component {
     getLocationTab(){
         let index = this.state.selectedIndexTab;
         let location = this.state.locations[index];
+        
+        if(location){
+            if(location.coor.lat && location.coor.lon){
+                this.setState({
+                    region: {
+                        ...this.state.region,
+                        latitude: location.coor.lat,
+                        longitude: location.coor.lon,
+                    },
+                    markerOpacity: 1,
+                    markerTitle: location.name,
+                    markerDescription: location.description,
+                });
 
-        if(location.coor.lat && location.coor.lon){
-            this.setState({
-                region: {
-                    ...this.state.region,
+                // Change map center
+                this.map.animateToRegion({
                     latitude: location.coor.lat,
                     longitude: location.coor.lon,
-                },
-                markerOpacity: 1,
-                markerTitle: location.name,
-                markerDescription: location.description,
-            });
-
-            // Change map center
-            this.map.animateToRegion({
-                latitude: location.coor.lat,
-                longitude: location.coor.lon,
-                latitudeDelta: this.state.region.latitudeDelta,
-                longitudeDelta: this.state.region.longitudeDelta
-            });
+                    latitudeDelta: this.state.region.latitudeDelta,
+                    longitudeDelta: this.state.region.longitudeDelta
+                });
+            }
         }
     }
 
@@ -184,6 +186,17 @@ class BranchOfficeList extends Component {
                         activeTabStyle={{ backgroundColor: Config.color.primary }}
                     />
                 </View>
+                {this.state.locations.length == 0 &&
+                        <View style={{ alignItems: 'center', marginTop: 10 }}>
+                            <Badge
+                                color={ 'white' }
+                                textColor={ Config.color.primary }
+                                borderColor={ Config.color.primary }
+                                size={15} >
+                                Lo sentimos, no hay sucursales disponibles
+                            </Badge>
+                        </View>
+                    }
                 <MapView
                     ref={map => {this.map = map}}
                     provider={PROVIDER_GOOGLE}

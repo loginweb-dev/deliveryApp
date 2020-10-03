@@ -16,10 +16,11 @@ import {
 import NumericInput from 'react-native-numeric-input';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { showMessage } from "react-native-flash-message";
+import SegmentedControlTab from 'react-native-segmented-control-tab';
 import { connect } from 'react-redux';
 
 // UI
-import ButtonSecondary from "../../ui/ButtonSecondary";
+import ButtonPrimary from "../../ui/ButtonPrimary";
 import Separator from '../../ui/Separator';
 import Card from '../../ui/Card';
 
@@ -41,6 +42,7 @@ class Cart extends Component {
                 value: false,
                 message: ''
             },
+            selectedIndexTab: 0,
             cartObservations: '',
             deliveryHome: false, 
             deliveryPrice: 0
@@ -163,21 +165,38 @@ class Cart extends Component {
         }
     }
 
+    handleSelectedIndexTab = (index) => {
+        this.setState({
+            selectedIndexTab: index,
+            deliveryHome: index == 0 ? 1 : 0
+        });
+    }
+
     render(){
         return (
             <View style={ style.container }>
-                <ScrollView style={{ marginTop: 10, marginBottom: 30}}>
+                <View style={{ width: '95%', marginTop: 10 }}>
+                    <SegmentedControlTab
+                        values={['Entrega a domicilio', 'Recoger en restaurante']}
+                        selectedIndex={this.state.selectedIndexTab}
+                        onTabPress={ this.handleSelectedIndexTab  }
+                        tabStyle={{ borderColor: Config.color.primary }}
+                        tabTextStyle={{ color: Config.color.primary }}
+                        activeTabStyle={{ backgroundColor: Config.color.primary }}
+                    />
+                </View>
+                <ScrollView style={{ marginTop: 10, marginBottom: 180}}>
                     {
                         this.state.cart.map(item => 
-                            <View style={{ flexDirection: 'row', width: screenWidth-10, height: 90, backgroundColor: 'white', marginBottom: 3}}>
-                                <View style={{ width: '25%', alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{ flexDirection: 'row', width: screenWidth, height: 90, backgroundColor: 'white', marginBottom: 3}}>
+                                <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
                                     <Image
                                         style={{ width: '100%', height: 80 }}
                                         source={{ uri: `${apiStorage}${item.image}` }}
                                         resizeMode="cover"
                                     />
                                 </View>
-                                <View style={{ flexDirection: 'column', width: '60%', marginHorizontal: 10 }}>
+                                <View style={{ flexDirection: 'column', width: '50%', marginHorizontal: 10 }}>
                                     <Text style={{ fontSize:16, fontWeight: 'bold', height: '20%' }} numberOfLines={1}>{item.name}</Text>
                                     <Text style={{ fontSize:13, height: '20%' }}>{parseFloat(item.subtotal).toFixed(2)} Bs.</Text>
                                     <View style={{ height: '20%' }}>
@@ -211,14 +230,29 @@ class Cart extends Component {
                             </View>
                         )
                     }
-                    <View style={[style.footerItem, { backgroundColor: '#fff' }]}>
-                        <View style={{ width: '50%', margin: 10 }}>
-                            <Text style={{ fontSize: 15 }}> Costo de envío </Text>
-                        </View>
-                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
-                            <Text style={{ fontSize: 18 }}>Bs. { this.state.deliveryHome ? parseFloat(this.state.deliveryPrice).toFixed(2) : '0.00' } </Text>
-                        </View>
-                    </View>
+                   {    this.state.cart.length > 0 &&
+                       <View>
+                            <View style={[style.footerItem, { backgroundColor: '#fff' }]}>
+                                <View style={{ width: '50%', margin: 10 }}>
+                                    <Text style={{ fontSize: 15 }}> Costo de envío </Text>
+                                </View>
+                                <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
+                                    <Text style={{ fontSize: 18 }}>Bs. { this.state.deliveryHome ? parseFloat(this.state.deliveryPrice).toFixed(2) : '0.00' } </Text>
+                                </View>
+                            </View>
+                            <View style={[style.footerItem, { backgroundColor: '#fff' }]}>
+                                <View style={{ width: '50%', margin: 10 }}>
+                                    <Text style={{ fontSize: 15 }}> TOTAL </Text>
+                                </View>
+                                <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
+                                    <Text style={{ fontSize: 22 }}>Bs. { (this.state.cart.reduce((amount, item) => {
+                                        return parseFloat(amount) + parseFloat(item.subtotal);
+                                    }, 0) + (this.state.deliveryHome ? parseFloat(this.state.deliveryPrice) : 0)).toFixed(2) }
+                                    </Text>
+                                </View>
+                            </View>
+                       </View>
+                    }
                     {/* Si el carrito está vacío se muestra el logo de cart-empty */}
                     { this.state.cart.length == 0 &&
                         <View style={{ alignItems: 'center', marginTop: 100 }}>
@@ -229,17 +263,17 @@ class Cart extends Component {
                             <Text style={[MainStyle.h2, MainStyle.textMuted]}>Carrito vacío</Text>
                         </View>
                     }
-                    <Separator height={50} />
-                </ScrollView>
-                <View style={style.footer}>
                     {   this.state.error.value &&
                         <Card title='Aviso importante!' backgroundColor='#E24141'>
                             { this.state.error.message }
                         </Card>
                     }
+                    <Separator height={30} />
+                </ScrollView>
+                <View style={style.footer}>
                     <View style={style.footerItem}>
                         <TextInput
-                            style={{ width: '100%', height: 80, borderColor: '#F2F2F2', borderWidth: 1 }}
+                            style={{ width: '100%', height: 70, borderColor: '#F2F2F2', borderWidth: 1 }}
                             maxLength={150}
                             placeholder="Ej: sin aceitunas..."
                             multiline={true}
@@ -257,7 +291,7 @@ class Cart extends Component {
                             />
                         </View>
                     </View>
-                    <View style={style.footerItem}>
+                    {/* <View style={style.footerItem}>
                         <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10 }}>
                             <Text style={{ fontSize: 18 }}> { this.state.deliveryHome ? `Entrega a domicilio` : 'Recoger en restaurante' } </Text>
                         </View>
@@ -267,22 +301,22 @@ class Cart extends Component {
                                 value={this.state.deliveryHome}
                             />
                         </View>
-                    </View>
+                    </View> */}
                     <View style={style.footerItem}>
-                        <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
+                        {/* <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
                             <Text style={{ fontSize: 22 }}>Bs. { this.state.cart.reduce((amount, item) => {
                                 return parseFloat(amount) + parseFloat(item.subtotal) + (this.state.deliveryHome ? parseFloat(this.state.deliveryPrice) : 0);
                             }, 0).toFixed(2) }
                             </Text>
-                        </View>
-                        <View style={{ width: '65%', alignItems: 'center', justifyContent: 'center' }}>
-                            <ButtonSecondary
+                        </View> */}
+                        <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                            <ButtonPrimary
                                 onPress={this.onPressAccept}
                                 disabled={this.state.cart.length == 0 || this.state.error.value ? true : false}
                                 icon='ios-checkmark-circle-outline'
                             >
                                 Realizar pedido
-                            </ButtonSecondary>
+                            </ButtonPrimary>
                         </View>
                     </View>
                 </View>
