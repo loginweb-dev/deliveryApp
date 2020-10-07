@@ -188,16 +188,16 @@ class Cart extends Component {
                 <ScrollView style={{ marginTop: 10, marginBottom: 180}}>
                     {
                         this.state.cart.map(item => 
-                            <View style={{ flexDirection: 'row', width: screenWidth, height: 90, backgroundColor: 'white', marginBottom: 3}}>
+                            <View style={{ flexDirection: 'row', width: screenWidth, height: 100, backgroundColor: 'white', marginBottom: 3}}>
                                 <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
                                     <Image
-                                        style={{ width: '100%', height: 80 }}
+                                        style={{ width: '100%', height: 100 }}
                                         source={{ uri: `${apiStorage}${item.image}` }}
                                         resizeMode="cover"
                                     />
                                 </View>
                                 <View style={{ flexDirection: 'column', width: '50%', marginHorizontal: 10 }}>
-                                    <Text style={{ fontSize:16, fontWeight: 'bold', height: '20%' }} numberOfLines={1}>{item.name}</Text>
+                                    <Text style={{ fontSize:16, fontWeight: 'bold', height: '25%' }} numberOfLines={1}>{item.name}</Text>
                                     <Text style={{ fontSize:13, height: '20%' }}>{parseFloat(item.subtotal).toFixed(2)} Bs.</Text>
                                     <View style={{ height: '20%' }}>
                                         <Text style={{ fontSize:13 }} numberOfLines={1}>
@@ -206,7 +206,7 @@ class Cart extends Component {
                                         }
                                         </Text>
                                     </View>
-                                    <View style={{ height: '40%' }}>
+                                    <View style={{ height: '35%' }}>
                                         <NumericInput
                                             onChange={value => {this.handleItem(item.index, value)}}
                                             value={item.count}
@@ -291,24 +291,7 @@ class Cart extends Component {
                             />
                         </View>
                     </View>
-                    {/* <View style={style.footerItem}>
-                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10 }}>
-                            <Text style={{ fontSize: 18 }}> { this.state.deliveryHome ? `Entrega a domicilio` : 'Recoger en restaurante' } </Text>
-                        </View>
-                        <View style={{ width: '50%', marginHorizontal: 20, marginVertical: 10, flex: 1, flexDirection: 'row-reverse' }}>
-                            <Switch
-                                onValueChange={ (value) => this.setState({deliveryHome: value})}
-                                value={this.state.deliveryHome}
-                            />
-                        </View>
-                    </View> */}
                     <View style={style.footerItem}>
-                        {/* <View style={{ width: '35%', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 22 }}>Bs. { this.state.cart.reduce((amount, item) => {
-                                return parseFloat(amount) + parseFloat(item.subtotal) + (this.state.deliveryHome ? parseFloat(this.state.deliveryPrice) : 0);
-                            }, 0).toFixed(2) }
-                            </Text>
-                        </View> */}
                         <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
                             <ButtonPrimary
                                 onPress={this.onPressAccept}

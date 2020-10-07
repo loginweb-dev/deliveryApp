@@ -48,7 +48,7 @@ class SplashScreen extends Component {
                         resizeMode="contain"
                     />
                 </Animated.View>
-                <Text style={style.title}>{Config.appName}</Text>
+                {/* <Text style={style.title}>{Config.appName}</Text> */}
                 <View style={style.footer}>
                     <Text style={style.footerText}>Powered by <Text style={style.footerTextAutor}>{Config.autor}</Text></Text>
                 </View>
